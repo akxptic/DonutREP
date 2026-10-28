@@ -1,0 +1,2630 @@
+DonutREP 1.22.27 - WHERE TO EDIT WHAT
+========================================================================
+Every setting of the plugin is in a yml file in plugins/DonutREP/. This file tells you which one, so you never have to search.
+After you change a yml file, run  /donutrep reload  (it reads every file again). A few timers are only read at start (the text says so).
+This file is written automatically at every start. Do not edit it; your own notes go in your own file.
+
+How to read an entry:    file -> key: default value   what it does
+  A key with dots is a path:  keyall.area-percent  means the line  area-percent:  inside the block  keyall:  in keyall.yml.
+  true / false switches: true = on.   Every feature of the plugin has its own switch, listed below and in the index at the end.
+
+TABLE OF CONTENTS
+   1. THE FILES (what each file is for)
+   2. QUICK ANSWERS: "I WANT TO ..."
+        KEY-ALL  (who gets it, how often, which key, the percent, the key names)
+        KEY-ALL AND AFK CUBOIDS (making them, teleport points, /keyafk, /keymenu)
+        GETTING KEYS / SHARDS WHILE AFK
+        SPAWNERS (mobs or storage, stacking, loot, prices, anti-ESP)
+        ANTI-ESP (hide spawners and chests from far away)
+        TEAMS (rename, color, icon, allies, leaderboards)
+        SHOP MODES (/shop: classic, QuickShop = live auction shop, survival shop)
+        ORDERS (new menus, expiry, deletion)
+        SELL HOE and the other amethyst tools
+        SCOREBOARD (lines, title, what players can hide)
+        LANGUAGES (/language, the languages folder)
+        IMPORT OLD DATA (/donutrep import)
+        THINGS PLAYERS CAN SWITCH IN /settings
+        TURN A FEATURE OFF (the features: switches)
+        PERMISSIONS (who can use what)
+   3. INDEX OF EVERY SETTING, FILE BY FILE (key = default  # what it does)
+
+========================================================================
+1. THE FILES
+========================================================================
+  plus.yml            the main DonutREP+ settings: the features: on/off switches, zones (shard cuboids), areas (teleport points), limits, spawn, clear-lag, anti-cheat ...
+  keyall.yml          key-all: timer, who gets it, the percent, the key names, the message
+  antiesp.yml         anti-ESP: hide far spawners and chests (radius, heights, which blocks)
+  teams.yml           team extras: rename, color, icons, allies, leaderboards
+  quickshop.yml       the /shop modes: classic, QuickShop (auction), survival shop - exactly one is on; classic-favorites: the Favorites of the original shop (off by default, dialogs off by default)
+  language.yml        languages: on/off, the default language, auto-detect, force one language    languages/   one file per language (en, es, pt-br, fr, de, ru, tr, pl, it, nl, zh-cn, ja, ko)
+  dialog.yml          the dialog windows (Minecraft dialogs): homes now, new dialogs are added here. QuickShop and orders keep theirs in quickshop.yml / orders.yml
+  enchant-worth.yml   what enchantments add to the worth of an item (hover, /sell menu, sell chest axe, survival shop price)
+  scoreboard.yml      the sidebar scoreboard (lines, title, ping colors, the per-player line switches)
+  spawners.yml        spawners: storage or mobs, stacking, loot of every spawner type, spawner shop prices
+  amethyst-tools.yml  the amethyst tools (drill, chopper, sell axe, shovel, hoe, SELL HOE, bucket, shard booster)
+  config.yml          the base settings: starting money, afk timeout / kick, rtp distances, tpa, duels, Discord webhooks of the base plugin
+  crates.yml          crates and their rewards            shop.yml  /shop items and prices      auction-house.yml  /ah settings
+  rtp.yml             /rtp, /rtpq and rtp zones: how far from the center players land
+  discord.yml         every Discord webhook (watchdog, market watch, purchase alerts, new players, reports, pregen ...)
+  ranks.yml           rank names and tags (chat, tab list, scoreboard)      tablist.yml  tab list header and footer
+  duels.yml / ffa.yml / pvp.yml   duels, FFA, ranked PvP, combat tag
+  border.yml          world border and /pregen             hologram.yml  every floating text of the plugin
+  menus.yml / menus-info.yml     titles, panes and buttons of the menus     messages.yml  every fixed chat sentence
+  filter.yml          chat filter      freeze.yml  /freeze      hide.yml  /hide      invsee.yml  /invsee      staff-mode.yml  /staffmode
+  offenses.yml        /punish presets      death-messages.yml      sounds.yml      network.yml (server name)      orders.yml  /orders
+  enchantments.yml    enchantment limits   ender-chest.yml  /enderchest rows and pages    spawn-bedrock.yml / spawn-stash.yml   xray bait
+  seed-protection.yml seed protection      server-wipe.yml  /serverwipe      database.yml  (the .db files in data/ - never edit)
+  worth.yml / billford.yml        worth of items / the Billford trades
+  Files that hold DATA, not settings (do not edit by hand while the server runs): cuboids.yml (cuboids, their bindings and teleport points), player-settings.yml, team-settings.yml,
+  crate-keys.yml, sell-progress.yml, friends.yml, bounties.yml, punishments.yml, ip-history.yml, data/*.db, data2/*.yml, logs/.
+
+========================================================================
+2. QUICK ANSWERS: "I WANT TO ..."
+========================================================================
+
+------------------------------------------------------------------------
+KEY-ALL  (keyall.yml)
+------------------------------------------------------------------------
+  Turn key-all on / off ............ keyall.yml -> keyall: enabled: true
+  How often ........................ keyall: every-minutes: 60                (the timer is read at start; restart after changing it)
+  Which key ........................ keyall: type: RANDOM  (a key is rolled from random-keys)  or  ONE  (always one-key)
+                                     one-key: common        random-keys: {common: 80, rare: 15, epic: 5}  (weights)
+  How many keys per round .......... keyall: amount: 1
+  Which crate a key gives .......... keyall: tier-crates: {common: common, rare: rare, epic: epic}
+  Add or rename a key .............. add a line under random-keys and tier-crates. The NAME MUST BE A CRATE THAT EXISTS (see /crate). If it is not, the console and every online
+                                     op / staff member get a warning naming the key, and that key is not given until you fix it. (keyall: warn-staff: true)
+  The message players get .......... keyall: message: [...]
+  WHO GETS THE KEY  (the same key in every mode; only one mode can be on):
+      everybody online ............. keyall: afk-only: false   and   cuboid-only: false   (the default)
+      only players in an AFK cuboid  keyall: afk-only: true
+      only players in a key-all cuboid   keyall: cuboid-only: true     (make the cuboid: see below)
+      both true = the round is skipped and a warning is logged.
+  A TIMER for the area modes ....... With afk-only or cuboid-only on every player in the area has a timer of their own (starts when they enter, restarts when they leave or rejoin). keyall: area-match-shards: true = as long as the shard timer where they also earn shards; area-actionbar: true = "Next Key in ..." in the action bar (cuboid-only mode)
+  A CHANCE for the area modes ...... keyall: area-percent: 100   (0-100). With afk-only or cuboid-only on, every player standing in the area rolls their own chance when their timer ends:
+                                     100 = everybody in the area gets the key, 50 = each has a 50% chance. Not used when both switches are false.
+  Give a key to everybody online right now (no timer)  /crate keyall <crate> <amount>
+
+------------------------------------------------------------------------
+KEY-ALL AND AFK CUBOIDS
+------------------------------------------------------------------------
+  Make a cuboid ................... /cuboid wand  (select two corners), then  /cuboid create <name>
+  Make it a KEY-ALL area .......... /cuboid bind <name> keyall true       (false removes it; /cuboid unbind <name> keyall)
+  Make it an AFK area ............. /cuboid bind <name> afk true          (an AFK area also earns shards: see GETTING KEYS / SHARDS WHILE AFK)
+  Teleport points of a key-all area  /setkey <name>  adds a point where you stand,  /setkey <name> 2  moves point 2,  /keymenu  is the editor (list, add, move, delete, teleport,
+                                     random or one after the other, on/off). Same for AFK:  /setafk <name>  /afkmenu   and spawn:  /setspawn <name>  /spawnmenu
+  How many points a cuboid can have  plus.yml -> areas: max-points: 20       how players are sent: areas: point-mode: random  (or  order)
+  Show the cuboid names in the menus plus.yml -> areas: show-names: false
+  (1.15.1) /setkey, /keymenu, /keyafk and the keyall cuboid bind are only there while keyall.yml -> afk-only or cuboid-only is true; with both false they are hidden and off.
+  Where players go to stand in the key-all area  /keyafk  (a menu, like /afk and /spawn).  Switch it off: plus.yml -> features: keyafk: false
+  Where the points are saved ...... cuboids.yml -> <cuboid>: points: keyall   (edit with the menus, not by hand)
+
+------------------------------------------------------------------------
+GETTING KEYS / SHARDS WHILE AFK
+------------------------------------------------------------------------
+  KEYS in an AFK area ............. keyall.yml -> afk-only: true  (+ area-percent for the chance). Needs an AFK cuboid:  /cuboid bind <name> afk true
+  SHARDS in a shard / AFK cuboid .. plus.yml -> zones: shard: interval-seconds: 60   amount: 1   recent-movement-seconds: 0  (0 = idle players earn)   reset-on-leave: true
+                                     Bind:  /cuboid bind <name> shard true   (or afk)
+  AFK status of a player .......... config.yml -> afk: timeout-seconds: 300  (idle time before a player counts as AFK)
+  Kick AFK players ................ config.yml -> afk: kick: enabled: false   after-seconds: 1800
+  "X is now AFK" chat message ..... plus.yml -> afk: announce: false
+  The /afk menu and its points .... /afkmenu, /setafk <cuboid>     (points are in cuboids.yml)
+
+------------------------------------------------------------------------
+SPAWNERS  (spawners.yml)
+------------------------------------------------------------------------
+  Storage spawners (no mobs; loot fills a menu)  or  real mobs like vanilla - choose ONE:
+      spawners.yml -> SETTINGS: STORAGE_SPAWNERS: true      MOB_SPAWNERS: false
+      (both true or both false = an error in the console and storage mode is used)
+  Stop spawners spawning mobs ..... keep  STORAGE_SPAWNERS: true  and  CANCEL_MOB_SPAWN: true  (managed spawners then never spawn a mob)
+  Let spawners spawn mobs ......... MOB_SPAWNERS: true  (STORAGE_SPAWNERS: false). Stacked spawners add mobs: MOB_STACK_MULTIPLIER: true, MOB_STACK_MAX_EXTRA: 15
+  Turn the whole spawner system off  SETTINGS: ENABLED: false
+  Old vanilla spawners become managed  SETTINGS: MANAGE_VANILLA_SPAWNERS: true  (this line is not in the file by default; add it under SETTINGS to change it - a spawner that tries to spawn is registered)
+  How fast loot is made ........... GENERATION_INTERVAL_SECONDS: 5  (read at start)       only near players: REQUIRE_PLAYER_NEARBY: false   PLAYER_NEARBY_RADIUS: 16
+  Stack limit / storage limit ..... MAX_STACK_PER_BLOCK: 100000    STORAGE_CAP_PER_LOOT_KEY: 1000000
+  Loot of each spawner type ....... spawners.yml -> TYPES: <TYPE>: DROPS  (material, chance, min, max)    BASE_ITEMS_PER_CYCLE
+  Spawner shop prices ............. spawners.yml -> SHOP: CURRENCY: SHARD   DEFAULT_PRICE: 1500   PRICES: {PIG: 1000}
+  Silk Touch needed to pick one up  REQUIRE_SILK_TOUCH: true
+  Players can switch hostile mobs off near them  /settings -> Disable Mob Spawn (player-settings.yml)
+  Hide spawners from far away (anti-ESP) ... antiesp.yml (next section)
+
+------------------------------------------------------------------------
+ANTI-ESP  (antiesp.yml)   spawners and chests far from a player look like plain blocks
+------------------------------------------------------------------------
+  Switch it on / off .............. antiesp: enabled: true   (ON by default)
+  What it hides ................... spawners: enabled: true   chests: enabled: true   chests: types: [CHEST, TRAPPED_CHEST, BARREL, ENDER_CHEST]
+  The radius ...................... spawners: radius: 24   chests: radius: 24   (blocks; a sphere around the player). Inside it the player sees the real block, farther away the disguise.
+  What the disguise looks like .... antiesp: disguise: deepslate-below-y: 0      below this height -> deepslate
+                                                       stone-below-y: 60            from there up to this height -> stone
+                                                       above-block: CRAFTING_TABLE  anywhere else (higher up, the Nether, the End)
+  Worlds where nothing is hidden .. antiesp: excluded-worlds: []
+  How often distances are checked . antiesp: check-ticks: 10     (20 ticks = 1 second)
+  The strong mode ................. antiesp: packets: true  - with the packetevents plugin the chunk packets are rewritten before they are sent (a cheat client never receives
+                                     the real block). Without packetevents (or packets: false) plain block changes are sent after the chunk: weaker.
+  Staff who must see everything ... give the permission  donutrep.bypass.antiesp   (ops do NOT have it) - or  antiesp: ops-bypass: true  lets every op see the real blocks
+  See what it does right now ...... /donutrep antiesp      and  /donutrep antiesp check <player>  (why that player sees what they see)
+  Limits: a block that changes in groups (explosions, pistons, WorldEdit) can show its real block for a moment; a cheat client that reads the raw network data in the plain mode can see it.
+
+------------------------------------------------------------------------
+TEAMS  (teams.yml)
+------------------------------------------------------------------------
+  All of these are OFF by default except the leaderboards. The TEAM LEADER uses them.
+  Rename the team ................. teams.yml -> teams: rename: true      then  /team rename <name>  or  /team -> Team Settings -> Rename Team
+  Team color ...................... teams: color: enabled: true           then  /team color <name or #rrggbb>  or the color picker in Team Settings.
+                                     The team line of the scoreboard uses the color.
+  Team icon (like homes) .......... teams: icons: true                    then  /team icon  or  Team Settings -> Team Icon   (shown in the team menu and the list of teams)
+  Allies .......................... teams: allies: enabled: true   max: 3   then  /team ally <team>  (the other leader accepts:  /team ally accept <team>),  /team ally remove <team>
+                                     Allied teams cannot hurt each other (like teammates).
+  Leaderboards .................... teams: leaderboards: true    leaderboard-size: 10    leaderboard-cache-seconds: 60
+                                     /teamtop  (menu: most kills, deaths, playtime, money, shards)    /teamtop kills   (also /teambaltop, /teamshardstop)
+  Teammates cannot hit each other . plus.yml -> features: team-pvp-lock: true   (/team pvp turns it on)
+  Team data (home, permissions, color, icon, allies) is in team-settings.yml - do not edit it by hand.
+
+------------------------------------------------------------------------
+SHOP MODES  (quickshop.yml)   /shop is one command with three shops
+------------------------------------------------------------------------
+  Pick ONE ........................ quickshop.yml -> quickshop: classic: true (the normal /shop, the default)   auction: false (QuickShop)   survival: false (every survival item)
+                                     More than one true: every admin gets a red message in chat and /shop stays closed for everybody until it is fixed (change it, then /donutrep reload).
+  QuickShop (auction: true) ....... /shop shows the items a player saved; one click buys the cheapest matching listings from /ah (the real /ah purchase: the seller is paid, the listing is gone).
+                                     quickshop: auction-shop: confirm: false              true = a confirm window always opens first (players cannot turn it off)
+                                                               allow-bigger-listings: false   /ah sells a whole listing: false = a listing bigger than the amount still needed is skipped
+                                                               max-items: 45              dialogs: true   (false = chest menus; Spigot and CraftBukkit always use chest menus)
+                                     Every player can turn auto buy off for themselves:  /settings -> Player -> QuickShop Auto Buy.   Saved items: data2/quickshop-data.yml (do not edit by hand).
+  Survival shop (survival: true) .. every item a survival player can get, in the categories of the creative inventory; price = the /sell worth x the highest sell multiplier the server allows (2.0) x  quickshop: survival-shop: times-max-sell: 2.0  (= 4 x the worth)
+                                     max-per-purchase: 64.   The first menu also has Crate Keys and the Shard Shop (spawners): they open the classic menus, so their items and prices are in shop.yml.
+                                     The items of a category are organized (logs together, leaves together; Building Blocks by type: all planks, then all stairs, slabs, walls, fences ...); the filter Name (A-Z) sorts them by name.
+                                     An enchanted item costs (its worth + its enchantments, see enchant-worth.yml) x the same multiplier. Dialog windows: quickshop: dialog-columns: 3 (the Choose Item list; 4 on a small GUI scale, 2 on a big one).
+  Homes as dialog windows ......... dialog.yml -> dialog: homes: enabled: false (true = /home and /homes open dialog windows; Paper only)   columns: 4   max-slots: 9 (Show More)   confirm-delete: true   icons: true (Change Icon)   icon-columns: 3 (Choose Icon list)   team-home: false (true = a Team Home button; false = team homes off while the dialog is on)
+                                     How many homes a player may have: the permission donutrep.homes.<n> and limits.defaults.homes (plus.yml). A higher rank unlocks more slots. The dialog has its own icon switch (icons), features.custom-icons is for the chest menus.
+  Enchantment worth ............... enchant-worth.yml -> enchant-worth: enabled: true   default-per-level: 0 (for an enchantment that is not listed: 0 = the Enchanted Book worth, 16)   per-level: every enchantment by rarity (common 10, uncommon 20, fortune 50, silk touch 120, mending 300 ...)
+                                     An enchanted item has ONE worth = the item + every enchantment level. Shown on hover, paid by the /sell menu and the sell chest axe (x your sell multiplier), asked by the survival shop (x the shop multiplier).
+                                     Admins (op or donutrep.admin.shop): the stick in the shop = edit mode, click an item to take it out of the shop (the list closes up); the Removed Items button puts items back.
+                                     The removed items are saved in data2/survival-shop.yml (do not edit by hand).
+
+------------------------------------------------------------------------
+ORDERS  (orders.yml)
+------------------------------------------------------------------------
+  New menus ....................... orders.yml -> orders: new-menus: true     (Your Orders / Edit Order / Cancel Order and the Choose Item window;  false = the original menus)
+  Expiry .......................... orders: expire-days: 7      after this many days nobody can deliver to an order (it stays: collect and cancel still work).  0 = never
+  Deletion ........................ orders: delete-days: 90     an order not fully claimed by then is deleted, the undelivered part refunded, uncollected items go.  0 = never
+                                     orders from before the update are counted from the day of the update (data2/orders-expiry.yml - do not edit)
+  Other ........................... orders: max-active-default: 5, max-quantity-per-order: 2304, allow-enchant-orders: false;  limits per rank: donutrep.orders.limit.<n>
+
+------------------------------------------------------------------------
+SELL HOE and the other amethyst tools  (amethyst-tools.yml)
+------------------------------------------------------------------------
+  Give a sell hoe ................. /amethysttool give <player> sell-hoe [duration]      (types: drill, drill_silk, chopper, sell-axe, shovel, shovel_silk, hoe, hoe_silk, sell-hoe, bucket, shard-booster)
+  What it does .................... breaks 9 blocks per strike like the hoe, and SELLS the crops it breaks at once - the sell multiplier and sell progress apply, the same as /sellall and the
+                                     sell axe. Anything that is not a crop (leaves, hay, moss) drops as normal, and so does a crop drop that has no price.
+  Settings ........................ amethyst-tools.yml -> AMETHYST-TOOLS: SELL-HOE: ENABLED, AUCTIONABLE, MATERIAL, NAME, LORE, ENCHANTMENTS, RADIUS, DURATION (seconds),
+                                     SELL-CROPS: true (false = it works like the plain hoe), BREAK-CROPS, CROPS-ONLY-MATURE: true (growing crops are left alone), ALLOWED-BLOCKS
+  The message ..................... AMETHYST-MESSAGES: SELL-HOE-SUCCESS
+  Turn a tool off ................. its  ENABLED: false      Reload  /amethysttool reload
+
+------------------------------------------------------------------------
+SCOREBOARD  (scoreboard.yml)
+------------------------------------------------------------------------
+  On / off ........................ scoreboard: enabled: true       title: '&b&lCosmic SMP'      update-ticks: 20
+  The lines ....................... scoreboard: lines: [...]   with {rank} {money} {shards} {kills} {deaths} {playtime} {ping} {pingcolor} {region} {team_line} {keyall}
+  The region text ................. scoreboard: region: 'NA East'    ping colors: ping-good-ms: 100   ping-ok-ms: 200
+  The key-all countdown line ...... scoreboard: show-keyall: true   keyall-line: '...'
+  What each player can hide ....... /settings (page 3, Scoreboard): Show Money, Shards, Kills, Deaths, Playtime, Team, Key-All Timer, Rank, Ping. All are shown by default.
+                                     Server switch for these: scoreboard: player-line-switches: true   (false = the switches disappear, everybody sees every line)
+  The team line color ............. the team color of the player's team (teams.yml -> teams: color: enabled: true)
+
+------------------------------------------------------------------------
+LANGUAGES  (language.yml, the languages folder)
+------------------------------------------------------------------------
+  What it is ...................... every player has their OWN language. They pick it whenever they like: /language (or /lang) opens a window with Automatic and the languages; /language <code> or /language auto sets it directly.
+                                     Nobody has to choose when they join. The choice is saved per player in data2/player-language.yml (do not edit by hand).
+  Switches ........................ language.yml -> language: enabled: true (false = nothing is translated, /language says it is off)
+                                     default: en (the language everybody starts on; any code of a file in the languages folder)
+                                     auto-detect: true (a player who has not chosen starts on their Minecraft client language when there is a file for it)
+                                     force: false (true = everybody sees the default language and /language is turned off)
+  The files ....................... languages/<code>.yml: 13 packaged (en + Spanish, Portuguese (Brazil), French, German, Russian, Turkish, Polish, Italian, Dutch, Chinese (Simplified), Japanese, Korean).
+                                     Every line is  "English text": "translation".  Keep the {0} {1} ... (the parts that change) and the & colour codes. Delete a line to leave that text in English.
+                                     The translations are machine quality - have a native speaker read the files you care about.
+  Add your own language ........... copy languages/en.yml to languages/<code>.yml, change code: and name:, translate the right side, then /donutrep reload. It shows up in /language by itself.
+  Updating ........................ a packaged file you edited is never overwritten. If a new plugin version ships a file with a higher version: number, the new one replaces yours and yours is kept as <code>.yml.old.
+  What is translated .............. shops (/shop, survival shop, QuickShop), homes and warps, orders, /ah and /sell, friends, /settings, sell progress, teams (menus and messages), crates, arenas, portals, spawners,
+                                     RTP, staff and admin menus and messages, the sidebar scoreboard lines and the tab list header and footer, and the dialog windows. Messages with a click or hover button (like the
+                                     [ACCEPT] [DENY] of a friend request) are translated too and the buttons keep working. en.yml lists every text that can be translated.
+  NOT translated .................. Minecraft's own text (it follows the game language), other plugins, messages of the original plugin that are not written by DonutREP+, and any line you reworded yourself in a yml
+                                     file (scoreboard.yml, tablist.yml, messages.yml ...): to translate your own wording add  "your English line": "translation"  to the language file (a part that changes is {0}, {1} ...).  Needs ........................... packetevents for chat, menus and titles (dialog windows are translated without it).
+
+------------------------------------------------------------------------
+IMPORT OLD DATA
+------------------------------------------------------------------------
+  /donutrep import <v1|v2> <folder> <preview|confirm> [replace] [again]     switch: plus.yml -> features: import: true     permission: donutrep.admin.import
+  preview counts only; confirm backs up first (plugins/DonutREP/imports/<date>/) and imports. DonutREP's own data is kept unless you add replace.
+  What comes over: balances, shards, homes (with their icons), warps, teams (home, friendly fire, member permissions), friends, bounties, ender chests, auction listings and their claims,
+  orders (open ones keep their waiting items; refunds are paid once), QuickShop saved items, duel and FFA stats, sell history and totals, and the Minecraft stats files (kills, deaths, playtime).
+  A second run with again adds nothing twice.
+
+------------------------------------------------------------------------
+THINGS PLAYERS CAN SWITCH IN /settings
+------------------------------------------------------------------------
+  Stored in player-settings.yml (per player). The default of a switch is in the plugin; a player's own choice wins. Page 1: gameplay, scoreboard lines, Disable Mob Spawn, Night Vision ...
+  Page 2: chat, messages and alerts. The server can switch off the whole scoreboard-line group with scoreboard.yml -> player-line-switches: false.
+
+------------------------------------------------------------------------
+TURN A FEATURE OFF  (plus.yml -> features:)
+------------------------------------------------------------------------
+  Every command group has a switch in plus.yml under  features:   (true = on).  A switched-off command tells normal players it is disabled; ops can still use it.
+  Some examples:  features: keyafk, import, license, afk, cuboid, spawn, rtp, sell, team, leaderboards, crate, shop, tpa, duel, friends ...
+  The complete list is in the index below (plus.yml -> features).
+
+------------------------------------------------------------------------
+PERMISSIONS
+------------------------------------------------------------------------
+  Commands:   donutrep.command.<command>      Admin:   donutrep.admin  (everything)   donutrep.admin.<thing>      Bypass:   donutrep.bypass.<thing>  (for example donutrep.bypass.antiesp)
+  Per-player limits: donutrep.homes.<n>, donutrep.auctionhouse.<n>, donutrep.orders.limit.<n>, donutrep.enderchest.pages.<n>
+  Why can this player use that command?  /donutrep perms <player>
+  The complete list of commands with their permissions is in commands.txt (same folder).
+
+========================================================================
+3. INDEX OF EVERY SETTING, FILE BY FILE
+========================================================================
+  key = default value   # what it does (the comment of the file). [name] is a section. Open the file for the full comments.
+
+------------------------------------------------------------------------
+amethyst-tools.yml
+------------------------------------------------------------------------
+  [AMETHYST-TOOLS]   # Amethyst tools. {time} in lore is the remaining life; DURATION is in seconds. DRILL has Fortune (applied to ores only); DRILL_SILK has Silk Touch on everything.
+  AMETHYST-TOOLS.COUNTDOWN-UPDATE-TICKS = 20   # the time left on a tool (the {time} line of its lore) is counted down this often while it is in an inventory (0 = off)
+  AMETHYST-TOOLS.HELD-REFRESH-SECONDS = 0   # the tool you HOLD is refreshed when you switch slot / close or click in an inventory. Set N to also refresh it every N seconds (it dips and 
+  [AMETHYST-TOOLS.EXCLUDED-WORLDS]
+  [AMETHYST-TOOLS.PARTICLES]
+  AMETHYST-TOOLS.PARTICLES.ENABLED = true
+  AMETHYST-TOOLS.PARTICLES.TYPE = BLOCK
+  AMETHYST-TOOLS.PARTICLES.BLOCK-MATERIAL = AMETHYST_BLOCK
+  AMETHYST-TOOLS.PARTICLES.COUNT = 16
+  AMETHYST-TOOLS.PARTICLES.SPREAD = 0.4
+  AMETHYST-TOOLS.PARTICLES.DUST = true   # purple sparkle around every block an amethyst tool breaks (the block you mined too)
+  AMETHYST-TOOLS.PARTICLES.DUST-COUNT = 14
+  AMETHYST-TOOLS.PARTICLES.DUST-RED = 160
+  AMETHYST-TOOLS.PARTICLES.DUST-GREEN = 60
+  AMETHYST-TOOLS.PARTICLES.DUST-BLUE = 230
+  [AMETHYST-TOOLS.SOUNDS]
+  AMETHYST-TOOLS.SOUNDS.USE = minecraft:block.amethyst_block.hit|1.0|1.2
+  AMETHYST-TOOLS.SOUNDS.EXPIRE = minecraft:entity.lightning_bolt.impact|0.5|2.0
+  AMETHYST-TOOLS.SOUNDS.BREAK = minecraft:block.amethyst_block.break|1.0|0.8
+  AMETHYST-TOOLS.SOUNDS.ACTIVATE = minecraft:block.amethyst_block.resonate|1.0|1.0
+  [AMETHYST-TOOLS.SECURITY]
+  AMETHYST-TOOLS.SECURITY.REQUIRE-ITEM-ID = true
+  AMETHYST-TOOLS.SECURITY.BIND-TO-OWNER = false
+  AMETHYST-TOOLS.SECURITY.CLICK-COOLDOWN-MS = 250
+  AMETHYST-TOOLS.SECURITY.BLOCK-HOPPER-PICKUP = true
+  [AMETHYST-TOOLS.DRILL]
+  AMETHYST-TOOLS.DRILL.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.DRILL.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.DRILL.MATERIAL = NETHERITE_PICKAXE
+  AMETHYST-TOOLS.DRILL.NAME = '&#9A58B5&lamethyst drill'
+  [AMETHYST-TOOLS.DRILL.LORE]
+  [AMETHYST-TOOLS.DRILL.ENCHANTMENTS]
+  AMETHYST-TOOLS.DRILL.RADIUS = 1
+  AMETHYST-TOOLS.DRILL.DISABLED-BLOCKS = &id001
+  AMETHYST-TOOLS.DRILL.DURATION = 86400
+  [AMETHYST-TOOLS.DRILL_SILK]
+  AMETHYST-TOOLS.DRILL_SILK.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.DRILL_SILK.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.DRILL_SILK.MATERIAL = NETHERITE_PICKAXE
+  AMETHYST-TOOLS.DRILL_SILK.NAME = '&#9A58B5&lamethyst drill &7(silk touch)'
+  [AMETHYST-TOOLS.DRILL_SILK.LORE]
+  [AMETHYST-TOOLS.DRILL_SILK.ENCHANTMENTS]
+  AMETHYST-TOOLS.DRILL_SILK.RADIUS = 1
+  AMETHYST-TOOLS.DRILL_SILK.DISABLED-BLOCKS = *id001
+  AMETHYST-TOOLS.DRILL_SILK.DURATION = 86400
+  [AMETHYST-TOOLS.CHOPPER]
+  AMETHYST-TOOLS.CHOPPER.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.CHOPPER.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.CHOPPER.MATERIAL = NETHERITE_AXE
+  AMETHYST-TOOLS.CHOPPER.NAME = '&#9A58B5&lamethyst tree chopper'
+  [AMETHYST-TOOLS.CHOPPER.LORE]
+  [AMETHYST-TOOLS.CHOPPER.ENCHANTMENTS]
+  AMETHYST-TOOLS.CHOPPER.MAX-LOGS = 128
+  AMETHYST-TOOLS.CHOPPER.AUTO-LOG-TAG = true   # true = every log, wood, stem and hyphae of the game counts (pale oak too), on top of LOG-BLOCKS
+  [AMETHYST-TOOLS.CHOPPER.LOG-BLOCKS]
+  AMETHYST-TOOLS.CHOPPER.DURATION = 86400
+  [AMETHYST-TOOLS.SELL-AXE]
+  AMETHYST-TOOLS.SELL-AXE.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.SELL-AXE.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.SELL-AXE.MATERIAL = NETHERITE_AXE
+  AMETHYST-TOOLS.SELL-AXE.NAME = '&#9A58B5&lamethyst sell axe'
+  [AMETHYST-TOOLS.SELL-AXE.LORE]
+  [AMETHYST-TOOLS.SELL-AXE.ENCHANTMENTS]
+  AMETHYST-TOOLS.SELL-AXE.DURATION = 86400
+  [AMETHYST-TOOLS.SHOVEL]
+  AMETHYST-TOOLS.SHOVEL.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.SHOVEL.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.SHOVEL.MATERIAL = NETHERITE_SHOVEL
+  AMETHYST-TOOLS.SHOVEL.NAME = '&#9A58B5&lamethyst shovel'
+  [AMETHYST-TOOLS.SHOVEL.LORE]
+  [AMETHYST-TOOLS.SHOVEL.ENCHANTMENTS]
+  AMETHYST-TOOLS.SHOVEL.RADIUS = 1
+  [AMETHYST-TOOLS.SHOVEL.ALLOWED-BLOCKS]
+  AMETHYST-TOOLS.SHOVEL.DURATION = 86400
+  [AMETHYST-TOOLS.SHOVEL_SILK]
+  AMETHYST-TOOLS.SHOVEL_SILK.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.SHOVEL_SILK.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.SHOVEL_SILK.MATERIAL = NETHERITE_SHOVEL
+  AMETHYST-TOOLS.SHOVEL_SILK.NAME = '&#9A58B5&lamethyst shovel &7(silk touch)'
+  [AMETHYST-TOOLS.SHOVEL_SILK.LORE]
+  [AMETHYST-TOOLS.SHOVEL_SILK.ENCHANTMENTS]
+  AMETHYST-TOOLS.SHOVEL_SILK.RADIUS = 1
+  [AMETHYST-TOOLS.SHOVEL_SILK.ALLOWED-BLOCKS]
+  AMETHYST-TOOLS.SHOVEL_SILK.DURATION = 86400
+  [AMETHYST-TOOLS.HOE]
+  AMETHYST-TOOLS.HOE.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.HOE.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.HOE.MATERIAL = NETHERITE_HOE
+  AMETHYST-TOOLS.HOE.NAME = '&#9A58B5&lamethyst hoe'
+  [AMETHYST-TOOLS.HOE.LORE]
+  [AMETHYST-TOOLS.HOE.ENCHANTMENTS]
+  AMETHYST-TOOLS.HOE.RADIUS = 1
+  AMETHYST-TOOLS.HOE.BREAK-CROPS = true   # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+  AMETHYST-TOOLS.HOE.CROPS-ONLY-MATURE = true   # true = a crop that is still growing is left alone; only fully grown ones are harvested
+  [AMETHYST-TOOLS.HOE.ALLOWED-BLOCKS]
+  AMETHYST-TOOLS.HOE.DURATION = 86400
+  [AMETHYST-TOOLS.HOE_SILK]
+  AMETHYST-TOOLS.HOE_SILK.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.HOE_SILK.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.HOE_SILK.MATERIAL = NETHERITE_HOE
+  AMETHYST-TOOLS.HOE_SILK.NAME = '&#9A58B5&lamethyst hoe &7(silk touch)'
+  [AMETHYST-TOOLS.HOE_SILK.LORE]
+  [AMETHYST-TOOLS.HOE_SILK.ENCHANTMENTS]
+  AMETHYST-TOOLS.HOE_SILK.RADIUS = 1
+  AMETHYST-TOOLS.HOE_SILK.BREAK-CROPS = true   # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+  AMETHYST-TOOLS.HOE_SILK.CROPS-ONLY-MATURE = true   # true = a crop that is still growing is left alone; only fully grown ones are harvested
+  [AMETHYST-TOOLS.HOE_SILK.ALLOWED-BLOCKS]
+  AMETHYST-TOOLS.HOE_SILK.DURATION = 86400
+  [AMETHYST-TOOLS.SELL-HOE]
+  AMETHYST-TOOLS.SELL-HOE.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.SELL-HOE.AUCTIONABLE = true   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.SELL-HOE.MATERIAL = NETHERITE_HOE
+  AMETHYST-TOOLS.SELL-HOE.NAME = '&#9A58B5&lamethyst sell hoe'
+  [AMETHYST-TOOLS.SELL-HOE.LORE]
+  [AMETHYST-TOOLS.SELL-HOE.ENCHANTMENTS]
+  AMETHYST-TOOLS.SELL-HOE.RADIUS = 1
+  AMETHYST-TOOLS.SELL-HOE.SELL-CROPS = true   # true = the crops it breaks are sold at once (sell multiplier and sell progress apply, like /sellall); everything else it breaks drops as nor
+  AMETHYST-TOOLS.SELL-HOE.BREAK-CROPS = true   # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+  AMETHYST-TOOLS.SELL-HOE.CROPS-ONLY-MATURE = true   # true = a crop that is still growing is left alone; only fully grown ones are harvested
+  [AMETHYST-TOOLS.SELL-HOE.ALLOWED-BLOCKS]
+  AMETHYST-TOOLS.SELL-HOE.DURATION = 86400
+  [AMETHYST-TOOLS.BUCKET]
+  AMETHYST-TOOLS.BUCKET.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.BUCKET.AUCTIONABLE = false   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.BUCKET.MATERIAL = BUCKET
+  AMETHYST-TOOLS.BUCKET.NAME = '&#9A58B5&lamethyst bucket'
+  [AMETHYST-TOOLS.BUCKET.LORE]
+  AMETHYST-TOOLS.BUCKET.DRAIN-RADIUS = 1
+  AMETHYST-TOOLS.BUCKET.MAX-DRAIN = 27
+  AMETHYST-TOOLS.BUCKET.DURATION = 86400
+  [AMETHYST-TOOLS.SHARD-BOOSTER]
+  AMETHYST-TOOLS.SHARD-BOOSTER.ENABLED = true   # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+  AMETHYST-TOOLS.SHARD-BOOSTER.AUCTIONABLE = false   # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+  AMETHYST-TOOLS.SHARD-BOOSTER.MATERIAL = POTION
+  AMETHYST-TOOLS.SHARD-BOOSTER.NAME = '&#9A58B5&lshard booster'
+  [AMETHYST-TOOLS.SHARD-BOOSTER.LORE]
+  AMETHYST-TOOLS.SHARD-BOOSTER.BOOSTER-DURATION = 43200
+  AMETHYST-TOOLS.SHARD-BOOSTER.DURATION = 43200
+  AMETHYST-TOOLS.CHOP = {}
+  [AMETHYST-MESSAGES]
+  AMETHYST-MESSAGES.DISABLED-TOOL = '{prefix}&#BDC3C7this tool is turned off on this server.'
+  AMETHYST-MESSAGES.GIVE-DISABLED = '{prefix}&#BDC3C7that tool is turned off (ENABLED: false in amethys...
+  AMETHYST-MESSAGES.PREFIX = '&#9A58B5[amethyst] &r'
+  AMETHYST-MESSAGES.EXPIRED = '{prefix}&#BDC3C7your &d{tool} &7has &cexpired &7and crumbled away!'
+  AMETHYST-MESSAGES.EXCLUDED-WORLD = '{prefix}&#BDC3C7amethyst tools do not work in this world.'
+  AMETHYST-MESSAGES.DRILL-BREAK = '{prefix}&#BDC3C7&damethyst drill &7broke &d{count} &7blocks.'
+  AMETHYST-MESSAGES.CHOP-BREAK = '{prefix}&#BDC3C7&damethyst tree chopper &7chopped &d{count} &7logs.'
+  AMETHYST-MESSAGES.SELL-HOE-SUCCESS = '{prefix}&#BDC3C7sold the crops you harvested for &a${amount}&7.'
+  AMETHYST-MESSAGES.SELL-SUCCESS = '{prefix}&#BDC3C7sold all chest contents for &a${amount}&7.'
+  AMETHYST-MESSAGES.SELL-EMPTY = '{prefix}&#BDC3C7that chest is empty or holds nothing sellable.'
+  AMETHYST-MESSAGES.SELL-NO-CHEST = '{prefix}&#BDC3C7right-click a chest to use this.'
+  AMETHYST-MESSAGES.BUCKET-DRAIN = '{prefix}&#BDC3C7drained &d{count} &7water blocks.'
+  AMETHYST-MESSAGES.BUCKET-NO-WATER = '{prefix}&#BDC3C7there is no water close by.'
+  AMETHYST-MESSAGES.BOOSTER-ACTIVATED = '{prefix}&#BDC3C7&dshard booster &7activated! &d{multiplier}x &7sha...
+  AMETHYST-MESSAGES.BOOSTER-ALREADY = '{prefix}&#BDC3C7a shard booster is already running!'
+  AMETHYST-MESSAGES.WRONG-OWNER = '{prefix}&#BDC3C7this tool belongs to another player.'
+  AMETHYST-MESSAGES.GIVE-SUCCESS = '{prefix}&#BDC3C7gave &d{type} &7to &d{player}&7.'
+  AMETHYST-MESSAGES.GIVE-USAGE = '{prefix}&#BDC3C7usage: &d/amethysttool give <player> <type> [durat...
+  AMETHYST-MESSAGES.GIVE-INVALID-TYPE = '{prefix}&#BDC3C7invalid tool type. types: drill, drill_silk, chopp...
+  AMETHYST-MESSAGES.RELOAD-SUCCESS = '{prefix}&#BDC3C7settings reloaded.'
+
+------------------------------------------------------------------------
+antiesp.yml
+------------------------------------------------------------------------
+  [antiesp]   # Anti-ESP: spawners and chests that are far from a player look like plain blocks to that player, so an ESP / x-ray client cannot show where they are. Inside `rad
+  antiesp.enabled = true
+  antiesp.packets = true   # true = rewrite the chunk packets when packetevents is installed; false = plain block changes only
+  [antiesp.spawners]
+  antiesp.spawners.enabled = true
+  antiesp.spawners.radius = 24   # blocks (a sphere around the player)
+  [antiesp.chests]
+  antiesp.chests.enabled = true
+  antiesp.chests.radius = 24
+  antiesp.chests.types = [CHEST, TRAPPED_CHEST, BARREL, ENDER_CHEST]   # which blocks count as chests
+  [antiesp.disguise]
+  antiesp.disguise.deepslate-below-y = 0   # below this height the block looks like deepslate
+  antiesp.disguise.stone-below-y = 60   # from there up to this height it looks like stone
+  antiesp.disguise.above-block = CRAFTING_TABLE   # anywhere else (higher up, or another world type)
+  antiesp.ops-bypass = false   # true = operators see the real blocks too (so they cannot test it); false = only players with donutrep.bypass.antiesp
+  antiesp.excluded-worlds = []   # worlds where nothing is hidden
+  antiesp.check-ticks = 10   # how often the distance of each player is checked (20 ticks = 1 second)
+  antiesp.max-chunks = 12   # at most this many chunks around a player are checked (their view distance, capped here)
+  antiesp.rescan-seconds = 5   # how often the chunks around players are searched again for new spawners / chests (0 = only when a chunk loads or a player places one)
+
+------------------------------------------------------------------------
+apollo.yml
+------------------------------------------------------------------------
+  [apollo]   # Lunar Client integration (needs the Apollo plugin; only players on Lunar Client are affected).
+  apollo.enabled = true
+  apollo.team-max-size = 10   # shown as the team's maximum size in rich presence
+  [apollo.team-view]   # Your team mates show up in Lunar Client's team view (coloured markers with their position).
+  apollo.team-view.enabled = true
+  apollo.team-view.update-ticks = 20
+  [apollo.rich-presence]   # Discord rich presence set by the server. Placeholders: {player} {money} {team_size} {team_max_size} {world}
+  apollo.rich-presence.enabled = false
+  apollo.rich-presence.update-seconds = 1
+  apollo.rich-presence.player-state = Playing
+  apollo.rich-presence.game-state = Playing
+  apollo.rich-presence.game-name = Economy
+  apollo.rich-presence.variant = '{player} (${money})'
+  apollo.rich-presence.world-name = Economy
+  apollo.rich-presence.sub-server-name = SMP
+  apollo.rich-presence.max-field-length = 128
+
+------------------------------------------------------------------------
+auction-house.yml
+------------------------------------------------------------------------
+  [auctionhouse]
+  auctionhouse.max-listings-per-player = 1000
+
+------------------------------------------------------------------------
+billford.yml
+------------------------------------------------------------------------
+  CURRENT = 1   # The trade that is open on a fresh install (1 = the first trade below). After the first start the current trade is kept in billford-data.yml.
+  ROTATION_MODE = SEQUENTIAL   # How the next trade is picked: SEQUENTIAL -> 1 -> 2 -> 3 -> 4 -> 1 ... RANDOM     -> any trade, but never the same one twice in a row
+  [COUNTDOWN]   # When the trade changes. Days and hours are added together (2 days + 12 hours is fine).
+  COUNTDOWN.ENABLED = true
+  COUNTDOWN.TIME_ZONE = SYSTEM   # SYSTEM = the time zone of the machine. A real zone such as "UTC" or "Europe/Berlin" works too.
+  COUNTDOWN.START_DATE = "2026-10-01 12:00:00"
+  COUNTDOWN.INTERVAL_DAYS = 3
+  COUNTDOWN.INTERVAL_HOURS = 0
+  ANNOUNCE_ON_ROTATE = true   # Tell everybody when the trade changes. {countdown} = time until the next change.
+  ANNOUNCE_MESSAGE = "&6[Bilford] &fA new deal is open. &7Next change in &b{countdown}&7."
+  [ACCESS]   # Who may open the trade menu, and how.
+  ACCESS.PERMISSION = ""   # Empty = everybody.
+  ACCESS.COMMAND = "/billford"
+  [ACCESS.NPC]
+  [SETTINGS]
+  SETTINGS.CLICK_COOLDOWN_MS = 800
+  SETTINGS.CLOSE_MENU_ON_SUCCESS = true
+  SETTINGS.REOPEN_ON_TRADE_CHANGE = true
+  [SETTINGS.ALLOWED_CLICK_TYPES]
+  [GUI]   # ============================================================ The menu ============================================================
+  GUI.TITLE = "&8Bilford's Trades"
+  GUI.SIZE = 54
+  GUI.FILLER_MATERIAL = GRAY_STAINED_GLASS_PANE
+  GUI.REWARD_SLOT = 25
+  GUI.COUNTDOWN_SLOT = 32   # the clock (one slot to the right of before)
+  GUI.INFO_SLOT = 49
+  GUI.CONFIRM_SLOT = 23   # the confirm button (one slot to the right of before)
+  GUI.INFO_MATERIAL = BOOK
+  GUI.INPUT_NAME = "&f{item}"
+  [GUI.INPUT_LORE]
+  GUI.REWARD_NAME = "&aYou get"
+  [GUI.REWARD_LORE]
+  GUI.COUNTDOWN_NAME = "&e{trade_name}"
+  [GUI.COUNTDOWN_LORE]
+  GUI.INFO_NAME = "&6About this trade"
+  [GUI.INFO_LIMITED_LORE]
+  [GUI.INFO_UNLIMITED_LORE]
+  [GUI.CONFIRM_BUTTON]
+  [GUI.LIMIT_BUTTON]
+  [FEEDBACK]
+  [FEEDBACK.SUCCESS_PARTICLE]
+  [BONUSES]   # ============================================================ Bonuses (optional) Every trade can also pay shards and/or money on top of the item. They are OFF by
+  BONUSES.MONEY_ENABLED = false
+  BONUSES.SHARD_ENABLED = false
+  [BILLFORD]   # ============================================================ The trades (24, one after the other; each one is open for the COUNTDOWN interval above) INPUTS: 1-9
+  [BILLFORD.1]
+  [BILLFORD.2]
+  [BILLFORD.3]
+  [BILLFORD.4]
+  [BILLFORD.5]
+  [BILLFORD.6]
+  [BILLFORD.7]
+  [BILLFORD.8]
+  [BILLFORD.9]
+  [BILLFORD.10]
+  [BILLFORD.11]
+  [BILLFORD.12]
+  [BILLFORD.13]
+  [BILLFORD.14]
+  [BILLFORD.15]
+  [BILLFORD.16]
+  [BILLFORD.17]
+  [BILLFORD.18]
+  [BILLFORD.19]
+  [BILLFORD.20]
+  [BILLFORD.21]
+  [BILLFORD.22]
+  [BILLFORD.23]
+  [BILLFORD.24]
+  (... 428 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+border.yml
+------------------------------------------------------------------------
+  [border]   # border.yml - the world border of the Overworld, the Nether and the End, and the pregenerator (/pregen). /donutrep reload (or /border reload) reads this file aga
+  border.enabled = true   # false = no border and no damage anywhere (the world borders already set stay as they are)
+  border.exclude-worlds = []   # worlds that never get this border (arena or event worlds), by name, for example [duel_world, ffa_world]
+  border.vanilla-border = true   # also set the real Minecraft world border (the wall)
+  border.vanilla-warning-distance = 10   # the red edge of the screen starts this many blocks before the border
+  [border.overworld]
+  border.overworld.enabled = true
+  border.overworld.radius = 200000   # blocks from the centre to the edge (the whole side is twice this)
+  border.overworld.center-x = 0
+  border.overworld.center-z = 0
+  [border.nether]
+  border.nether.enabled = true
+  border.nether.radius = 200000
+  border.nether.center-x = 0
+  border.nether.center-z = 0
+  [border.end]
+  border.end.enabled = true
+  border.end.radius = 200000
+  border.end.center-x = 0
+  border.end.center-z = 0
+  [border.damage]
+  border.damage.enabled = true
+  border.damage.start-hearts = 1   # the first hit, in hearts (1 heart = 2 health)
+  border.damage.multiplier = 2   # every second outside the hit is this many times bigger: 1, 2, 4, 8 hearts ...
+  border.damage.max-hearts = 0   # the biggest single hit in hearts (0 = no limit)
+  border.damage.grace-seconds = 1   # seconds between crossing the border and the first hit
+  border.damage.interval-seconds = 1   # how often the border checks players and hits them
+  border.damage.affect-creative = false   # true = creative players are hurt too (spectators never)
+  [border.warning]
+  border.warning.enabled = true   # the warning you get once, the moment you cross the border
+  border.warning.title = "&c&lWORLD BORDER"
+  border.warning.subtitle = "&7You left the map - go back now!"
+  border.warning.message = "&cYou crossed the world border! &7The damage doubles every second ...
+  border.warning.sound = "block.anvil.land"   # a sound key (empty = no sound)
+  border.warning.back-message = "&aYou are back inside the border."   # empty = no message
+  border.bordertp = # /bordertp <overworld|nether|end> [east|west|north|south] (admins)
+  border.bordertp.distance-inside = 3   # stand this many blocks inside the edge
+  border.bordertp.platform = true   # where there is no ground (void, lava) make a small platform
+  border.bordertp.platform-material = OBSIDIAN
+  [pregen]   # The pregenerator (/pregen start|pause|resume|stop|status): makes the land of a world ahead of time, like the Chunky plugin. It skips chunks that already exist (
+  pregen.enabled = true
+  pregen.chunks-per-tick = 16   # new chunks asked for per tick for each world (more = faster, more load)
+  pregen.max-in-flight = 64   # at most this many chunks are being made at the same time for each world
+  pregen.min-tps = 17.0   # no new chunks are asked for while the server runs slower than this
+  pregen.skip-check = status   # status = a chunk counts as done when its saved copy is completely generated (a half finished one is made complete) | header = any chunk that
+  pregen.save-seconds = 30   # how often the progress is saved
+  pregen.log-minutes = 5   # a progress line in the console this often (0 = never)
+  pregen.auto-resume = false   # true = a pregeneration that was running when the server stopped carries on by itself at start
+
+------------------------------------------------------------------------
+config.yml
+------------------------------------------------------------------------
+  [economy]
+  economy.starting-balance = 1000.0
+  [sell]
+  sell.multiplier = 1.0
+  [homes]
+  homes.max-homes-per-player = 1000
+  [afk]
+  afk.timeout-seconds = 300
+  [afk.zone]
+  afk.zone.enabled = false
+  afk.zone.world = ''
+  afk.zone.x = 0.0
+  afk.zone.y = 64.0
+  afk.zone.z = 0.0
+  [afk.kick]
+  afk.kick.enabled = false
+  afk.kick.after-seconds = 1800
+  [travel]
+  [travel.rtp]
+  travel.rtp.min-radius = 200.0
+  travel.rtp.max-radius = 5000.0
+  travel.rtp.cooldown-seconds = 30
+  travel.rtp.max-attempts = 20
+  travel.rtp.max-concurrent-searches = 3
+  travel.rtp.queue-interval-seconds = 5
+  [tpa]
+  tpa.request-timeout-seconds = 60
+  [duels]
+  duels.on-death-rtp = true
+  duels.on-leave-rtp = true
+  duels.on-finish-rtp = false
+  duels.kill-on-quit = true
+  duels.allow-building = true
+  duels.use-arenas = true
+  duels.rollback = true
+  duels.arena-padding = 40
+  duels.arena-message = '&7You are in the duel arena &f{arena}&7.'
+  duels.arena-full-message = '&cAll duel arenas are in use, please wait your turn.'
+  duels.countdown-seconds = 5
+  [duels.block-commands]
+  duels.block-all-commands = true
+  [duels.allow-commands]
+  duels.claims = false
+  duels.claims-keep-days = 7
+  duels.draw-popup = true
+  duels.draw-title = '&fDraw'
+  duels.draw-subtitle = '&7No one died'
+  [duels.after-duel]
+  duels.after-duel.loot-time-text = '&eLoot time: &f{time}s'
+  duels.after-duel.rtp-countdown-seconds = 30
+  duels.after-duel.world = ''
+  duels.block-message = '&cYou can''t use this command during a duel.'
+  [duels.music]
+  duels.music.enabled = true
+  duels.music.sound = minecraft:music_disc.pigstep
+  duels.music.volume = 0.6
+  duels.music.length-seconds = 148
+  [duels.pods]
+  duels.pods.countdown-seconds = 15
+  duels.pods.countdown-message = '&7Stay in the pod for &e{time} seconds&7 - then you are put
+  duels.pods.countdown-subtitle = '&7Stay in the pod'
+  duels.pods.waiting-bar = '&7Waiting for an opponent...'
+  duels.pods.found-message = '&aOpponent found: &f{opponent}&a. The duel in &f{arena}&a starts
+  duels.pods.partner-left-message = '&7Your opponent left the pod. Waiting for another player...'
+  duels.pods.hologram = true
+  duels.pods.hologram-height = 2.0
+  duels.pods.hologram-scale = 1.0
+  [duels.pods.hologram-lines]
+  duels.pods.waiting-message = '&7You are waiting for an opponent in &f{arena}&7. Stay in the
+  duels.pods.start-message = '&aDuel found in &f{arena}&a against &f{opponent}&a!'
+  duels.pods.left-message = '&7You left the pod - you are not waiting for a duel any more.'
+  duels.pods.full-message = '&cArena is full, please wait your turn.'
+  [discord]
+  [discord.report]
+  discord.report.enabled = true
+  discord.report.webhook-url = ''
+  discord.report.username = Player Report Notification
+  discord.report.title = Player Report Notification
+  discord.report.thumbnail = true
+  [discord.teamchat]
+  discord.teamchat.enabled = true
+  discord.teamchat.webhook-url = ''
+  discord.teamchat.username = Team Chat
+  discord.teamchat.title = Team Chat
+  discord.teamchat.batch-seconds = 10
+  [discord.alt-alert]
+  discord.alt-alert.enabled = true
+  discord.alt-alert.webhook-url = ''
+  discord.alt-alert.username = Alt Watch
+  discord.alt-alert.max-accounts = 5
+  discord.alt-alert.repeat-hours = 24
+  discord.alt-alert.show-ip = false
+  discord.alt-alert.thumbnail = true
+  [discord.newplayer]
+  discord.newplayer.enabled = true
+  discord.newplayer.webhook-url = ''
+  discord.newplayer.username = New Players
+  discord.newplayer.after-minutes = 10
+  discord.newplayer.show-alts = true
+  discord.newplayer.thumbnail = true
+  [discord.pregen]
+  discord.pregen.enabled = true
+  discord.pregen.webhook-url = ''
+  discord.pregen.username = Pregenerator
+  discord.pregen.every-percent = 10
+  discord.pregen.on-start = true
+  discord.pregen.on-finish = true
+  [discord.punishments]
+  discord.punishments.enabled = true
+  discord.punishments.webhook-url = ''
+  discord.punishments.username = Moderation System
+  [discord.punishments.types]
+  discord.punishments.show-counts = true
+  discord.punishments.thumbnail = true
+
+------------------------------------------------------------------------
+crateparty.yml
+------------------------------------------------------------------------
+  [crateparty]   # Crate party (/crateparty start - an admin command). Everybody gets a few random crate keys, with a chat message, a title and a sound.  KEYS AND CHANCES The keys
+  crateparty.enabled = true
+  crateparty.online-only = true   # true = only the players who are online get keys; false = everybody who ever joined (offline players find the keys when they log in)
+  crateparty.rolls = 1   # how many times each player rolls a key (1 = every drop gives each player ONE key)
+  crateparty.amount = 1   # keys per roll
+  crateparty.every-minutes = 0   # 0 = only when an admin runs /crateparty start; above 0 = also gives keys by itself every this many minutes (no end)
+  crateparty.first-drop-at-start = true   # true = the first keys come at once, then every interval; false = the first keys come after the first interval
+  crateparty.min-interval-seconds = 10   # the shortest time between two drops an admin may use
+  crateparty.show-countdown = true   # an action bar with the time to the next keys while a timed party runs
+  crateparty.countdown-text = '&d&lCrate Party &7- next keys in &f{time}'
+  crateparty.start-message = '&d&lCRATE PARTY &7- &fa crate party started! Everyone gets keys ev...
+  crateparty.end-message = '&d&lCRATE PARTY &7- &fthe crate party is over! Thanks for playing.'
+  crateparty.stop-message = '&d&lCRATE PARTY &7- &fthe crate party was ended.'
+  [crateparty.keys]
+  crateparty.keys.common = 50
+  crateparty.keys.rare = 30
+  crateparty.keys.epic = 20
+  crateparty.broadcast = '&d&lCRATE PARTY &7- &f{players} players got crate keys!'   # '' = no broadcast
+  crateparty.message = # {keys} = what the player got, {total} = how many keys
+
+------------------------------------------------------------------------
+crates.yml
+------------------------------------------------------------------------
+  [crates]   # ═══════════════════════════════════════════════════════════════════════════════ CRATES - bind a chest/barrel/ender chest/shulker box to a crate with /crate bind
+  [crates.common]
+  crates.common.display-name = "&a&lCommon Crate"
+  crates.common.key-material = TRIPWIRE_HOOK
+  crates.common.key-custom-model-data = 90000
+  [crates.common.rewards]
+  [crates.rare]
+  crates.rare.display-name = "&9&lRare Crate"
+  crates.rare.key-material = TRIPWIRE_HOOK
+  crates.rare.key-custom-model-data = 90001
+  [crates.rare.rewards]
+  [crates.epic]
+  crates.epic.display-name = "&5&lEpic Crate"
+  crates.epic.key-material = TRIPWIRE_HOOK
+  crates.epic.key-custom-model-data = 90002
+  [crates.epic.rewards]
+  (... 91 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+database.yml
+------------------------------------------------------------------------
+  [backups]   # Backups: backups/config gets a snapshot of every .yml you edit (when it changed), backups/data one of the databases and data files.
+  backups.keep-config = 15
+  backups.keep-data = 12
+  backups.data-interval-minutes = 360   # 0 = only when the server starts and stops
+
+------------------------------------------------------------------------
+death-messages.yml
+------------------------------------------------------------------------
+  [death-messages]   # Custom death messages. Players who turn Death Messages off in /settings do not see them. Placeholders: {player} {killer} {item}. Cause names are Bukkit damage c
+  death-messages.enabled = true
+  death-messages.prefix = '&c☠ &7'
+  [death-messages.messages]
+  death-messages.messages.KILLED_BY_PLAYER = '{player} was slain by {killer} using {item}'
+  death-messages.messages.ENTITY_ATTACK = '{player} was slain by {killer}'
+  death-messages.messages.PROJECTILE = '{player} was shot by {killer}'
+  death-messages.messages.BLOCK_EXPLOSION = '{player} was blown to pieces'
+  death-messages.messages.ENTITY_EXPLOSION = '{player} was blown up'
+  death-messages.messages.CONTACT = '{player} was pricked to death'
+  death-messages.messages.CRAMMING = '{player} was squished too much'
+  death-messages.messages.DROWNING = '{player} drowned'
+  death-messages.messages.FALL = '{player} hit the ground too hard'
+  death-messages.messages.FALLING_BLOCK = '{player} was squashed by a falling block'
+  death-messages.messages.FIRE = '{player} went up in flames'
+  death-messages.messages.FIRE_TICK = '{player} burned to death'
+  death-messages.messages.FLY_INTO_WALL = '{player} experienced kinetic energy'
+  death-messages.messages.FREEZE = '{player} froze to death'
+  death-messages.messages.HOT_FLOOR = '{player} discovered the floor was lava'
+  death-messages.messages.LAVA = '{player} tried to swim in lava'
+  death-messages.messages.LIGHTNING = '{player} was struck by lightning'
+  death-messages.messages.MAGIC = '{player} was killed by magic'
+  death-messages.messages.POISON = '{player} was poisoned'
+  death-messages.messages.STARVATION = '{player} starved to death'
+  death-messages.messages.SUFFOCATION = '{player} suffocated in a wall'
+  death-messages.messages.SUICIDE = '{player} took their own life'
+  death-messages.messages.THORNS = '{player} was killed trying to hurt {killer}'
+  death-messages.messages.VOID = '{player} fell out of the world'
+  death-messages.messages.WITHER = '{player} withered away'
+  death-messages.messages.DEFAULT = '{player} died'
+
+------------------------------------------------------------------------
+dialog.yml
+------------------------------------------------------------------------
+  [dialog]   # ============================================================================================================ Dialog windows - the settings of the features that 
+  [dialog.homes]   # ------------------------------------------------------------------------------------------------------------ HOMES: /home and /homes as dialog windows - a butto
+  dialog.homes.enabled = false   # true = /home and /homes open the dialog window; false = the chest menu you know
+  dialog.homes.columns = 4   # how many buttons in a row (1 - 8). 4 fits most screens; 3 for a big GUI scale, 5 or 6 for a small one
+  dialog.homes.max-slots = 9   # how many slots Show More lists in total, locked ones included (a player with a bigger limit sees their own limit)
+  dialog.homes.confirm-delete = true   # true = Delete first asks "Delete <name>?"
+  dialog.homes.icons = true   # true = a home has an icon you can change (Change Icon: Choose Icon window); false = no icons in the dialog. This is the dialog's own switch:
+  dialog.homes.icon-columns = 3   # how many columns the Choose Icon list has (1 - 6). 3 fits most screens
+  dialog.homes.team-home = false   # true = the Homes window has a Team Home button in a row of its own at the end (Teleport, Set Here, Delete, Change Icon; without a team it of
+
+------------------------------------------------------------------------
+discord.yml
+------------------------------------------------------------------------
+  [ecowatch]   # EconomyWatchdog: alerts when a balance jumps or drops by more than the threshold (who got the money, from whom, before / after).
+  [ecowatch.discord]
+  ecowatch.discord.webhook-url = ''
+  ecowatch.discord.username = EconomyWatchdog
+  ecowatch.balance-jump-threshold = 10000.0
+  ecowatch.check-interval-seconds = 60
+  [marketwatch]   # MarketWatch: /marketwatch reports the money in circulation, /ahstats shows auction activity.
+  [marketwatch.discord]
+  marketwatch.discord.webhook-url = ''
+  marketwatch.discord.username = MarketWatch
+  [purchasealert]   # PurchaseAlert: polls the store backend and posts every new purchase. backend_url and plugin_key must match StoreBridge's config.
+  purchasealert.backend_url = ''
+  purchasealert.plugin_key = ''
+  purchasealert.poll_interval_seconds = 15
+  purchasealert.order_limit = 10
+  [purchasealert.discord]
+  purchasealert.discord.webhook-url = ''
+  purchasealert.discord.username = Store Purchases
+  [discord]   # Punishments (/ban, /tempban, /mute, /tempmute, /warn, /kick, /blacklist, /offend): who got punished, the type, the reason, who did it.
+  [discord.report]   # Player Report Notification: every /report is posted here (who, why, where). Blank url = off.
+  discord.report.enabled = true
+  discord.report.webhook-url = ''
+  discord.report.username = 'Player Report Notification'
+  discord.report.title = 'Player Report Notification'
+  discord.report.thumbnail = true
+  [discord.teamchat]   # Team chat: every team message is posted here (batched every few seconds). Blank url = off.
+  discord.teamchat.enabled = true
+  discord.teamchat.webhook-url = ''
+  discord.teamchat.username = 'Team Chat'
+  discord.teamchat.title = 'Team Chat'
+  discord.teamchat.batch-seconds = 10
+  [discord.alt-alert]   # Alt alert: a webhook message when a player has MORE accounts than max-accounts (the accounts that logged in from the same IP address as theirs, /alts shows them
+  discord.alt-alert.enabled = true   # nothing is sent until webhook-url is filled in
+  discord.alt-alert.webhook-url = ''
+  discord.alt-alert.username = 'Alt Watch'
+  discord.alt-alert.max-accounts = 5   # alert when a player has more than this many accounts (this number counts the player's own account too)
+  discord.alt-alert.repeat-hours = 24   # the same player is reported again after this many hours (0 = at every join)
+  discord.alt-alert.show-ip = false   # true = the IP address is in the message (leave it off if the channel is not private)
+  discord.alt-alert.thumbnail = true   # the player's head render on the side of the message
+  [discord.newplayer]   # New players: a message when somebody joins for the first time (and after they played a few minutes). Blank url = off.
+  discord.newplayer.enabled = true   # nothing is sent until webhook-url is filled in
+  discord.newplayer.webhook-url = ''
+  discord.newplayer.username = 'New Players'
+  discord.newplayer.after-minutes = 10   # a second message when they have played this long (0 = only the first)
+  discord.newplayer.show-alts = true   # how many other accounts share their IP address (and the first names)
+  discord.newplayer.thumbnail = true   # the player's head render on the side of the message
+  [discord.pregen]   # Pregenerator (/pregen): a message for every every-percent percent a world has done, when one starts, finishes or is paused. Blank url = off.
+  discord.pregen.enabled = true   # nothing is sent until webhook-url is filled in
+  discord.pregen.webhook-url = ''
+  discord.pregen.username = 'Pregenerator'
+  discord.pregen.every-percent = 10   # a message at 10%, 20% ... (0 = no progress messages)
+  discord.pregen.on-start = true
+  discord.pregen.on-finish = true
+  [discord.punishments]
+  discord.punishments.enabled = true   # nothing is sent until webhook-url is filled in
+  discord.punishments.webhook-url = ''
+  discord.punishments.username = 'Moderation System'
+  discord.punishments.types = [BAN, MUTE, WARN, KICK, BLACKLIST, STATSWIPE]
+  discord.punishments.show-counts = true   # how many warnings / bans (...) the player has had, and their total
+  discord.punishments.thumbnail = true   # the player's head render on the side of the message
+
+------------------------------------------------------------------------
+duels.yml
+------------------------------------------------------------------------
+  [duels]   # Duel extras (the original duel settings are the pvp: section: how long a challenge stays open).
+  duels.on-death-rtp = true   # someone dies in a duel / FFA match: where they go after the respawn
+  duels.on-leave-rtp = true   # someone leaves with /leave or /ffa leave (or logs out and back in)
+  duels.on-finish-rtp = false   # the battle is over: where the winner goes (duels: after the loot time below)
+  duels.kill-on-quit = true   # logging out during a duel kills the player (they lose, their items drop for the winner); false = they are only counted as a loss
+  duels.allow-building = true   # true (default) = players can place and break blocks inside a duel arena (not in the pod cuboid); it is rolled back after the fight (see roll
+  duels.use-arenas = true   # a duel starts in a duel arena (/arena create ...): both players are teleported to its pos1 / pos2 and wait for the countdown
+  duels.rollback = true   # blocks, fire and loot the fight left in the arena are put back once both players have left it (after the loot time)
+  duels.arena-padding = 40   # blocks around pos1 / pos2 that count as the arena
+  duels.arena-message = '&7You are in the duel arena &f{arena}&7.'
+  duels.arena-full-message = '&cAll duel arenas are in use, please wait your turn.'   # /duel <player> and /duel accept when no duel arena is open
+  duels.countdown-seconds = 5   # when a duel starts both players are frozen and see a countdown (0 = no countdown)
+  duels.block-commands = [spawn, home, homes, sethome, tpa, tpahere, tpaccept, rtp, rtpq, wa...
+  duels.block-all-commands = true   # inside a duel only the commands in allow-commands work (no /shop /orders /ah, no rtp, homes, warps ...)
+  duels.allow-commands = [leave, msg, reply, r, tell, w]
+  duels.claims = false   # Loot of a duel. false (default) = the loser's items drop where they died and the winner has the countdown below to pick them up. true = no p
+  duels.claims-keep-days = 7   # unclaimed duel loot is deleted after this many days (only when claims is true)
+  duels.draw-popup = true   # A duel that ends in a draw (both players type /draw): a big title in the middle of the screen
+  duels.draw-title = '&fDraw'
+  duels.draw-subtitle = '&7No one died'
+  [duels.after-duel]
+  duels.after-duel.loot-time-text = '&eLoot time: &f{time}s'   # the small text in the middle of the screen while the loot can be picked up
+  duels.after-duel.rtp-countdown-seconds = 30   # after a duel the players can pick up the loot; then they are teleported to a random location (0 = off; claims: true ignores this)
+  duels.after-duel.world = ''   # world for that teleport ('' = the overworld)
+  duels.block-message = '&cYou can''t use this command during a duel.'
+  [duels.music]   # players with Duel Music turned on in /settings hear this while they duel
+  duels.music.enabled = true
+  duels.music.sound = 'minecraft:music_disc.pigstep'
+  duels.music.volume = 0.6
+  duels.music.length-seconds = 148   # how often the track is started again
+  [duels.pods]   # Walk-in duel pods: /cuboid bind <cuboid> duel [<arena>,<arena>|all]. Two players who step into a pod get a duel arena nobody is in (any of the pod's arenas); th
+  duels.pods.countdown-seconds = 15   # starts when TWO players wait in the pod (both see the same clock); if one steps out it stops; at zero both are put in the arena (0 = at once
+  duels.pods.countdown-message = '&7Stay in the pod for &e{time} seconds&7 - then you are put in a d...
+  duels.pods.countdown-subtitle = '&7Stay in the pod'
+  duels.pods.waiting-bar = '&7Waiting for an opponent...'
+  duels.pods.found-message = '&aOpponent found: &f{opponent}&a. The duel in &f{arena}&a starts i...   # both players get this when the second one steps in; the countdown is shared
+  duels.pods.partner-left-message = '&7Your opponent left the pod. Waiting for another player...'
+  duels.pods.hologram = true
+  duels.pods.hologram-height = 2.0
+  duels.pods.hologram-scale = 1.0
+  duels.pods.hologram-lines = # {arena} {players} {max}
+  duels.pods.waiting-message = '&7You are waiting for an opponent in &f{arena}&7. Stay in the pod ...
+  duels.pods.start-message = '&aDuel found in &f{arena}&a against &f{opponent}&a!'
+  duels.pods.left-message = '&7You left the pod - you are not waiting for a duel any more.'
+  duels.pods.full-message = '&cArena is full, please wait your turn.'
+
+------------------------------------------------------------------------
+enchant-worth.yml
+------------------------------------------------------------------------
+  [enchant-worth]   # ============================================================================================================ Enchantment worth - what enchantments add to the wo
+  enchant-worth.enabled = true   # false = enchantments add nothing: an enchanted item is worth the same as a plain one
+  enchant-worth.default-per-level = 0   # the worth of ONE LEVEL of an enchantment that is not listed under per-level (a new or modded one). 0 = the worth of an Enchanted Book in wor
+  [enchant-worth.per-level]   # the worth of one level of one enchantment (the name without minecraft:). Sharpness V adds 5 x 10 = 50. Change any of them.
+  enchant-worth.per-level.protection = 10   # common: the enchanting table gives them most often
+  enchant-worth.per-level.sharpness = 10
+  enchant-worth.per-level.efficiency = 10
+  enchant-worth.per-level.power = 10
+  enchant-worth.per-level.piercing = 10
+  enchant-worth.per-level.unbreaking = 10
+  enchant-worth.per-level.smite = 10
+  enchant-worth.per-level.bane_of_arthropods = 10
+  enchant-worth.per-level.feather_falling = 10
+  enchant-worth.per-level.fire_protection = 10
+  enchant-worth.per-level.projectile_protection = 10
+  enchant-worth.per-level.knockback = 10
+  enchant-worth.per-level.quick_charge = 10
+  enchant-worth.per-level.loyalty = 10
+  enchant-worth.per-level.blast_protection = 20   # uncommon: the enchanting table, but less often
+  enchant-worth.per-level.respiration = 20
+  enchant-worth.per-level.aqua_affinity = 20
+  enchant-worth.per-level.depth_strider = 20
+  enchant-worth.per-level.fire_aspect = 20
+  enchant-worth.per-level.punch = 20
+  enchant-worth.per-level.flame = 20
+  enchant-worth.per-level.lure = 20
+  enchant-worth.per-level.luck_of_the_sea = 20
+  enchant-worth.per-level.impaling = 20
+  enchant-worth.per-level.riptide = 20
+  enchant-worth.per-level.multishot = 20
+  enchant-worth.per-level.density = 20
+  enchant-worth.per-level.breach = 20
+  enchant-worth.per-level.lunge = 20
+  enchant-worth.per-level.fortune = 50   # valuable: the enchanting table, very useful
+  enchant-worth.per-level.looting = 40
+  enchant-worth.per-level.sweeping_edge = 30
+  enchant-worth.per-level.thorns = 30
+  enchant-worth.per-level.silk_touch = 120   # rare: the enchanting table, one roll in a hundred
+  enchant-worth.per-level.infinity = 150
+  enchant-worth.per-level.channeling = 100
+  enchant-worth.per-level.mending = 300   # treasure: only villager trades, chests, ancient cities and special vaults
+  enchant-worth.per-level.frost_walker = 80
+  enchant-worth.per-level.soul_speed = 60
+  enchant-worth.per-level.swift_sneak = 100
+  enchant-worth.per-level.wind_burst = 120
+  enchant-worth.per-level.binding_curse = 0   # curses: a curse is a drawback, it adds nothing
+  enchant-worth.per-level.vanishing_curse = 0
+
+------------------------------------------------------------------------
+enchantments.yml
+------------------------------------------------------------------------
+  [enchantments]   # Enchantment rules, enforced at the anvil and the enchanting table. Players with donutrep.bypass.enchantlimit are exempt.
+  enchantments.enabled = false
+  [enchantments.max-levels]   # highest level allowed per enchantment (lower than the vanilla maximum to cap it). Leave one out to keep the vanilla maximum.
+  enchantments.max-levels.sharpness = 5
+  enchantments.max-levels.protection = 4
+  enchantments.max-levels.fire_protection = 4
+  enchantments.max-levels.blast_protection = 4
+  enchantments.max-levels.projectile_protection = 4
+  enchantments.max-levels.unbreaking = 3
+  enchantments.max-levels.efficiency = 5
+  enchantments.max-levels.fortune = 3
+  enchantments.max-levels.looting = 3
+  enchantments.max-levels.power = 5
+  enchantments.max-levels.punch = 2
+  enchantments.max-levels.knockback = 2
+  enchantments.max-levels.fire_aspect = 2
+  enchantments.max-levels.thorns = 3
+  enchantments.max-levels.feather_falling = 4
+  enchantments.banned = []   # enchantments that cannot be put on items at all (for example: [mending, thorns])
+  enchantments.message = '&cThat enchantment is not allowed here and was removed.'
+
+------------------------------------------------------------------------
+ender-chest.yml
+------------------------------------------------------------------------
+  [enderchest]   # /enderchest - rows are 1-6. A player gets the highest of the default and any permission below.
+  enderchest.default-rows = 6
+  enderchest.extra-pages = false   # More pages (default false = one chest, exactly as before). true = the chest has `pages` pages: each page is 5 rows of items with arrows in t
+  enderchest.pages = 2   # how many pages (2-20) - with rank-pages off, everybody gets this many
+  enderchest.rank-pages = false   # Pages per rank (default false = everybody gets all `pages`). true = a player gets default-pages, or the highest number N they have the permi
+  enderchest.default-pages = 1
+  [enderchest.rows-by-permission]   # permission donutrep.enderchest.rows.<name> -> rows
+  enderchest.rows-by-permission.vip = 4
+  enderchest.rows-by-permission.vip+ = 5
+  enderchest.rows-by-permission.vip++ = 6
+
+------------------------------------------------------------------------
+fakeplayer.yml
+------------------------------------------------------------------------
+  [fakeplayer]   # /fakeplayer 1 puts a crouching bot where you stand, /fakeplayer 2 a standing one. /fakeplayer clear removes them all.
+  fakeplayer.ttl-seconds = 120   # how long a bot stays before it disappears (0 = until /fakeplayer clear). /fakeplayer 1 <seconds> overrides it per use.
+  fakeplayer.name-mode = RANDOM   # RANDOM = a random entry of names, FIXED = always `name`, ONLINE = the name of a random online player
+  fakeplayer.name = Steve
+  fakeplayer.names = [Steve, Alex, xXMinerXx, Dream, Technoblade, Wilbur, Sapnap]
+  fakeplayer.show-name = true   # show the name tag above the bot
+  fakeplayer.skin-mode = SAME   # SAME = the skin of the name shown, FIXED = the skin of the player in `skin`, RANDOM = a random entry of `skins`, DEFAULT = the default skin
+  fakeplayer.skin = Notch   # used when skin-mode is FIXED (any real Minecraft username)
+  fakeplayer.skins = [Notch, jeb_, Dinnerbone]
+
+------------------------------------------------------------------------
+ffa.yml
+------------------------------------------------------------------------
+  [ffa]   # FFA (/ffa) and ranked PvP (/pvp). Players join a queue; when enough are waiting a match starts in a free arena (/ffaarena), everyone fights with the items they 
+  ffa.min-players = 2   # a match starts when this many players are waiting
+  ffa.max-players = 8   # most players in one match (the rest wait for the next one)
+  ffa.queue-countdown-seconds = 10   # how long the queue waits once there are enough players
+  ffa.countdown-seconds = 5   # frozen countdown (title) after everyone was teleported into the arena
+  ffa.return-delay-seconds = 3   # after the match was decided, the winner is taken home after this delay
+  ffa.arena-padding = 40   # blocks around the arena spawns: building is allowed (and rolled back) inside, items and arrows there are cleaned up
+  ffa.full-loot = true   # plain FFA: dying (also leaving in combat, or logging out) drops ALL you carry; whoever picks it up keeps it. false = your items are saved an
+  ffa.kill-on-quit = true   # logging out in an FFA match kills the player (a death for them, a kill for whoever hit them last); false = they are just taken out
+  ffa.join-countdown = true   # /ffa and /ffa join: true = a countdown (stand still) before you are sent in; false = sent in at once. No queue any more.
+  ffa.join-countdown-seconds = 15
+  ffa.join-countdown-message = '&7Stay still for &e{time} seconds&7 - then you are sent into the F...
+  ffa.join-countdown-subtitle = '&7Stay still'
+  ffa.join-countdown-cancel = '&cCancelled - you moved.'
+  ffa.kits-enabled = false   # ranked /pvp kits (the queue + /pvp kit ...) are off; true brings them back
+  ffa.allow-building = true   # false = nobody can place or break blocks in a match
+  ffa.rollback-interval-seconds = 300   # every arena (pos1/pos2 arena) is put back by a timer: it starts when the first block changes (0 = no timer). Everybody inside is taken to th
+  ffa.rollback-warning-seconds = 30   # the last seconds are counted down in the middle of the screen
+  ffa.rollback-countdown = '&cArena resets in &f{time}s'
+  ffa.rollback-message = '&7The arena was reset - you were taken out.'
+  [ffa.anticamp]   # Anti-camp (all on by default): no waiting at the entrance to kill players who arrive
+  ffa.anticamp.spawn-protection = true   # a few seconds without damage after entering; it ends when you attack
+  ffa.anticamp.protection-seconds = 4
+  ffa.anticamp.spread-spawns = true   # somebody joining a running arena is put at the spawn point farthest from everybody inside
+  ffa.anticamp.no-spawnkill-credit = true   # a kill within spawnkill-seconds of the victim arriving does not count (no kill, no streak, no death)
+  ffa.anticamp.spawnkill-seconds = 8
+  ffa.anticamp.spawnkill-message = '&7That kill does not count: the player had just arrived.'
+  ffa.anticamp.rejoin-delay = true   # a short wait before joining again after dying
+  ffa.anticamp.rejoin-seconds = 5
+  ffa.anticamp.rejoin-message = '&cWait &f{time}s &cbefore you join the FFA again.'
+  ffa.anticamp.keep-moving = true   # staying within stay-radius blocks for stay-seconds warns and then hurts a little
+  ffa.anticamp.stay-seconds = 60
+  ffa.anticamp.stay-radius = 3.0
+  ffa.anticamp.stay-damage = 2.0
+  ffa.anticamp.stay-message = '&cKeep moving! Staying in one place hurts.'
+  [ffa.pods]   # Walk-in FFA pods: /cuboid bind <cuboid> ffa <arena>  (one cuboid per arena - bind as many arenas as you like). Stepping into the cuboid puts you in the arena at
+  ffa.pods.max-players = 10   # most players in one pod arena; one arena can have its own: /ffaarena settings <arena> max-players 6
+  ffa.pods.countdown-seconds = 15   # stepping into the cuboid starts this countdown; stepping out cancels it; at zero the player is teleported into the arena (0 = at once)
+  ffa.pods.countdown-message = '&7Stay in the pod for &e{time} seconds&7 - then you are sent into ...
+  ffa.pods.countdown-subtitle = '&7Stay in the pod'
+  ffa.pods.countdown-cancel = '&cCancelled - you left the pod.'
+  ffa.pods.height-above = 2   # blocks above the top of the cuboid that still count as inside (a cuboid selected on the floor is one block tall)
+  ffa.pods.allow-building = true   # true (default) = building is allowed inside the arena a pod sends you to (never in the pod cuboid itself) and rolled back when the last play
+  ffa.pods.ignore-creative = false   # true = players in creative mode are not caught by a pod (false = they are switched to survival like everybody)
+  ffa.pods.hologram = true   # the text above the cuboid
+  ffa.pods.hologram-height = 2.0   # blocks above the top of the cuboid
+  ffa.pods.hologram-scale = 1.0
+  ffa.pods.hologram-lines = # {arena} {players} {max}
+  ffa.pods.join-message = '&aYou joined the FFA arena &f{arena}&a. &7{players}/{max} players ...
+  ffa.pods.full-message = '&cArena is full, please wait your turn.'
+
+------------------------------------------------------------------------
+filter.yml
+------------------------------------------------------------------------
+  [filter]   # Chat filter. Everything here is off until filter.chat.enabled is true. Players with the bypass permission are never filtered. The banned-word check uses the sam
+  [filter.chat]
+  filter.chat.enabled = false
+  filter.chat.notify-staff = true   # staff with donutrep.staff.punishments.view see what was blocked
+  filter.chat.bypass-permission = donutrep.bypass.filter
+  [filter.words]
+  filter.words.enabled = true
+  [filter.words.punishments]   # punishment for the 1st, 2nd, 3rd ... banned word (the last one repeats). Leave the list empty to only block the message.
+  [filter.spam]
+  filter.spam.enabled = true
+  filter.spam.min-delay-ms = 700   # messages sent faster than this are blocked
+  filter.spam.block-repeats = true   # the same message again within repeat-seconds is blocked
+  filter.spam.repeat-seconds = 10
+  [filter.caps]
+  filter.caps.enabled = true
+  filter.caps.min-length = 8   # shorter messages are ignored
+  filter.caps.max-percent = 70   # more capitals than this (in %) ...
+  filter.caps.action = LOWERCASE   # LOWERCASE = the message is sent in lower case, BLOCK = it is not sent
+  [filter.links]
+  filter.links.enabled = false
+  filter.links.block-links = true
+  filter.links.block-ips = true
+  filter.links.allow = [example.com, discord.gg/yourserver]   # links containing any of these are fine
+  [filter.commands]
+  filter.commands.enabled = true   # also check the text of these commands for banned words
+  filter.commands.names = [msg, tell, w, whisper, message, reply, r, pm, me, say, team, helpo...
+  filter.allow-list = [Nigeria, Niger, Scunthorpe, Assassin, Class, Classic, Grass, Bass]   # words in here are removed before checking, so they can never be mistaken for a banned word
+  [filter.messages]
+  filter.messages.word = '&cYour message was blocked by the chat filter.'
+  filter.messages.spam = '&cYou are sending messages too fast.'
+  filter.messages.repeat = '&cDon''t repeat yourself.'
+  filter.messages.caps = '&cPlease don''t use so many capital letters.'
+  filter.messages.link = '&cYou can''t post links.'
+  filter.messages.ip = '&cYou can''t post IP addresses.'
+
+------------------------------------------------------------------------
+freeze.yml
+------------------------------------------------------------------------
+  [freeze]   # /freeze: what a frozen player can still do, the reminder they see, and what happens if they log out. (The movement lock itself is built in.)
+  freeze.block-commands = true
+  freeze.allowed-commands = [msg, r, reply, tell, w, helpop, report, discord]   # commands a frozen player may still use
+  freeze.block-world-actions = true   # no breaking, placing or interacting while frozen
+  freeze.block-item-actions = true   # no dropping or picking up items while frozen
+  freeze.invulnerable = false   # true = frozen players take no damage
+  freeze.alert-interval-ticks = 100   # how often the reminder is shown
+  freeze.actionbar = '&c&lYou are frozen! &7Do not log out - follow staff instructions.'
+  [freeze.quit]
+  freeze.quit.notify-staff = true   # staff with donutrep.staff.freeze see it when a frozen player logs out
+  freeze.quit.commands = []   # run when a frozen player logs out, for example: ['ban %player% Logged out while frozen']
+  [freeze.messages]
+  freeze.messages.command-blocked = '&cYou can''t use commands while frozen.'
+  freeze.messages.quit-alert = '&c{player} logged out while frozen!'
+
+------------------------------------------------------------------------
+hide.yml
+------------------------------------------------------------------------
+  ENABLED = true   # Hide: a player can scramble their name or take on a disguise (name + skin).
+  COOLDOWN-SECONDS = 20   # wait this long before changing the hide state again
+  MAX-NAME-LENGTH = 16
+  [SCRAMBLE]   # A scrambled name is a random string of these characters.
+  SCRAMBLE.LENGTH = 8
+  SCRAMBLE.CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+  [ALIASES]   # /disguise <alias> uses the alias key. NAME is what other players see, SKIN points at an entry of SKINS below.
+  [ALIASES.mrbeast]
+  ALIASES.mrbeast.NAME = "MrBeast"
+  ALIASES.mrbeast.SKIN = mrbeast
+  [ALIASES.technoblade]
+  ALIASES.technoblade.NAME = "Technoblade"
+  ALIASES.technoblade.SKIN = technoblade
+  [ALIASES.dream]
+  ALIASES.dream.NAME = "Dream"
+  ALIASES.dream.SKIN = dream
+  [ALIASES.drdonutt]
+  ALIASES.drdonutt.NAME = "DrDonutt"
+  ALIASES.drdonutt.SKIN = drdonutt
+  [ALIASES.wanderer]
+  ALIASES.wanderer.NAME = "Wanderer"
+  ALIASES.wanderer.SKIN = wanderer
+  [ALIASES.nightfall]
+  ALIASES.nightfall.NAME = "Nightfall"
+  ALIASES.nightfall.SKIN = nightfall
+  [ALIASES.pixelpal]
+  ALIASES.pixelpal.NAME = "Pixelpal"
+  ALIASES.pixelpal.SKIN = pixelpal
+  [ALIASES.rune]
+  ALIASES.rune.NAME = "Rune"
+  ALIASES.rune.SKIN = rune
+  [SKINS]   # USERNAME is looked up through Mojang (or SkinsRestorer's cache) the first time the skin is used. MHF_* are Mojang's own head accounts.
+  [SKINS.mrbeast]
+  SKINS.mrbeast.DISPLAY-NAME = "MrBeast"
+  SKINS.mrbeast.USERNAME = "MrBeast"
+  [SKINS.technoblade]
+  SKINS.technoblade.DISPLAY-NAME = "Technoblade"
+  SKINS.technoblade.USERNAME = "Technoblade"
+  [SKINS.dream]
+  SKINS.dream.DISPLAY-NAME = "Dream"
+  SKINS.dream.USERNAME = "Dream"
+  [SKINS.drdonutt]
+  SKINS.drdonutt.DISPLAY-NAME = "DrDonutt"
+  SKINS.drdonutt.USERNAME = "DrDonutt"
+  [SKINS.wanderer]
+  SKINS.wanderer.DISPLAY-NAME = "Wanderer"
+  SKINS.wanderer.USERNAME = "MHF_Steve"
+  [SKINS.nightfall]
+  SKINS.nightfall.DISPLAY-NAME = "Nightfall"
+  SKINS.nightfall.USERNAME = "MHF_Alex"
+  [SKINS.pixelpal]
+  SKINS.pixelpal.DISPLAY-NAME = "Pixelpal"
+  SKINS.pixelpal.USERNAME = "MHF_Villager"
+  [SKINS.rune]
+  SKINS.rune.DISPLAY-NAME = "Rune"
+  SKINS.rune.USERNAME = "MHF_Enderman"
+  [MESSAGES]
+  MESSAGES.DISABLED = "&cHide is turned off on this server."
+  MESSAGES.IN-COMBAT = "&cYou cannot hide or unhide while in combat."
+  MESSAGES.COOLDOWN = "&cWait &f{seconds}s &cbefore you change your hide again."
+  MESSAGES.ALREADY-HIDDEN = "&cYou are already using that identity."
+  MESSAGES.NOT-HIDDEN = "&cThat player is not hidden."
+  MESSAGES.PLAYER-NOT-FOUND = "&cThat player was not found."
+  MESSAGES.INVALID-ALIAS = "&cThat alias does not exist."
+  MESSAGES.INVALID-SKIN = "&cThat skin name or link could not be used."
+  MESSAGES.SKIN-SEARCHING = "&7Looking up the skin &f{skin}&7..."
+  MESSAGES.ALIAS-IN-USE = "&cSomebody is already using that alias."
+  MESSAGES.SCRAMBLED = "&aYour name is now scrambled: &f{alias}&a."
+  MESSAGES.DISGUISED = "&aYou are now disguised as &f{alias}&a."
+  MESSAGES.REMOVED = "&aYou are no longer hidden."
+  MESSAGES.ADMIN-REMOVED = "&aHide removed from &f{player}&a."
+  MESSAGES.REMOVED-BY-ADMIN = "&cA staff member removed your hide."
+  MESSAGES.STATUS-NONE = "&7Hide: &cnot active"
+  MESSAGES.STATUS-ACTIVE = "&7Hide: &a{mode} &8- &f{alias}"
+  MESSAGES.CHECK = "&bHide check\n&7Real name: &f{real}\n&7Alias: &f{alias}\n&7Mode: &...
+
+------------------------------------------------------------------------
+hologram.yml
+------------------------------------------------------------------------
+  [rtp-zone]   # The text above every rtp-zone cuboid (/cuboid bind <cuboid> rtp-zone true). One zone's height: /cuboid hologram <cuboid> height <blocks>
+  rtp-zone.enabled = true
+  rtp-zone.height = 2.0   # blocks above the top of the zone
+  rtp-zone.scale = 1.0   # size of the text (1.0 = normal, 2.0 = twice as big)
+  rtp-zone.text = '&c&lRTP ZONE'
+  rtp-zone.countdown-text = '&fTeleporting in &e{time}s'
+  rtp-zone.idle-text = '&7Step inside to start &8({time}s)'
+  rtp-zone.teleport-text = '&a&lTeleporting!'
+  [leaderboards]   # Leaderboard holograms: /hologram create <kills|deaths|balance|playtime|shards|duels|ffa> [id] puts one where you stand. /hologram list, remove <id>, move <id>, 
+  leaderboards.enabled = true
+  leaderboards.update-seconds = 120   # how often the lists are worked out again (kills, deaths and playtime read every player's stats: do not set this very low on a big server)
+  leaderboards.background = false   # true = the dark box behind the text
+  leaderboards.see-through = false   # true = the text can be read through blocks AND through water (with false, ocean water in front of the text hides it - the game draws water o
+  [leaderboards.types]
+  [leaderboards.types.kills]
+  leaderboards.types.kills.title = '&c&lTOP KILLS'
+  leaderboards.types.kills.line = '&e#{rank} &f{player} &7- &c{value}'
+  leaderboards.types.kills.empty-line = '&7#{rank} &8-'
+  leaderboards.types.kills.entries = 10
+  leaderboards.types.kills.scale = 1.0
+  [leaderboards.types.deaths]
+  leaderboards.types.deaths.title = '&4&lTOP DEATHS'
+  leaderboards.types.deaths.line = '&e#{rank} &f{player} &7- &4{value}'
+  leaderboards.types.deaths.empty-line = '&7#{rank} &8-'
+  leaderboards.types.deaths.entries = 10
+  leaderboards.types.deaths.scale = 1.0
+  [leaderboards.types.balance]
+  leaderboards.types.balance.title = '&a&lTOP BALANCE'
+  leaderboards.types.balance.line = '&e#{rank} &f{player} &7- &a{value}'
+  leaderboards.types.balance.empty-line = '&7#{rank} &8-'
+  leaderboards.types.balance.entries = 10
+  leaderboards.types.balance.scale = 1.0
+  [leaderboards.types.playtime]
+  leaderboards.types.playtime.title = '&b&lTOP PLAYTIME'
+  leaderboards.types.playtime.line = '&e#{rank} &f{player} &7- &b{value}'
+  leaderboards.types.playtime.empty-line = '&7#{rank} &8-'
+  leaderboards.types.playtime.entries = 10
+  leaderboards.types.playtime.scale = 1.0
+  [leaderboards.types.shards]
+  leaderboards.types.shards.title = '&d&lTOP SHARDS'
+  leaderboards.types.shards.line = '&e#{rank} &f{player} &7- &d{value}'
+  leaderboards.types.shards.empty-line = '&7#{rank} &8-'
+  leaderboards.types.shards.entries = 10
+  leaderboards.types.shards.scale = 1.0
+  leaderboards.types.duels = # most duels played - shows wins, losses and the win/loss ratio. Pl...
+  leaderboards.types.duels.title = '&6&lMOST DUELS'
+  leaderboards.types.duels.line = '&e#{rank} &f{player} &7- &f{games} &7duels &8| &a{wins}W &c{losses...
+  leaderboards.types.duels.empty-line = '&7#{rank} &8-'
+  leaderboards.types.duels.entries = 10
+  leaderboards.types.duels.scale = 1.0
+  leaderboards.types.ffa = # most FFA games - an FFA kill counts as a win, a death as a loss
+  leaderboards.types.ffa.title = '&6&lMOST FFA'
+  leaderboards.types.ffa.line = '&e#{rank} &f{player} &7- &f{games} &7games &8| &a{wins}W &c{losses...
+  leaderboards.types.ffa.empty-line = '&7#{rank} &8-'
+  leaderboards.types.ffa.entries = 10
+  leaderboards.types.ffa.scale = 1.0
+
+------------------------------------------------------------------------
+invsee.yml
+------------------------------------------------------------------------
+  [invsee]   # /invsee: the live inventory viewer for staff.
+  invsee.enabled = true
+  invsee.title = '&8inventory of {player}'   # window title ({player} = whose inventory it is); blank = leave the default
+  invsee.allow-edit = true   # false = staff can look but not move or take items
+  invsee.allow-self-view = false   # false = /invsee on yourself is refused
+  invsee.notify-target = false   # true = the player is told when someone opens their inventory
+  invsee.log-usage = true   # write who looked at whose inventory to the console
+  [invsee.messages]
+  invsee.messages.self = '&cYou can''t view your own inventory this way.'
+  invsee.messages.notify = '&7A staff member is viewing your inventory.'
+
+------------------------------------------------------------------------
+keyall.yml
+------------------------------------------------------------------------
+  [keyall]   # Key-all: every `every-minutes` a key is given. Edit freely, then /donutrep reload. Both area switches false: a server-wide timer, every `every-minutes` everybod
+  keyall.enabled = true
+  keyall.every-minutes = 60
+  keyall.type = RANDOM   # RANDOM rolls a tier from random-keys; ONE always gives the one-key tier/crate
+  keyall.one-key = common
+  keyall.amount = 1
+  keyall.afk-only = false   # only players standing in an afk cuboid (/cuboid bind <cuboid> afk true)
+  keyall.cuboid-only = false   # only players standing in a cuboid made for key-all (/cuboid bind <cuboid> keyall true)
+  keyall.area-percent = 100   # 0-100: with afk-only or cuboid-only on, each player in the area has this % chance to get the key when their timer ends (100 = always). Not u
+  keyall.area-match-shards = true   # area modes: where the player also earns shards, the key timer is as long as the shard timer (zones.shard.interval-seconds) and they run toge
+  keyall.area-actionbar = true   # cuboid-only mode: "Next Key in ..." in the action bar while standing in the key-all cuboid (not where a shard countdown already uses it; the
+  keyall.warn-staff = true   # a key name below that is not a crate gets a warning in the console and in the chat of every online op / staff member
+  [keyall.random-keys]   # Chance of each key tier (weights - they do not need to add up to 100). Change them here.
+  keyall.random-keys.common = 80
+  keyall.random-keys.rare = 15
+  keyall.random-keys.epic = 5
+  [keyall.tier-crates]   # Which crate each tier gives (use your crate ids from /crate). Every name here (and one-key above) MUST be a crate that exists, or the staff are warned and that 
+  keyall.tier-crates.common = common
+  keyall.tier-crates.rare = rare
+  keyall.tier-crates.epic = epic
+  [keyall.message]
+
+------------------------------------------------------------------------
+language.yml
+------------------------------------------------------------------------
+  [language]   # ============================================================================================================ Languages. Every player has their own language: the
+  language.enabled = true   # false = no translation at all and /language says it is turned off
+  language.default = en   # the language everyone starts on (a code of a file in the languages folder: en, es, pt-br, fr, de, ru, tr, pl, it, nl, zh-cn, ja, ko ...)
+  language.auto-detect = true   # true = a player who has not chosen starts on the language of their Minecraft client, when there is a file for it; otherwise on the default.
+  language.force = false   # true = everybody sees the default language and /language is turned off
+
+------------------------------------------------------------------------
+menus-info.yml
+------------------------------------------------------------------------
+  [RANKS-MENU]   # Info menus (RANKS, MEDIA, SERVER-INFO/help, STATS). Edit text, materials and slots freely. A button with COMMAND runs that command when clicked.
+  RANKS-MENU.TITLE = '&8Ranks'
+  RANKS-MENU.SIZE = 27
+  [RANKS-MENU.BUTTONS]
+  [MEDIA-MENU]
+  MEDIA-MENU.TITLE = '&8Media Rank'
+  MEDIA-MENU.SIZE = 27
+  [MEDIA-MENU.MEDIA-BUTTON]
+  [SERVER-INFO-MENU]
+  SERVER-INFO-MENU.TITLE = '&8Server Info'
+  SERVER-INFO-MENU.SIZE = 27
+  [SERVER-INFO-MENU.BUTTONS]
+  [SERVER-INFO-MENU.NAVIGATION]
+  [SERVER-INFO-MENU.PAGES]
+  [STATS-MENU]
+  STATS-MENU.TITLE = '&8{username} Stats'
+  STATS-MENU.SIZE = 36
+  [STATS-MENU.BUTTONS]
+  (... 264 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+menus.yml
+------------------------------------------------------------------------
+  [menus]   # Menus: change a title, the panes of a menu (filler), or a button (slot number -> name / material / lore / hide: true). A menu is found by its id (the title with
+  [menus.afk-areas]
+  [menus.anvil-moderation]
+  [menus.armor-and-tools-progress]
+  [menus.auction-history]
+  [menus.auction-house]
+  [menus.auction-house-your-items]
+  [menus.blocks-progress]
+  [menus.chat-logs]
+  [menus.confirm-delete]
+  [menus.confirm-delete-crate]
+  [menus.confirm-kill]
+  [menus.confirm-purchase]
+  [menus.confirm-tpa]
+  [menus.confirm-tpa-here]
+  [menus.confirm-voice-chat]
+  [menus.confirmation-menu]
+  [menus.crates]
+  [menus.crops-progress]
+  [menus.deaths]
+  [menus.duel-a-player]
+  [menus.duel-queue]
+  [menus.enchanted-book-progress]
+  [menus.fish-progress]
+  [menus.followers]
+  [menus.following]
+  [menus.friend-requests]
+  [menus.friends]
+  [menus.getting-started]
+  [menus.homes]
+  [menus.item-prices]
+  [menus.kills]
+  [menus.leaderboards]
+  [menus.mobs-progress]
+  [menus.money]
+  [menus.natural-items-progress]
+  [menus.ongoing-servers]
+  [menus.online-staff]
+  [menus.orders]
+  [menus.orders-collect]
+  [menus.orders-confirm-delivery]
+  [menus.orders-delete-order]
+  [menus.orders-deliver-items]
+  [menus.orders-history]
+  [menus.orders-my-orders]
+  [menus.orders-new-order]
+  [menus.orders-order]
+  [menus.orders-select-item]
+  [menus.ores-progress]
+  [menus.place-items-in-here-to-sell]
+  [menus.player-ranks]
+  [menus.playtime]
+  [menus.potions-progress]
+  [menus.punishment-roster]
+  [menus.rtp-menu]
+  [menus.rtp-queue]
+  [menus.rules]
+  [menus.sell-history]
+  [menus.sell-item]
+  [menus.sell-multipliers]
+  [menus.server-info]
+  [menus.settings-chat-alerts]
+  [menus.settings-player]
+  [menus.shards]
+  [menus.shop]
+  [menus.spawn]
+  [menus.spawners-all-worlds]
+  [menus.spawners-panel]
+  [menus.team]
+  [menus.team-money-leaderboard]
+  [menus.team-settings]
+  [menus.team-shards-leaderboard]
+  [menus.teams]
+  [menus.top-sellers]
+  [menus.top-selling-items]
+  [menus.useful-commands]
+  [menus.warps]
+  [menus.your-keys]
+  (... 501 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+messages.yml
+------------------------------------------------------------------------
+  [messages]   # Every chat message DonutREP+ sends that is a fixed sentence. Reword them here, then /donutrep reload. Colour codes: & and &#rrggbb. Placeholders like {player} o
+  (... 354 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+network.yml
+------------------------------------------------------------------------
+  server-name = CosmicSMP   # shown by /playtime
+  servers = []   # Extra lines printed by /servers (one per line).
+
+------------------------------------------------------------------------
+offenses.yml
+------------------------------------------------------------------------
+  [settings]
+  settings.duration-multiplier = 1.0
+  [offenses]
+  [offenses.spam]   # ---------------------------------------------------------------- chat
+  offenses.spam.name = "Chat Spam"
+  offenses.spam.type = MUTE
+  offenses.spam.durations = ["1h", "6h", "1d", "7d"]
+  [offenses.flooding]
+  offenses.flooding.name = "Chat Flooding"
+  offenses.flooding.type = MUTE
+  offenses.flooding.durations = ["1h", "6h", "1d"]
+  [offenses.caps]
+  offenses.caps.name = "Excessive Caps"
+  offenses.caps.type = MUTE
+  offenses.caps.durations = ["30m", "2h", "1d"]
+  [offenses.advertising]
+  offenses.advertising.name = "Advertising"
+  offenses.advertising.type = MUTE
+  offenses.advertising.durations = ["1d", "7d", "30d"]
+  [offenses.toxicity]
+  offenses.toxicity.name = "Toxic Behaviour"
+  offenses.toxicity.type = MUTE
+  offenses.toxicity.durations = ["6h", "1d", "7d", "30d"]
+  [offenses.harassment]
+  offenses.harassment.name = "Harassment"
+  offenses.harassment.type = MUTE
+  offenses.harassment.durations = ["1d", "7d", "30d", "perm"]
+  [offenses.hate-speech]
+  offenses.hate-speech.name = "Hate Speech"
+  offenses.hate-speech.type = MUTE
+  offenses.hate-speech.durations = ["3d", "30d", "perm"]
+  [offenses.threats]
+  offenses.threats.name = "Threats"
+  offenses.threats.type = MUTE
+  offenses.threats.durations = ["7d", "30d", "perm"]
+  [offenses.mute-evasion]
+  offenses.mute-evasion.name = "Mute Evasion"
+  offenses.mute-evasion.type = MUTE
+  offenses.mute-evasion.durations = ["7d", "30d", "perm"]
+  [offenses.xray]   # ---------------------------------------------------------------- cheating
+  offenses.xray.name = "X-Ray"
+  offenses.xray.type = BAN
+  offenses.xray.durations = ["14d", "60d", "perm"]
+  [offenses.fly-speed]
+  offenses.fly-speed.name = "Fly / Speed Hacks"
+  offenses.fly-speed.type = BAN
+  offenses.fly-speed.durations = ["7d", "30d", "perm"]
+  [offenses.kill-aura]
+  offenses.kill-aura.name = "Kill Aura"
+  offenses.kill-aura.type = BAN
+  offenses.kill-aura.durations = ["14d", "60d", "perm"]
+  [offenses.auto-clicker]
+  offenses.auto-clicker.name = "Auto Clicker"
+  offenses.auto-clicker.type = BAN
+  offenses.auto-clicker.durations = ["7d", "30d", "perm"]
+  [offenses.macros]
+  offenses.macros.name = "Macros / Scripts"
+  offenses.macros.type = BAN
+  offenses.macros.durations = ["3d", "14d", "perm"]
+  [offenses.bots]
+  offenses.bots.name = "Bots"
+  offenses.bots.type = BAN
+  offenses.bots.durations = ["perm"]
+  [offenses.bug-abuse]
+  offenses.bug-abuse.name = "Bug Abuse"
+  offenses.bug-abuse.type = BAN
+  offenses.bug-abuse.durations = ["3d", "14d", "perm"]
+  [offenses.duping]
+  offenses.duping.name = "Item Duping"
+  offenses.duping.type = BAN
+  offenses.duping.durations = ["7d", "perm"]
+  [offenses.client-exploits]
+  offenses.client-exploits.name = "Client Exploits"
+  offenses.client-exploits.type = BAN
+  offenses.client-exploits.durations = ["14d", "perm"]
+  [offenses.alt-abuse]   # ---------------------------------------------------------------- accounts
+  offenses.alt-abuse.name = "Alt Abuse"
+  offenses.alt-abuse.type = BAN
+  offenses.alt-abuse.durations = ["7d", "perm"]
+  [offenses.ban-evasion]
+  offenses.ban-evasion.name = "Ban Evasion"
+  offenses.ban-evasion.type = BAN
+  offenses.ban-evasion.durations = ["perm"]
+  [offenses.compromised-account]
+  offenses.compromised-account.name = "Compromised Account"
+  offenses.compromised-account.type = BAN
+  offenses.compromised-account.durations = ["perm"]
+  [offenses.bad-build]   # ---------------------------------------------------------------- content
+  offenses.bad-build.name = "Inappropriate Build"
+  offenses.bad-build.type = BAN
+  offenses.bad-build.durations = ["3d", "14d", "perm"]
+  [offenses.bad-skin]
+  offenses.bad-skin.name = "Inappropriate Skin"
+  offenses.bad-skin.type = BAN
+  offenses.bad-skin.durations = ["1d", "7d"]
+  [offenses.bad-sign]
+  offenses.bad-sign.name = "Inappropriate Sign"
+  offenses.bad-sign.type = BAN
+  offenses.bad-sign.durations = ["3d", "14d"]
+  [offenses.bad-name]
+  offenses.bad-name.name = "Inappropriate Name"
+  offenses.bad-name.type = KICK
+  offenses.bad-name.durations = ["0s"]
+  [offenses.scam]   # ---------------------------------------------------------------- trading
+  offenses.scam.name = "Scamming"
+  offenses.scam.type = BAN
+  offenses.scam.durations = ["14d", "perm"]
+  [offenses.cross-trading]
+  offenses.cross-trading.name = "Cross Trading"
+  offenses.cross-trading.type = BAN
+  offenses.cross-trading.durations = ["7d", "30d"]
+  [offenses.doxxing]   # ---------------------------------------------------------------- safety
+  offenses.doxxing.name = "Sharing Personal Information"
+  offenses.doxxing.type = BAN
+  offenses.doxxing.durations = ["perm"]
+  [offenses.malware]
+  offenses.malware.name = "Malware / Rat Links"
+  offenses.malware.type = BAN
+  offenses.malware.durations = ["perm"]
+  [offenses.real-life-threats]
+  offenses.real-life-threats.name = "Real Life Threats"
+  offenses.real-life-threats.type = BAN
+  offenses.real-life-threats.durations = ["perm"]
+  [offenses.warning]   # ---------------------------------------------------------------- general
+  offenses.warning.name = "Rule Warning"
+  offenses.warning.type = WARN
+  offenses.warning.durations = ["0s"]
+
+------------------------------------------------------------------------
+orders.yml
+------------------------------------------------------------------------
+  [orders]   # /orders settings.
+  orders.max-active-default = 5   # active orders per player without a limit permission (donutrep.orders.limit.<n>)
+  orders.max-quantity-per-order = 2304   # most items one order can ask for
+  orders.allow-enchant-orders = true   # true = when ordering an item that can be enchanted, the buyer can choose which enchantments it must have
+  orders.new-menus = true   # true = the Your Orders / Edit Order / Cancel Order windows and the dialog window to choose the item;  false = the original menus (everything
+  orders.expire-days = 7   # an order that still waits for items takes no more deliveries after this many days (it stays: its owner can collect and cancel it). 0 = never
+  orders.delete-days = 90   # an order that is not fully claimed after this many days is deleted: the part nobody delivered is refunded, delivered items nobody collected 
+
+------------------------------------------------------------------------
+plus.yml
+------------------------------------------------------------------------
+  [info]   # Text printed by the info commands. Replace the placeholder links with your own.
+  [info.discord]
+  [info.twitter]
+  [info.instagram]
+  [info.tiktok]
+  [info.store]
+  [info.social]
+  [info.media]
+  [info.rules]
+  [info.ranks]
+  [rules]   # /rules opens a menu; new players must click Accept before they can move, chat or play.
+  rules.require-accept = true   # permission donutrep.bypass.rules skips the gate
+  [rules.menu]
+  [rules.menu.server]
+  rules.menu.server.material = KNOWLEDGE_BOOK
+  rules.menu.server.slot = 12
+  rules.menu.server.name = '&#00A4FCServer Rules'
+  [rules.menu.server.lore]
+  [rules.menu.chat]
+  rules.menu.chat.material = KNOWLEDGE_BOOK
+  rules.menu.chat.slot = 14
+  rules.menu.chat.name = '&#00A4FC&lChat Rules'
+  [rules.menu.chat.lore]
+  [sus]   # Anti-dupe + anti-cheat flags shown in /sus. A dupe is flagged when the same stamped item id is found twice online.
+  sus.anti-cheat = true
+  sus.max-blocks-per-second = 12.0
+  sus.max-reach-distance = 6.0
+  sus.knockback-grace-seconds = 3.0
+  sus.ore-window = 200
+  sus.ore-threshold = 0.35
+  sus.ore-minimum = 8
+  sus.alert-cooldown-seconds = 30
+  sus.alert-permission = donutrep.staff.sus
+  sus.dupe-detection = true
+  sus.dupe-scan-seconds = 5
+  enderchest-off-message = '&cEnder chests are turned off on this server.'   # shown when somebody tries to open one while features.enderchest is false
+  [safety]   # /safety opens the safety guide as a book to read - no item. give-book: true gives the book item again (it can be sold). /safety give <player> always gives it.
+  safety.give-book = false
+  [reports]   # Player reports (/report <player> <reason>): saved, shown to staff with buttons, sent to Discord (discord.yml -> discord: report:). Admins read them with /report
+  reports.enabled = true
+  reports.cooldown-seconds = 60
+  reports.min-reason-length = 3
+  reports.keep-days = 30
+  reports.notify-staff = true
+  [playmode]   # /pmo (aliases /playmode, /adminmode): an admin plays like a normal player. Every admin command of this plugin (punishments and /statswipe too) is refused and go
+  playmode.enabled = true
+  playmode.also-hide = [gamemode, give, tp, teleport, op, deop, effect, enchant, time, wea...
+  playmode.keep = []   # DonutREP commands that stay usable in play mode
+  playmode.turn-off = { vanish: true, staff-mode: true, fly: true, god: true }   # what is switched off when play mode turns on
+  playmode.message-on = '&aPlay mode is ON. &7You play like a normal player: admin commands...
+  playmode.message-off = '&eAdmin mode is back. &7Your commands work again.'
+  playmode.message-join = '&7Play mode is still &aON&7. Type &f/pmo&7 for admin mode.'
+  playmode.blocked-message = "&cPlay mode is on, so you can't use that. Type &f/pmo &cto go back...
+  [punish-menu]   # /punish <player> (without an offense) opens a menu: Light Ban, Ban, Stat Wipe, Loot Wipe (+ the old list of preset offenses), then a reason, then confirm. Each 
+  punish-menu.enabled = true   # false = /punish <player> shows the old list of preset offenses
+  punish-menu.custom-reason = true   # the "Custom reason" button (the staff member types it in chat)
+  punish-menu.actions = { lightban: true, ban: true, statswipe: true, lootwipe: true, prese...   # which buttons are shown
+  punish-menu.reasons = # the ready-made reasons (up to 27)
+  [click-buttons]   # The [ACCEPT] [DENY] buttons you can click instead of typing, for each kind of request. false = no buttons of that kind for anybody. Every player also has "Click
+  click-buttons.tpa = true   # /tpa and /tpahere requests
+  click-buttons.tphere = true   # /tphere (the same as /tpahere); false = /tphere is off, /tpahere still works
+  click-buttons.duel = true   # duel challenges
+  click-buttons.team = true   # team invitations
+  click-buttons.friend = true   # friend requests
+  [pvptop]   # /pvptop: the PvP leaderboard menu (button = FFA / duels). enabled false = the command says it is off.
+  pvptop.enabled = true
+  pvptop.default = ffa   # which board opens first: ffa | duels
+  pvptop.size = 45   # how many players are listed (up to 45)
+  [portal-hologram]   # A text above every portal (/portaladmin menu -> click a portal -> Change the hologram text). {warp} = where it leads. | in a typed text = a new line.
+  portal-hologram.enabled = true
+  portal-hologram.height = 0.8
+  portal-hologram.scale = 1.0
+  portal-hologram.default-lines = ['&5&lPortal', '&7Walk in to travel to &f{warp}']
+  [activity-log]   # The activity log (logs/activity-log.txt): what each player typed, ran, and when they joined, left or died - the menus of /logs <player> and /chatlog read it. OF
+  activity-log.enabled = false
+  [chatlog]   # logs/chat-log.txt (/chatlog): lines older than keep-days are deleted (when the server starts and once an hour). prune: false = keep everything.
+  chatlog.prune = true
+  chatlog.keep-days = 7
+  [chatmenu]   # /chat with no arguments opens the chat management menu (mute, delay, clear) for players who may use /chat. false = the old text help.
+  chatmenu.enabled = true
+  [keyhistory]   # /keyhistory (admin): every change of a player's crate keys is written to logs/key-history.log (who, how many, the new balance, the cause).
+  keyhistory.enabled = true   # false = nothing is recorded and /keyhistory says so
+  keyhistory.keep-days = 90   # older lines are dropped when the server starts
+  [anticheat]   # DonutREP's own anti-cheat (/anticheat: panel, alerts, status). Alert-only unless punish.enabled is true. A failed check adds violation points (vl) that fade (de
+  anticheat.enabled = true
+  anticheat.decay-per-second = 0.05   # 1 point fades in 20 seconds
+  anticheat.alert-cooldown-seconds = 2.0   # the same check for the same player alerts at most this often
+  anticheat.max-ping = 350   # above this ping a player is not judged
+  anticheat.min-tps = 17.0   # below this server TPS nobody is judged
+  anticheat.skip-checks-grim-covers = false   # true = with GrimAC installed, the checks listed in grim-covers are not run here (Grim already does them)
+  anticheat.grim-covers = [reach, hitbox, killaura, autoclick, fly-hover, fly-rise, speed]
+  [anticheat.punish]
+  anticheat.punish.enabled = false   # true = run the commands below once a check reaches vl (never for a first flag)
+  anticheat.punish.vl = 25
+  [anticheat.punish.commands]
+  [anticheat.checks]
+  anticheat.checks.reach = { enabled: true, leeway: 0.6, alert-vl: 1 }   # reach of the player (3.0 normal) + leeway + ping
+  anticheat.checks.hitbox = { enabled: true, tolerance: 0.4, alert-vl: 3 }   # how far outside the target's box the look direction may pass
+  anticheat.checks.killaura = { enabled: true, targets: 3, window-ms: 500, alert-vl: 2 }
+  anticheat.checks.autoclick = { enabled: true, max-cps: 22, alert-vl: 2 }
+  anticheat.checks.fly-hover = { enabled: true, hover-ticks: 25, alert-vl: 1 }
+  anticheat.checks.fly-rise = { enabled: true, max-jump: 1.35, alert-vl: 1 }   # blocks above the last ground (jump boost adds 0.5 per level)
+  anticheat.checks.speed = { enabled: true, max-bps: 9.0, alert-vl: 1 }   # blocks per second without effects; speed effects and ice scale it
+  anticheat.checks.fastbreak = { enabled: true, factor: 0.6, alert-vl: 2 }   # 0.6 = broken in less than 60 percent of the survival time
+  anticheat.checks.autototem = { enabled: true, min-ms: 100, alert-vl: 2 }
+  anticheat.checks.crystalaura = { enabled: true, max-ticks: 1, count: 3, alert-vl: 1 }
+  anticheat.checks.anchoraura = { enabled: true, min-ms: 60, alert-vl: 2 }
+  [rtpq]   # /rtpq: the players of one match (rtp-rules.queue.min-players of them) land in the same area, at most this many blocks apart.
+  rtpq.spread-radius = 16
+  [voicechat]   # Voice chat: when true (and the voicechat plugin is installed) players cannot speak until they accept /voicechatconsent.
+  voicechat.require-consent = true
+  [zones]   # Cuboid bindings (/cuboid bind <cuboid> <spawn|afk|shard|rtp-zone> true).
+  [zones.shard]
+  zones.shard.interval-seconds = 60   # one reward every this many seconds spent inside a shard cuboid
+  zones.shard.amount = 1
+  zones.shard.recent-movement-seconds = 0   # 0 = sitting idle earns; set e.g. 15 to require recent movement
+  zones.shard.reset-on-leave = true
+  [zones.rtp]
+  zones.rtp.countdown-seconds = 30   # every rtp-zone cuboid has its own countdown: everybody inside the same zone sees the same time
+  zones.rtp.continuous = false   # false = a zone with nobody inside stops and goes back to the full time; the countdown starts when somebody steps in. true = it never stops
+  zones.rtp.same-spot = true   # true = everybody inside a zone is sent to the SAME coordinates; each zone gets its own spot, never inside an rtp zone. false = everybody get
+  zones.rtp.world = ''   # blank = the player's current world
+  [nametags]   # Money shown next to other players' names (each player can turn it off in /settings).
+  nametags.money-default = true
+  [maintenance]   # Per-player limits come from permissions (the highest number a player has wins), for example: lp group default permission set donutrep.homes.20 true lp group def
+  [maintenance.weekly-cleanup]
+  maintenance.weekly-cleanup.enabled = false   # OFF by default. true = switch the weekly cleanup on
+  maintenance.weekly-cleanup.day = SUNDAY   # the day the cleanup runs
+  maintenance.weekly-cleanup.time = "18:00"   # at this time (server time, 24 hours)
+  maintenance.weekly-cleanup.warn-day = SATURDAY   # the day the first warning goes out
+  maintenance.weekly-cleanup.warn-time = "18:00"
+  maintenance.weekly-cleanup.final-warning-minutes = 10   # a second warning this many minutes before the cleanup
+  maintenance.weekly-cleanup.announce-done = true   # a message when it is finished (with the number of records removed)
+  maintenance.weekly-cleanup.discord-webhook = ''   # Discord: channel settings > Integrations > Webhooks. Blank = no Discord messages
+  maintenance.weekly-cleanup.clear = # true = this kind of note is cleared, false = kept
+  maintenance.weekly-cleanup.clear.amethyst-click-cooldowns = true
+  maintenance.weekly-cleanup.clear.spawner-bait-alert-times = true
+  maintenance.weekly-cleanup.clear.sus-alert-cooldowns = true
+  maintenance.weekly-cleanup.clear.crate-open-times = true
+  maintenance.weekly-cleanup.clear.rank-menu-state = true
+  maintenance.weekly-cleanup.clear.spawn-reasons = true
+  maintenance.weekly-cleanup.clear.ecowatch-baseline = false   # the balance /ecowatch compares with; cleared = the next check starts a new comparison
+  maintenance.weekly-cleanup.clear.sus-flags = false   # the flags /sus shows staff (evidence) - keep false unless you want them gone each week
+  [hover-stats]   # Hover stats: hover a player's name to see their money, kills, deaths, playtime and shards; click to open /stats <name>. Each place has its own switch.
+  hover-stats.chat = true   # the name in the chat
+  hover-stats.tpa = true   # the /tpa request message
+  hover-stats.tpahere = true   # the /tpahere request message
+  hover-stats.duel = true   # the duel challenge message
+  [tpa]   # /tpa and /tpahere requests
+  tpa.clickable = true   # a /tpa, /tpahere or duel request ends with clickable [ACCEPT] [DENY] buttons (like a team invitation)
+  tpa.show-world = false   # true = the request says which world the sender is in (e.g. "wants to teleport to you (Nether)")
+  [limits]
+  [limits.defaults]
+  limits.defaults.homes = 3
+  limits.defaults.auction = 5
+  limits.defaults.orders = 5
+  [features]   # Turn whole command groups off by setting them to false (all on by default). /donutrep reload applies changes.
+  features.keyafk = true   # /keyafk: players go to a key-all area (the places that give key-all keys)
+  features.import = true   # /donutrep import <v1|v2> <folder> <preview|confirm>: carry data over from an older plugin's data folder (admins only)
+  features.license = true   # /license: the license notice and the whole license as a book
+  features.chat = true
+  features.ignore = true
+  features.message = true
+  features.bounty = true
+  features.cuboid = true
+  features.afk = true
+  features.shards = true
+  features.warp = true
+  features.team = true
+  features.billford = true
+  features.home = true
+  features.leaderboards = true
+  features.nightvision = true
+  features.phantom = true
+  features.rtp = true
+  features.sell = true
+  features.settings = true
+  features.shop = true
+  features.instagram = true   # /instagram (the link is info: instagram: above) - false turns just this command off
+  features.tiktok = true   # /tiktok (info: tiktok:) - false turns just this command off
+  features.enderchest = false   # /enderchest and clicking an ender chest are OFF by default (nobody can open one, ops too). true = on. /ecsee still works for admins
+  features.gamemode = true
+  features.social = true
+  features.spawn = true
+  features.stats = true
+  features.tpa = true
+  features.tpauto = true
+  features.findplayer = true
+  features.crate = true
+  features.shardpay = false   # /shardpay (sending shards to other players) is off by default
+  features.ranks = true
+  features.rules = true
+  features.help = true
+  features.servers = true
+  features.auctionhouse = true
+  features.orders = true
+  features.pay = true
+  features.duel = true
+  features.friends = true
+  features.kill = true
+  features.spawner = true
+  features.spawnstash = true
+  features.hide = true
+  features.balance = true
+  features.top = false   # /top (an alias of /leaderboard) is off by default
+  features.prices = false   # /prices (an alias of /worth) is off by default
+  features.ah-claims = false   # /ah claims is off by default
+  features.crates-menu = false   # false (default) = players without op/admin cannot open /crates (they open a crate at its crate block, and see its rewards without a key). tr
+  features.shards-view-others = true   # /shards <player> shows another player's shards
+  features.custom-icons = false   # true = players can change the icon of their homes and of the team home
+  features.team-pvp-lock = true   # teammates cannot hit each other until /team pvp is on
+  # finer switches (1.22.12): each turns off just these commands; ops are never blocked; /donutrep reload applies
+  features.sell-gui = true   # /sell (the sell window)
+  features.sell-multiplier = true   # false = /sellmulti and /sellmultiplier are off AND every sale pays x1.0 (levels are still counted)
+  features.sell-progress = true   # /sellprogress
+  features.sell-history = true   # /sellhistory
+  features.sell-hand = true   # /sellhand
+  features.sell-all = true   # /sellall
+  features.topsell = true   # /topsell
+  features.worth = true   # /worth
+  features.shop-editor = true   # /shopedit
+  features.economy-admin = true   # /addmoney /setmoney /removemoney /addshards /setshards /removeshards
+  features.crate-parties = true   # /crateparty
+  features.keys-menu = true   # /keymenu
+  features.ah-stats = true   # /ahstats
+  features.pm = true   # /pm
+  features.language = true   # /language
+  features.playtime = true   # /playtime
+  features.ping = true   # /ping
+  features.recent = true   # /recent
+  features.new-players = true   # /newplayers
+  features.see-homes = true   # /seehomes
+  features.profile-viewer = true   # /profileviewer
+  features.team-chat = true   # /teamchat
+  features.leave = true   # /leave
+  features.teleport = true   # /teleport and /randomteleport
+  features.ffa = true   # /ffa
+  features.ffa-stats = true   # /ffastats
+  features.ffa-arenas = true   # /ffaarena
+  features.duel-arenas = true   # /duelarena and /arena
+  features.pvp = true   # /pvp
+  features.pvp-top = true   # /pvptop
+  features.draw = true   # /draw
+  features.fly = true   # /fly
+  features.fly-speed = true   # /flyspeed
+  features.heal = true   # /heal
+  features.feed = true   # /feed
+  features.god = true   # /god
+  features.vanish = true   # /vanish
+  features.freeze = true   # /freeze
+  features.invsee = true   # /invsee
+  features.staff-mode = true   # /staffmode
+  features.staff-list = true   # /stafflist
+  features.staff-chat = true   # /staffchat
+  features.helpop = true   # /helpop
+  features.report = true   # /report and /reports
+  features.rename = true   # /rename
+  features.note = true   # /note
+  features.watch = true   # /watch
+  features.sus = true   # /sus
+  features.logs = true   # /logs and /chatlog
+  features.economy-watch = true   # /ecowatch
+  features.market-watch = true   # /marketwatch
+  features.alts = true   # /alts
+  features.purchase-alerts = true   # /purchasealert
+  features.ban = true   # /ban /tempban /unban /banip /unbanip /ipbans /lightban
+  features.mute = true   # /mute /tempmute /unmute /vcmute /vcunmute
+  features.warn = true   # /warn
+  features.kick = true   # /kick
+  features.blacklist = true   # /blacklist /unblacklist
+  features.punish-history = true   # /punishhistory and /offend
+  features.border = true   # /border /bordertp /pregen
+  features.portal-manager = true   # /portalmanager
+  features.warp-manager = true   # /warpmanager
+  features.afk-menu = true   # /afkmenu
+  features.spawn-menu = true   # /spawnmenu
+  features.maintenance = true   # /maintenance
+  features.clearlag = true   # /clearlag
+  features.hologram = true   # /hologram
+  features.anticheat = true   # /anticheat
+  features.voice-chat = true   # /voicechatconsent
+  features.spawner-view = true   # /spawnerview
+  features.amethyst-tools = true   # /amethysttool
+  [sellprogress]   # Sell progression: every level (money earned from selling a category) raises that category's multiplier by `step`.
+  sellprogress.step = 0.05
+  sellprogress.levels = [25000, 150000, 500000, 1000000, 5000000, 25000000, 250000000, 5500...
+  [crates]   # Crate keys are a stored balance (no key items).
+  crates.open-mode = CHOOSE   # CHOOSE = right-click a bound crate with a key and pick the reward you want; RANDOM = random reward
+  crates.show-chance = false   # true = the reward lore in the preview says "Chance: 12.50%" (only useful in RANDOM mode; the crate editor for admins always shows it)
+  crates.show-weight = false   # true = the chance line also says "(weight 25)" (needs show-chance)
+  crates.menu-size = 27   # 27 (default) or 54: every reward sits in the slot the admin put it in (27 = one 27-slot menu; 54 = the top 45 slots for rewards, the bottom row for buttons); "classic" = the old 54-slot menus laid out by menu-layout. More rewards than fit = the classic 54-slot menu
+  crates.random-button = false   # true = a "Random reward" button under the rewards of the choose menu: the crate picks (by weight) and plays the spin
+  crates.menu-filler = true   # gray glass panes in the slots without a reward (false = empty slots)
+  crates.key-required-to-preview = false   # false (default) = click a bound crate without a key and see its rewards; true = no key, no look inside
+  crates.preview-item = true   # the reward item that floats and turns above a bound crate and changes to the next reward
+  crates.preview-cycle-ticks = 100   # ticks (20 = 1 second) between one reward and the next: 100 = 5 seconds, 200 = 10 seconds
+  crates.preview-spin = true   # the floating item turns slowly
+  crates.spin-animation = true   # the rolling menu (red panes = not this one, the green pane pair = your reward) for random opens; false = the reward at once
+  crates.auto-shop = false   # true = creating a crate (/crates, /crate create) also puts its key in /shop -> Crate keys at the price below; deleting the crate takes it ou
+  crates.auto-shop-currency = SHARD   # SHARD or MONEY
+  crates.auto-shop-price = 1000   # (the key can always be added, changed or removed by hand: crate editor -> "Add key to shop")
+  crates.spin-ticks-start = 2   # how fast the roll starts (ticks per step) ...
+  crates.spin-ticks-end = 10   # ... and how slow it ends
+  crates.menu-layout = CENTER   # where the rewards sit in the 'choose a reward' menu and the rewards preview: TOP (top left, rows from slot 0), CENTER (middle of the menu) o
+  crates.floating-tag = true   # false = only the original one-line crate name
+  [crates.tag-lines]
+  crates.tag-range = 24   # blocks: the tag is shown to players this close
+  crates.menu-slots = []   # or put every reward exactly where you want: a list of slots 0-44 (left to right, top to bottom), for example [10, 12, 14, 16, 28, 30, 32, 34
+  [afk]   # "X is now AFK" / "X is no longer AFK" broadcast to everyone.
+  afk.announce = false
+  [economy]   # No cents anywhere: prices, pay, balances and sells are whole dollars.
+  economy.whole-numbers = true
+  [worth-display]   # Worth on hover: hovering an item in your inventory or a chest adds these lines to its tooltip (needs the packetevents plugin). Tokens: {worth} price each, {tota
+  worth-display.enabled = true
+  worth-display.shulker-contents = true   # a shulker box shows the worth of everything inside it (true/false)
+  [worth-display.lines]
+  [cuboid]   # PvP is switched off inside every cuboid (set false to only protect cuboids bound to spawn).
+  cuboid.pvp-disabled = true
+  [leaderboard]   # /leaderboard (menu): team leaderboard entry
+  leaderboard.teams = true
+  [punishments]   # /ban (permanent) wipes the player's items - inventory, armour, off hand and ender chests. /lightban and /tempban never do.
+  punishments.ban-wipes-items = true
+  punishments.wipe-auctions-orders = true   # a permanent ban or a Loot Wipe also deletes everything the player has on /ah (the items are gone) and all their orders (no refund). false = 
+  punishments.ip-ban-also-bans-account = true   # /banip <player> also bans that account (so /punishments shows it); /unbanip <player> lifts both
+  punishments.ip-ban-allow-local = false   # false = 127.0.0.1 / ::1 cannot be banned (that would lock out everybody on the server machine)
+  punishments.ip-ban-message = "&c&lYour IP address is banned!\n&8&m----------------------------\n...
+  [sell-protection]   # Items with a custom name, or that went through an anvil, cannot be sold in /sell, with the sell axe or on /ah.
+  sell-protection.block-modified-items = true
+  [totem-particles]   # /settings alert switches (Pay Alerts, Auction Alerts, Order Alerts): chat lines matching these patterns (plain text, regex) are not shown to players who turned 
+  totem-particles.hide-own = true
+  [sound-triggers]   # Chat messages that also play a sound (sounds.yml: tpa-request, pay-received) - for players with Notification Sounds on and the matching alert (Teleport / Pay Al
+  [sound-triggers.tpa-request]
+  [sound-triggers.pay-received]
+  [alert-filters]
+  [alert-filters.TELEPORT_ALERTS]
+  [alert-filters.PAY_ALERTS]
+  [alert-filters.AUCTION_NOTIFICATIONS]
+  [alert-filters.ORDER_NOTIFICATIONS]
+  [spawn]   # Where players start and respawn. Spawn areas are cuboids bound to spawn (/cuboid bind <name> spawn true); /setspawn is the fallback.
+  spawn.first-join-rtp = false   # true = brand new players are dropped at a random location; false = they start at spawn
+  spawn.respawn-rtp = false   # true = after dying players are dropped at a random location
+  spawn.random-spawn-area = true   # (when the two rtp switches above are off) players joining or respawning go to a random spawn area that is not full
+  spawn.area-capacity = 200   # a spawn area with this many players inside counts as full
+  spawn.respawn-on-bed = false   # true = a bed or respawn anchor still counts when you die
+  spawn.rtp-world = ''   # world for the join / respawn rtp ('' = the world the player is in)
+  spawn.first-join-delay-ticks = 20
+  [spawn.messages]
+  spawn.messages.searching = '&7Finding you a safe place to start...'
+  spawn.messages.welcome = '&aWelcome! You spawned at &fX:{x} Y:{y} Z:{z}&a.'
+  spawn.messages.respawn-searching = '&7Finding you a safe place to respawn...'
+  spawn.messages.respawned = '&aYou respawned at &fX:{x} Y:{y} Z:{z}&a.'
+  spawn.messages.failed = '&cCould not find a random location for you.'
+  [rtp-rules]   # Limits for /rtp and /rtpq.
+  rtp-rules.cooldown-seconds = 8   # wait this long between two /rtp
+  rtp-rules.countdown-seconds = 5   # /rtp: "stay still for N seconds", then the teleport. Moving cancels it. 0 = teleport at once
+  rtp-rules.countdown-bypass = false   # false (default) = EVERYONE waits, ops and admins too. true = players with the permission donutrep.bypass.rtpcountdown skip the countdown (an
+  rtp-rules.show-search = false   # true = also show "looking for a safe spot" (chat + action bar) and "safe spot found" after the countdown. false (default) = only the countdo
+  rtp-rules.search-min-ticks = 30   # after the countdown the "looking for a safe spot" display stays at least this long (20 ticks = 1 second), even when a spot is ready at once.
+  rtp-rules.found-ticks = 20   # then "safe spot found" shows this long before the teleport. 0 = teleport as soon as a spot is found
+  rtp-rules.messages = # the words of /rtp ({seconds}, {world}, {elapsed} are filled in)
+  rtp-rules.messages.warning = '&eStay still for &b{seconds}&e seconds or the teleport is called o...
+  rtp-rules.messages.countdown = '&7Teleporting in &b{seconds}s'
+  rtp-rules.messages.cancelled = '&cTeleport cancelled because you moved.'
+  rtp-rules.messages.cancelled-bar = '&cTeleport cancelled'
+  rtp-rules.messages.searching = '&aLooking for a safe spot in {world}...'
+  rtp-rules.messages.search-bar = '&7Looking in {world}... &b{elapsed}s'
+  rtp-rules.messages.found-bar = '&aSafe spot found in {world}! &7Getting ready to teleport...'
+  rtp-rules.block-in-combat = true   # no /rtp or /rtpq while combat tagged
+  rtp-rules.queue-rejoin-wait-seconds = 60   # someone who left the /rtpq queue must wait this long before joining it again
+  [rtp-rules.queue]
+  rtp-rules.queue.min-players = 2   # /rtpq waits until this many players are waiting
+  rtp-rules.queue.countdown-seconds = 8   # then it counts down; every player who joins restarts the countdown
+  [teamchat]   # Team chat: /teamchat <message> (or /tc) writes to your team only; /teamchat alone switches team chat mode on or off. A team member who turned "Team Chat Visibil
+  teamchat.spy = true   # false = the spy switch is gone
+  teamchat.log = true
+  teamchat.format = '&b[Team] &f{player}&7: &f{message}'   # {player} {team} {message}
+  teamchat.enabled = '&7Team chat is on: everything you type goes to your team. Type &f/...
+  teamchat.disabled = '&7Team chat is off: you are back in the public chat.'
+  teamchat.no-team = '&cYou are not in a team. Create one with /team create <name>.'
+  teamchat.not-allowed = '&cYou can''t use team chat.'   # the team leader can switch CHAT off for a member in /team settings
+  [clearlag]   # Clear lag: dropped items are removed every few minutes, with a countdown in chat (a player can hide those messages: /settings -> Clear Entities Messages). /clea
+  clearlag.enabled = true
+  clearlag.every-minutes = 5
+  clearlag.show-countdown = false   # true = the countdown shows in chat before each cleanup (the cleanup itself always runs); players can hide it in /settings
+  clearlag.show-result = false   # true = chat says how many entities were cleared
+  clearlag.warn-seconds = [60, 30, 10, 5, 4, 3, 2, 1]   # the countdown shows at these seconds before a cleanup (show-countdown)
+  clearlag.dropped-items = true
+  clearlag.min-item-age-seconds = 60   # an item younger than this stays, so what was just dropped is not wiped
+  clearlag.animals = false
+  clearlag.monsters = false
+  clearlag.excluded-worlds = [duels]
+  clearlag.exclude-death-drops = true   # the loot of a player who died is never cleared: it stays until the game's own despawn (5 minutes)
+  clearlag.exclude-named = true   # named items and mobs stay
+  clearlag.exclude-tamed = true
+  clearlag.exclude-villagers = true
+  clearlag.excluded-entity-types = []   # e.g. ALLAY, IRON_GOLEM
+  clearlag.excluded-item-materials = []   # e.g. NETHERITE_INGOT, ELYTRA
+  [clearlag.messages]
+  clearlag.messages.countdown = '&7Clearing dropped items in &b{seconds}s&7...'
+  clearlag.messages.success = '&7Cleared &b{total} &7dropped items and entities.'
+  [zone-protection]   # Cuboid binds that protect an area (bind types: spawn, afk, shard, rtp-zone, rtp-queue).
+  zone-protection.build = [spawn, rtp-zone, rtp-queue, shard]   # no placing or breaking blocks
+  zone-protection.drop = [spawn, afk, rtp-zone, rtp-queue, shard]   # no dropping items
+  zone-protection.pvp = [spawn, rtp-zone, rtp-queue, shard]   # no PvP (cuboid.pvp-disabled: true switches PvP off inside every cuboid)
+  [randomized-coords]   # Randomized Coords (/settings): while on, the coordinates DonutREP shows a player (scoreboard {coords}, the location after /rtp) are shifted by a random X / Z of
+  randomized-coords.kick-on-toggle = true
+  randomized-coords.min-offset = 1000
+  randomized-coords.max-offset = 50000
+  [areas]   # Teleport points of the afk and spawn cuboids (/setafk <cuboid>, /setspawn <cuboid>, /afkmenu, /spawnmenu).
+  areas.max-points = 20   # at most this many teleport points for one cuboid
+  areas.point-mode = random   # random = a player lands on a random point of the cuboid | order = one point after the other (a cuboid can change it in /afkmenu)
+  areas.show-names = false   # true = the /afk and /spawn menus show the name of the cuboid instead of AFK #1, Spawn #1
+  [newplayers]   # Staff tools for new players and for tailing a suspect.
+  newplayers.enabled = true   # /newplayers and the new-player notices
+  newplayers.hours = 2   # a player is new for this many hours after the first join
+  newplayers.notify-staff = true   # a chat line for staff (donutrep.staff.newplayers) when somebody joins for the first time
+  [recent]
+  recent.enabled = true   # /recent: the last players you teleported to, live
+  recent.size = 5   # how many (1-9); the oldest drops off when a new one is added
+  [watch]
+  watch.enabled = true   # /watch <player>: an alert when they teleport
+  watch.spectate = true   # /watch also puts you in spectator mode on them (stop = your old game mode back)
+  watch.auto-follow = true   # after they teleport a spectating staff member is put on them again, across worlds too
+  watch.min-distance = 8   # a teleport shorter than this many blocks is not reported
+
+------------------------------------------------------------------------
+pvp.yml
+------------------------------------------------------------------------
+  [combat]   # Combat tag: hitting or being hit by a player starts the timer. Leaving while tagged kills the player.
+  combat.enabled = true
+  combat.seconds = 20
+  combat.kill-on-logout = true
+  combat.leave-kills = true   # /leave, /ffa leave or /pvp leave while combat tagged kills the player
+  combat.action-bar = '&fCombat: &b{time}s'
+  combat.block-message = "&cYou can't use this command in your current status."
+  combat.exclude-duels = true   # fights inside /duel never combat-tag (set false to test combat with /duel)
+  combat.excluded-worlds = [duels]
+  [combat.block-commands]
+  [fast-crystals]   # Fast Crystals (the /settings switch). ON = place end crystals as fast as you click, OFF = wait between placements.
+  fast-crystals.enabled = true
+  fast-crystals.default-player-state = true   # what the /settings switch is before a player touches it
+  fast-crystals.excluded-worlds = [duels]
+  [fast-crystals.place]
+  fast-crystals.place.enabled-cooldown-ticks = 0
+  fast-crystals.place.disabled-cooldown-ticks = 8
+  fast-crystals.place.debounce-ms = 40   # clicks closer together than this count once
+  fast-crystals.place.require-valid-base = true
+  fast-crystals.place.valid-bases = [OBSIDIAN, BEDROCK]
+  fast-crystals.place.require-air-above = true
+  fast-crystals.place.require-air-two-above = true
+  [fast-crystals.break]
+  fast-crystals.break.clear-cooldown-after-hit = true   # hitting a crystal lets you place the next one at once
+
+------------------------------------------------------------------------
+quickshop.yml
+------------------------------------------------------------------------
+  [quickshop]   # ============================================================================================================ /shop modes - ONE command, three shops. Exactly ONE
+  quickshop.classic = true
+  quickshop.auction = false
+  quickshop.survival = false
+  quickshop.dialog-columns = 3   # The item list of the Choose Item window (QuickShop, orders): how many columns. 3 fits most screens; use 4 on a small GUI scale (a wide windo
+  quickshop.enchant-dialog = GRID   # Choose Enchantments window (QuickShop, orders): GRID (default) = a button for every level; COMPACT = a name button and one level button per enchantment
+  quickshop.enchant-name-width = 115   # button widths of the enchantment window (smaller = it fits a bigger GUI scale)
+  quickshop.enchant-level-width = 30
+  quickshop.enchant-button-width = 100   # Back / Skip / Continue / Cancel
+  [quickshop.auction-shop]   # QuickShop (auction: true)
+  quickshop.auction-shop.confirm = false   # false = a click on a saved item buys at once; every player can turn it off for themselves in /settings (Player: QuickShop Auto Buy) true  = 
+  quickshop.auction-shop.allow-bigger-listings = false   # /ah sells a whole listing. A listing bigger than the amount you still need is skipped. true = it may be bought anyway when nothing smaller f
+  quickshop.auction-shop.dialogs = true   # true = the item picker uses Minecraft dialog windows (Paper 1.21.7 and newer); false = chest menus. Spigot and CraftBukkit always use chest 
+  quickshop.auction-shop.max-items = 45   # how many items a player can save (the window has 45 slots)
+  [quickshop.survival-shop]   # Survival shop (survival: true)
+  quickshop.survival-shop.times-max-sell = 2.0   # price of an item = its /sell worth x the highest sell multiplier the server allows (1 + levels x step = 2.0 in plus.yml sellprogress) x this
+  quickshop.survival-shop.max-per-purchase = 64   # the most one purchase can buy (the amount window)
+  quickshop.survival-shop.enchantments = true   # true = a click on something that can be enchanted (tools, armor, weapons) first opens the Choose Enchantments window (servers with dialogs o
+
+------------------------------------------------------------------------
+ranks.yml
+------------------------------------------------------------------------
+  [ranks]   # Ranks shown next to names in chat, the tab list and the scoreboard. A player has a rank when they are in that LuckPerms group (the group.<name> permission). The
+  ranks.enabled = true
+  ranks.auto-groups = true   # a LuckPerms group that is not in ranks.yml shows too (name and tag from its LuckPerms prefix); the group with the highest LuckPerms weight wins (/lp group <name> setweight <number>)
+  ranks.auto-exclude = [default]   # LuckPerms groups that never show as a rank
+  ranks.auto-style = PREFIX   # how an unlisted group looks: PREFIX, DISPLAY (display name) or NAME (group name)
+  ranks.auto-add = true   # a LuckPerms group that is not in groups: gets an entry written into ranks.yml (once, checked every minute; a deleted entry stays gone because plugins/DonutREP/ranks-added.yml remembers it)
+  ranks.staff-first = []   # groups that always beat the others, best first, for example [owner, admin, mod, helper]
+  ranks.chat = true   # show the tag in chat
+  ranks.tab = true   # show the tag in the tab list
+  ranks.nametag = true   # show the tag next to the name above the player's head (next to the money tag)
+  ranks.chat-format = '&f{name}{rank} &8» &f{message}'   # tokens: {name} {rank} {money} {message}. {rank} is the tag (with a space in front) or nothing.
+  ranks.tab-format = '&f{name}{rank}'
+  [ranks.default]   # shown on the scoreboard for players who are in none of the groups below
+  ranks.default.name = '&7Member'
+  [ranks.store-book]   # the book in /ranks that tells players where to buy ranks
+  ranks.store-book.enabled = true
+  ranks.store-book.slot = 22
+  ranks.store-book.name = '&6Buy Ranks'
+  [ranks.store-book.lines]
+  [ranks.groups]
+  [ranks.groups.media]
+  ranks.groups.media.name = '&dMedia'
+  ranks.groups.media.tag = '&d✦'
+  [ranks.groups.donutplusplusplus]
+  ranks.groups.donutplusplusplus.name = '&fDonut&#00A4FC+++'
+  ranks.groups.donutplusplusplus.tag = '&#00A4FC+++'
+  [ranks.groups.donutplusplus]
+  ranks.groups.donutplusplus.name = '&fDonut&#00A4FC++'
+  ranks.groups.donutplusplus.tag = '&#00A4FC++'
+  [ranks.groups.donutplus]
+  ranks.groups.donutplus.name = '&fDonut&#00A4FC+'
+  ranks.groups.donutplus.tag = '&#00A4FC+'
+
+------------------------------------------------------------------------
+rtp.yml
+------------------------------------------------------------------------
+  [rtp]   # /rtp, /rtpq and rtp-zone cuboids: how far from the world's centre (0, 0) a player can land. Set a range per world. Worlds that are not listed use the default. E
+  [rtp.default]
+  rtp.default.min-radius = 200
+  rtp.default.max-radius = 5000
+  [rtp.worlds]
+  rtp.worlds.world = { min-radius: 200, max-radius: 5000 }
+  rtp.worlds.world_nether = { min-radius: 100, max-radius: 2000 }
+  rtp.worlds.world_the_end = { min-radius: 100, max-radius: 1000 }
+
+------------------------------------------------------------------------
+scoreboard.yml
+------------------------------------------------------------------------
+  [scoreboard]   # Sidebar scoreboard. Lines may use &, &#rrggbb and these tokens: {rank} {money} {shards} {kills} {deaths} {playtime} {ping} {pingcolor} {region} {team} {x} {y} {
+  scoreboard.region = 'NA East'   # shown by {region} (a server cannot detect its own region - write it here)
+  scoreboard.ping-good-ms = 100   # {pingcolor} is green up to this ping
+  scoreboard.ping-ok-ms = 200   # yellow up to this ping, red above
+  scoreboard.show-keyall = true   # adds a key-all countdown line (or put {keyall} in your own line)
+  scoreboard.keyall-line = '&#00A4FC⌛ &fkeyall &#00A4FC{keyall}'
+  scoreboard.show-coords = false   # true adds a coordinates line (or put {coords} in your own line)
+  scoreboard.coords-line = '&#00A4FC⌖ &fxyz &#00A4FC{coords}'
+  scoreboard.player-line-switches = true   # true: each player can hide their own lines in /settings (money, shards, kills, deaths, playtime, team, key-all, rank, ping); false: everybod
+  scoreboard.enabled = true
+  scoreboard.title = '&b&lCosmic SMP'
+  scoreboard.update-ticks = 20
+  [scoreboard.lines]
+
+------------------------------------------------------------------------
+seed-protection.yml
+------------------------------------------------------------------------
+  [seed-protection]   # Seed protection: makes it harder to find out your world seed (seed cracking).  The server sends every player a "hashed seed" when they join and respawn. Seed cr
+  seed-protection.enabled = true
+  seed-protection.fake-hashed-seed = true
+  seed-protection.rotate-minutes = 30   # a player's fake value changes this often (0 = it never changes while the server runs)
+  seed-protection.salt = ''   # made automatically on the first start - the secret that the fake values are made from. Keep it private.
+  seed-protection.anti-xray = true   # true = DonutREP switches Paper's anti-xray on in config/paper-world-defaults.yml when it is off (a backup is kept; restart once). It hides o
+  seed-protection.anti-xray-engine-mode = 2   # 1 = ores are replaced by stone (lighter), 2 = fake ores are mixed in (hides more, a bit heavier)
+  seed-protection.startup-check = true   # false = no warning block in the console
+
+------------------------------------------------------------------------
+server-wipe.yml
+------------------------------------------------------------------------
+  [server-wipe]   # /serverwipe replaces ONLY the worlds listed here (folder names). The default world, spawn/warp/portal worlds and crate worlds are always refused, as are any in 
+  server-wipe.reset-worlds = []
+  server-wipe.protected-worlds = []
+
+------------------------------------------------------------------------
+shop.yml
+------------------------------------------------------------------------
+  [market]   # ═══════════════════════════════════════════════════════════════════════════════ MARKET - the /shop catalog: same categories at the same GUI slots, same items at
+  [market.gui]
+  market.gui.title = "&8shop"
+  market.max-quantity-per-transaction = 64
+  [market.categories]
+  [market.categories.end]
+  [market.categories.nether]
+  [market.categories.gear]
+  [market.categories.food]
+  [market.categories.shard]
+  [market.categories.cratekeys]
+  [market.menus]
+  [market.menus.end]
+  [market.menus.nether]
+  [market.menus.gear]
+  [market.menus.food]
+  [market.menus.shard]
+  [market.menus.cratekeys]
+  (... 81 more settings inside - open the file; they follow the same layout)
+
+------------------------------------------------------------------------
+sounds.yml
+------------------------------------------------------------------------
+  [sounds]   # Sounds DonutREP+ plays. Each value is  sound|volume|pitch  (sound names like entity.player.levelup). Blank = no sound. sounds.enabled: false silences all of the
+  sounds.enabled = true
+  sounds.menu-click = ''   # played when any button in a DonutREP menu is clicked, e.g. ui.button.click|0.5|1.0
+  sounds.shop-success = 'entity.experience_orb.pickup|1.0|1.0'
+  sounds.shop-error = 'entity.villager.no|1.0|1.0'
+  sounds.crate-claim = 'entity.player.levelup|0.8|1.2'
+  sounds.key-all = 'entity.player.levelup|1.0|1.2'
+  sounds.rules-accept = 'entity.player.levelup|1.0|1.2'
+  sounds.friend-request = 'entity.experience_orb.pickup|1.0|1.4'
+  sounds.friend-follow = 'entity.experience_orb.pickup|1.0|1.2'
+  sounds.tpa-request = 'block.note_block.pling|1.0|1.4'   # somebody sent you /tpa or /tpahere
+  sounds.pay-received = 'entity.experience_orb.pickup|1.0|1.0'   # somebody paid you
+  sounds.enderchest-open = 'block.ender_chest.open|1.0|1.0'
+  sounds.enderchest-close = 'block.ender_chest.close|1.0|1.0'
+
+------------------------------------------------------------------------
+spawn-bedrock.yml
+------------------------------------------------------------------------
+  [SETTINGS]   # /spawnbedrock - plants bait bedrock where you look, to catch xray users. Xray shows bedrock sitting in solid stone, so xray users dig straight to it. Breaking b
+  SETTINGS.ENABLED = true
+  SETTINGS.BLOCKS = 2   # pieces of bedrock placed each time (1-8)
+  SETTINGS.DEFAULT_SECONDS = 60   # bait bedrock and ore veins vanish by themselves after this many seconds. 0 = stays until removed. /spawnbedrock <seconds>, /spawndiamond <se
+  SETTINGS.ALERT_RADIUS = 3.0   # bedrock baits - blocks: breaking anything this close to a bait counts
+  SETTINGS.ALERT_COOLDOWN_SECONDS = 30
+  SETTINGS.FLAG_IN_SUS = true   # also adds a "possible xray" flag in /sus
+  SETTINGS.RESTORE_ON_SHUTDOWN = false   # true = baits are removed (original blocks put back) when the server stops
+  [ORE]   # /spawndiamond (/spawndia) and /spawnancientdebris (/spawnad) hide a small random vein of ore inside the rock you look at. A player who mines one of those blocks
+  ORE.DIAMOND = { MIN: 3, MAX: 8 }   # vein size
+  ORE.ANCIENT_DEBRIS = { MIN: 1, MAX: 3 }
+  ORE.DROP_ITEMS = true   # false = the bait ore drops nothing when mined
+  ORE.REPLACEABLE = [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, NETHERRACK, BA...
+  [MESSAGES]
+  MESSAGES.NOT-ROCK = '&cLook at stone, deepslate or another rock block first.'
+  MESSAGES.VEIN-PLACED = '&aHid a &f{kind} &avein of &f{amount} &ablocks ({ids}) - lasts {tt...
+  MESSAGES.USAGE = '&cUsage: /spawnbedrock [seconds|list|remove [id]|clear|reload]'
+  MESSAGES.NO-PERMISSION = '&cYou do not have permission to do that.'
+  MESSAGES.DISABLED = '&cspawnbedrock is disabled.'
+  MESSAGES.PLAYER-ONLY = '&cOnly players can place bedrock.'
+  MESSAGES.LOOK-AT-BLOCK = '&cLook at a block (within 8 blocks) first.'
+  MESSAGES.NOTHING-PLACED = '&cThere was no solid block to turn into bedrock there.'
+  MESSAGES.PLACED = '&aPlaced &f{amount} &abait bedrock ({ids}) - lasts {ttl}.'
+  MESSAGES.REMOVED = '&aRemoved bait &f{id}&a and put the original block back.'
+  MESSAGES.REMOVED-LAST = '&aRemoved the &f{amount} &abait bedrock you just placed.'
+  MESSAGES.CLEARED = '&aRemoved &f{amount} &abait bedrock.'
+  MESSAGES.NOT-FOUND = '&cNo bait with that id. Use /spawnbedrock list.'
+  MESSAGES.NONE = '&7There is no bait bedrock.'
+  MESSAGES.RELOADED = '&aspawnbedrock settings reloaded.'
+
+------------------------------------------------------------------------
+spawn-stash.yml
+------------------------------------------------------------------------
+  [SETTINGS]
+  SETTINGS.ENABLED = true
+  SETTINGS.DEFAULT_TTL_SECONDS = 900   # how long a stash stays before it is put back
+  SETTINGS.DEFAULT_ALERT_RADIUS = 8.0   # staff are told when someone is this close to a stash block
+  SETTINGS.ALERT_COOLDOWN_SECONDS = 30
+  SETTINGS.CHECK_INTERVAL_TICKS = 20
+  SETTINGS.OVERWRITE_BLOCKS = true
+  SETTINGS.PROTECT_BLOCKS = false
+  SETTINGS.CLAIM_SPAWNERS_ON_BREAK = false
+  SETTINGS.ROLLBACK_ON_RELOAD = true
+  SETTINGS.LOG_TO_CONSOLE = true
+  SETTINGS.MAX_BLOCKS_PER_STASH = 256
+  [MESSAGES]
+  [MESSAGES.USAGE]
+  MESSAGES.SPAWNED = "&aStash {type} is up. &7(id {id})"
+  MESSAGES.REMOVED = "&aStash &f#{id} &aremoved."
+  MESSAGES.REMOVED-ALL = "&aRemoved &f{count}&a active stash(es)."
+  MESSAGES.EXPIRED = "&7Stash #{id} timed out and was put back."
+  MESSAGES.RELOADED = "&aSpawn stash settings reloaded."
+  MESSAGES.DISABLED = "&cSpawn stashes are turned off."
+  MESSAGES.PLAYER-ONLY = "&cOnly players can use this command."
+  MESSAGES.NO-PERMISSION = "&cYou do not have permission."
+  MESSAGES.NO-ACTIVE = "&cNo active stash found."
+  MESSAGES.BLOCKED-BREAK = "&cThis stash is protected. Use &f/spawnstash remove nearest &cto p...
+  MESSAGES.SPAWNER-CLAIMED = "&aYou took &f{amount}x {spawner}&a from a stash."
+  MESSAGES.SPAWNER-CLAIMED-DROPPED = "&aYou took &f{amount}x {spawner}&a. &7Your inventory is full, so i...
+  MESSAGES.INVALID-TYPE = "&cUnknown stash type '&f{type}&c'. Use &f/spawnstash list&c."
+  MESSAGES.INVALID-CONFIG = "&cThe spawn stash config is not valid: &f{reason}&c."
+  [MESSAGES.ALERT]
+  MESSAGES.ALERT-HOVER = "&eClick to teleport to &f{player}"
+  [TYPES]
+  [TYPES.1]
+  TYPES.1.ENABLED = true
+  TYPES.1.DISPLAY_NAME = "&dburied geode"
+  TYPES.1.TTL_SECONDS = 900
+  TYPES.1.ALERT_RADIUS = 8.0
+  TYPES.1.PASTE_OFFSET = [0, 0, 0]
+  [TYPES.1.BLOCKS]
+  [TYPES.2]
+  TYPES.2.ENABLED = true
+  TYPES.2.DISPLAY_NAME = "&5collapsed vault"
+  TYPES.2.PASTE_OFFSET = [0, 0, 0]
+  [TYPES.2.BLOCKS]
+  [TYPES.3]
+  TYPES.3.ENABLED = true
+  TYPES.3.DISPLAY_NAME = "&aflooded mine shaft"
+  TYPES.3.PASTE_OFFSET = [0, 0, 0]
+  [TYPES.3.BLOCKS]
+  [TYPES.4]
+  TYPES.4.ENABLED = true
+  TYPES.4.DISPLAY_NAME = "&cnether outpost"
+  TYPES.4.PASTE_OFFSET = [0, 0, 0]
+  [TYPES.4.BLOCKS]
+  [TYPES.5]
+  TYPES.5.ENABLED = true
+  TYPES.5.DISPLAY_NAME = "&dend archive"
+  TYPES.5.TTL_SECONDS = 1200
+  TYPES.5.ALERT_RADIUS = 10.0
+  TYPES.5.PASTE_OFFSET = [0, 0, 0]
+  [TYPES.5.BLOCKS]
+
+------------------------------------------------------------------------
+spawners.yml
+------------------------------------------------------------------------
+  [SETTINGS]   # Spawner config. TYPES at the bottom lists each spawner kind with its loot table and icon.
+  SETTINGS.ENABLED = true
+  SETTINGS.STORAGE_SPAWNERS = true   # true = no mobs; each spawner fills a storage menu with loot (filter, sell all, collect all, drop loot)
+  SETTINGS.MOB_SPAWNERS = false   # true = spawners spawn real mobs like vanilla, with no menu or storage
+  SETTINGS.SPAWNER_LIST_COMMAND = false   # true = /spawner without arguments lists the spawners you placed (world, coords, type, amount); click one to open it.
+  SETTINGS.ACCESS_MODE = PUBLIC   # If both modes are true or both false you get an error and storage mode is used.
+  SETTINGS.ALLOW_SPAWNER_STEAL = true
+  SETTINGS.ALLOW_STEALING = true
+  SETTINGS.GENERATION_INTERVAL_SECONDS = 5
+  SETTINGS.PROCESS_ONLY_LOADED_CHUNKS = true
+  SETTINGS.REQUIRE_PLAYER_NEARBY = false
+  SETTINGS.PLAYER_NEARBY_RADIUS = 16
+  SETTINGS.MAX_STACK_PER_BLOCK = 100000
+  SETTINGS.STORAGE_CAP_PER_LOOT_KEY = 1000000
+  SETTINGS.DROP_ON_BREAK_IF_INVENTORY_FULL = true
+  SETTINGS.REQUIRE_SILK_TOUCH = true
+  SETTINGS.CANCEL_MOB_SPAWN = true
+  SETTINGS.SHOW_STACK_ON_LOOK = true   # shows the stack size above the hotbar while you look at a spawner (6 blocks)
+  SETTINGS.DROP_MODE = THROW   # Drop-loot button. THROW = items fly out of you in the direction you face (land 1-2 blocks ahead). PLACE = they appear in front of the spawne
+  SETTINGS.DROP_THROW_SPEED = 0.35   # THROW: toss strength (0.35 normal, higher = further)
+  SETTINGS.DROP_THROW_HEIGHT = 1.2   # THROW: height above your feet the items start at (1.2 = chest)
+  SETTINGS.DROP_PICKUP_DELAY_TICKS = 10   # ticks before dropped loot can be picked up (20 = 1 second, 10 = vanilla)
+  SETTINGS.DROP_MAX_DISTANCE = 2   # PLACE only: how many blocks in front of the spawner (on your side) the loot appears (0 = at your feet)
+  SETTINGS.STORAGE_MAX_DISTANCE = 6   # distance in blocks; walk further than this and the open storage closes (0 = unlimited)
+  SETTINGS.MOB_STACK_MULTIPLIER = true   # Mob mode (MOB_SPAWNERS: true): stacking still works (right-click with the same spawner, sneak to add 64) and every extra spawner adds one mo
+  SETTINGS.MOB_STACK_MAX_EXTRA = 15   # cap on the extra mobs one spawn can add
+  SETTINGS.XP_ENABLED = false
+  [SHOP]   # Spawner shop (/spawners shop and the Buy button of /spawners). CURRENCY: SHARD = Donut Shards, MONEY = Vault money.
+  SHOP.ENABLED = true
+  SHOP.CURRENCY = SHARD
+  SHOP.DEFAULT_PRICE = 1500   # price for any type not listed below (0 = not sold)
+  SHOP.PRICES = {}   # per-type prices, e.g.  PIG: 1000  ZOMBIE: 2500  IRON_GOLEM: 10000
+  [MESSAGES]
+  MESSAGES.LOOK-STACK = '&e{amount}x &f{type} &7Spawners'
+  MESSAGES.LIST-DISABLED = '&cThe spawner list is switched off. Click one of your spawners to ...
+  MESSAGES.MODE-CONFLICT = '&c[Spawners] STORAGE_SPAWNERS and MOB_SPAWNERS are both {state} in...
+  MESSAGES.PLACED = '&aYou placed &f{amount}x {type}&a.'
+  MESSAGES.STACKED = '&aThis stack now holds &f{amount}&a spawners.'
+  MESSAGES.PICKED-UP = '&aYou took back &f{amount}x {type}&a.'
+  MESSAGES.REMOVED = '&aRemoved &f{amount}x {type}&a.'
+  MESSAGES.REMOVED-ADMIN = '&aThat spawner is gone.'
+  MESSAGES.GAVE-SPAWNER = '&aGave &f{amount}x {type}&a to &f{player}&a.'
+  MESSAGES.RECEIVED-SPAWNER = '&aYou got &f{amount}x {type}&a.'
+  MESSAGES.COLLECTED = '&aTook &f{amount}x {item}&a out of storage.'
+  MESSAGES.COLLECTED-ALL = '&aTook &f{amount}&a items out of this spawner.'
+  MESSAGES.DROPPED-PAGE = '&aDropped &f{amount}&a items from this page on the ground.'
+  MESSAGES.SOLD = '&aSold &f{amount}&a items and earned {price}&a.'
+  MESSAGES.COLLECTED-XP = '&aYou collected &f{amount} &aXP!'
+  MESSAGES.RELOADED = '&aSpawner config reloaded.'
+  MESSAGES.SPLIT-SUCCESS = '&aSplit off &f{amount}x &aspawners. &7You still hold: &f{remaining...
+  MESSAGES.FILTER-ENABLED-ALL = '&aThis spawner now stores every drop.'
+  MESSAGES.FILTER-DISABLED-ALL = '&cThis spawner stores no drops now.'
+  MESSAGES.FILTER-TOGGLED = '&f{item} &ais now {status}&a.'
+  MESSAGES.FILTER-STATUS-ENABLED = '&aOn &7(stored)'
+  MESSAGES.FILTER-STATUS-DISABLED = '&cOff &7(not stored)'
+  MESSAGES.TELEPORTED = '&aTook you to the spawner at &f{x}, {y}, {z}&a in &f{world}&a.'
+  MESSAGES.DISABLED = '&cSpawners are switched off right now.'
+  MESSAGES.NOT-SPAWNER-ITEM = '&cThat item is not a spawner.'
+  MESSAGES.INVALID-AMOUNT = '&cThis spawner item has a broken amount.'
+  MESSAGES.MAX-STACK-EXCEEDED = '&cA block can hold at most &f{max}&c spawners.'
+  MESSAGES.ALREADY-AT-MAX-STACK = '&cThat block already holds the maximum (&f{max}&c).'
+  MESSAGES.ALREADY-SPAWNER = '&cThere is already a spawner on that block.'
+  MESSAGES.NOT-OWNER = '&cThat spawner belongs to someone else.'
+  MESSAGES.NO-ACCESS = '&cYou are not allowed to use that spawner.'
+  MESSAGES.NO-BREAK-PERMISSION = '&cYou may not break that spawner.'
+  MESSAGES.SILK-TOUCH-REQUIRED = '&cBreak spawners with a Silk Touch tool.'
+  MESSAGES.TYPE-MISMATCH = '&cOnly spawners of the same type can stack on this block.'
+  MESSAGES.HOLD-TO-STACK = '&cHold a spawner item in your hand to stack it.'
+  MESSAGES.NOT-MANAGED-SPAWNER = '&cThat is not one of our spawners.'
+  MESSAGES.NOT-FOUND = '&cNo such spawner.'
+  MESSAGES.UNKNOWN-TYPE = '&cThere is no spawner type called ''&f{type}&c''.'
+  MESSAGES.SAVE-FAILED = '&cCould not save that spawner. Try again.'
+  MESSAGES.INVENTORY-FULL = '&cNo room in your inventory.'
+  MESSAGES.LOOT-EMPTY = '&cThere is nothing left of that loot.'
+  MESSAGES.NO-SPACE = '&cNo room to take the spawner loot.'
+  MESSAGES.NO-LOOT-ON-PAGE = '&cNothing is stored on this page.'
+  MESSAGES.NO-SELLABLE-ITEMS = '&cThis spawner holds nothing you can sell.'
+  MESSAGES.SELL-FAILED = '&cThe payout for the sale failed.'
+  MESSAGES.XP-DISABLED = '&cXP collecting is off on this server.'
+  MESSAGES.NO-XP-STORED = '&cThis spawner has no XP stored.'
+  MESSAGES.WORLD-NOT-LOADED = '&cThat spawner''s world is not loaded.'
+  MESSAGES.TEMP-REGISTERED = '&aTemporary spawner added.'
+  MESSAGES.TEMP-REMOVED = '&aTemporary spawner taken away.'
+  MESSAGES.TEMP-CANNOT-STACK = '&cTemporary spawners do not stack.'
+  MESSAGES.TEMP-NEEDS-PLAYER-BLOCK = '&cA temporary spawner needs a player and a block.'
+  MESSAGES.NO-PANEL-PERMISSION = '&cYou may not open the spawner admin panel.'
+  MESSAGES.NO-GIVE-PERMISSION = '&cYou may not give out spawners.'
+  MESSAGES.NO-RELOAD-PERMISSION = '&cYou may not reload the spawners.'
+  MESSAGES.NO-REMOVE-PERMISSION = '&cYou may not remove spawners.'
+  MESSAGES.PLAYER-ONLY = 'Only players can do this.'
+  MESSAGES.TARGET-NOT-ONLINE = '&cThat player has to be online.'
+  MESSAGES.PLAYER-NOT-ONLINE = '&c''&f{player}&c'' has to be online.'
+  MESSAGES.AMOUNT-POSITIVE = '&cThe amount must be above zero.'
+  MESSAGES.AMOUNT-INVALID = '&cType a whole number above zero.'
+  MESSAGES.AMOUNT-GREATER-THAN-ZERO = '&cThe amount must be above zero.'
+  MESSAGES.CREATE-ITEM-FAILED = '&cCould not make the spawner item.'
+  MESSAGES.GIVE-USAGE = 'Usage: /{label} give <player> <type> [amount]'
+  MESSAGES.GIVE-USAGE-COMMAND = '&cUsage: /spawner give <player> <type> [amount]'
+  MESSAGES.LOOK-AT-SPAWNER-INSPECT = '&cLook at one of our spawners to see its info.'
+  MESSAGES.LOOK-AT-SPAWNER-REMOVE = '&cLook at one of our spawners to remove it.'
+  MESSAGES.HOLD-SPAWNER-TO-SPLIT = '&cHold a spawner item to split it.'
+  MESSAGES.CANNOT-SPLIT-ONE = '&cA single spawner cannot be split.'
+  MESSAGES.SPLIT-USAGE = '&cUsage: /spawner split <amount>'
+  MESSAGES.INVALID-SPLIT-AMOUNT = '&cThat is not a valid split amount.'
+  MESSAGES.SPLIT-GREATER-THAN-ZERO = '&cSplit off at least 1.'
+  MESSAGES.SPLIT-LESS-THAN-CURRENT = '&cSplit off fewer than you hold (&f{max}&c).'
+  MESSAGES.SPLIT-FAILED = '&cCould not make the split spawner item.'
+  [MESSAGES.USAGE]
+  MESSAGES.INFO-HEADER = '&8&m----------- &bSpawner &8&m-----------'
+  MESSAGES.INFO-TYPE = '&7Kind: &f{type}'
+  MESSAGES.INFO-REST-HIDDEN = '&7You cannot see more about spawners that are not yours.'
+  MESSAGES.INFO-OWNER = '&7Placed by: &f{owner}'
+  MESSAGES.INFO-STACK = '&7Stacked: &f{amount}'
+  MESSAGES.INFO-STORED-LOOT = '&7Loot inside: &f{amount}'
+  MESSAGES.INFO-LOCATION = '&7At: &f{world} {x}, {y}, {z}'
+  [TYPES]
+  [TYPES.PIG]
+  TYPES.PIG.DISPLAY_NAME = '&dpig spawner'
+  TYPES.PIG.ENTITY_TYPE = PIG
+  TYPES.PIG.HEAD_TEXTURE = https://textures.minecraft.net/texture/d875eb45aca34a4d24c3dc1395fc...
+  TYPES.PIG.ICON_MATERIAL = PORKCHOP
+  TYPES.PIG.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.PIG.DROPS]
+  [TYPES.PIG.DROPS.PORKCHOP]
+  TYPES.PIG.DROPS.PORKCHOP.MATERIAL = PORKCHOP
+  TYPES.PIG.DROPS.PORKCHOP.MIN = 1
+  TYPES.PIG.DROPS.PORKCHOP.MAX = 3
+  TYPES.PIG.DROPS.PORKCHOP.CHANCE = 1.0
+  [TYPES.PIG.DROPS.LEATHER]
+  TYPES.PIG.DROPS.LEATHER.MATERIAL = LEATHER
+  TYPES.PIG.DROPS.LEATHER.MIN = 0
+  TYPES.PIG.DROPS.LEATHER.MAX = 1
+  TYPES.PIG.DROPS.LEATHER.CHANCE = 0.35
+  [TYPES.COW]
+  TYPES.COW.DISPLAY_NAME = '&dcow spawner'
+  TYPES.COW.ENTITY_TYPE = COW
+  TYPES.COW.HEAD_TEXTURE = ''
+  TYPES.COW.ICON_MATERIAL = BEEF
+  TYPES.COW.BASE_ITEMS_PER_CYCLE = 1
+  TYPES.COW.XP_PER_CYCLE = 3.7
+  [TYPES.COW.DROPS]
+  [TYPES.COW.DROPS.BEEF]
+  TYPES.COW.DROPS.BEEF.MATERIAL = BEEF
+  TYPES.COW.DROPS.BEEF.MIN = 1
+  TYPES.COW.DROPS.BEEF.MAX = 3
+  TYPES.COW.DROPS.BEEF.CHANCE = 1.0
+  [TYPES.COW.DROPS.LEATHER]
+  TYPES.COW.DROPS.LEATHER.MATERIAL = LEATHER
+  TYPES.COW.DROPS.LEATHER.MIN = 0
+  TYPES.COW.DROPS.LEATHER.MAX = 2
+  TYPES.COW.DROPS.LEATHER.CHANCE = 0.8
+  [TYPES.ZOMBIE]
+  TYPES.ZOMBIE.DISPLAY_NAME = '&dzombie spawner'
+  TYPES.ZOMBIE.ENTITY_TYPE = ZOMBIE
+  TYPES.ZOMBIE.HEAD_TEXTURE = ''
+  TYPES.ZOMBIE.ICON_MATERIAL = ROTTEN_FLESH
+  TYPES.ZOMBIE.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.ZOMBIE.DROPS]
+  [TYPES.ZOMBIE.DROPS.ROTTEN_FLESH]
+  TYPES.ZOMBIE.DROPS.ROTTEN_FLESH.MATERIAL = ROTTEN_FLESH
+  TYPES.ZOMBIE.DROPS.ROTTEN_FLESH.MIN = 1
+  TYPES.ZOMBIE.DROPS.ROTTEN_FLESH.MAX = 3
+  TYPES.ZOMBIE.DROPS.ROTTEN_FLESH.CHANCE = 1.0
+  [TYPES.ZOMBIE.DROPS.IRON_INGOT]
+  TYPES.ZOMBIE.DROPS.IRON_INGOT.MATERIAL = IRON_INGOT
+  TYPES.ZOMBIE.DROPS.IRON_INGOT.MIN = 0
+  TYPES.ZOMBIE.DROPS.IRON_INGOT.MAX = 1
+  TYPES.ZOMBIE.DROPS.IRON_INGOT.CHANCE = 0.05
+  [TYPES.ZOMBIE.DROPS.CARROT]
+  TYPES.ZOMBIE.DROPS.CARROT.MATERIAL = CARROT
+  TYPES.ZOMBIE.DROPS.CARROT.MIN = 0
+  TYPES.ZOMBIE.DROPS.CARROT.MAX = 1
+  TYPES.ZOMBIE.DROPS.CARROT.CHANCE = 0.025
+  [TYPES.ZOMBIE.DROPS.POTATO]
+  TYPES.ZOMBIE.DROPS.POTATO.MATERIAL = POTATO
+  TYPES.ZOMBIE.DROPS.POTATO.MIN = 0
+  TYPES.ZOMBIE.DROPS.POTATO.MAX = 1
+  TYPES.ZOMBIE.DROPS.POTATO.CHANCE = 0.025
+  [TYPES.SPIDER]
+  TYPES.SPIDER.DISPLAY_NAME = '&dspider spawner'
+  TYPES.SPIDER.ENTITY_TYPE = SPIDER
+  TYPES.SPIDER.HEAD_TEXTURE = https://textures.minecraft.net/texture/cd541541daaff50896cd258bdbdd...
+  TYPES.SPIDER.ICON_MATERIAL = STRING
+  TYPES.SPIDER.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.SPIDER.DROPS]
+  [TYPES.SPIDER.DROPS.STRING]
+  TYPES.SPIDER.DROPS.STRING.MATERIAL = STRING
+  TYPES.SPIDER.DROPS.STRING.MIN = 1
+  TYPES.SPIDER.DROPS.STRING.MAX = 2
+  TYPES.SPIDER.DROPS.STRING.CHANCE = 1.0
+  [TYPES.SPIDER.DROPS.SPIDER_EYE]
+  TYPES.SPIDER.DROPS.SPIDER_EYE.MATERIAL = SPIDER_EYE
+  TYPES.SPIDER.DROPS.SPIDER_EYE.MIN = 0
+  TYPES.SPIDER.DROPS.SPIDER_EYE.MAX = 1
+  TYPES.SPIDER.DROPS.SPIDER_EYE.CHANCE = 0.4
+  [TYPES.SKELETON]
+  TYPES.SKELETON.DISPLAY_NAME = '&dskeleton spawner'
+  TYPES.SKELETON.ENTITY_TYPE = SKELETON
+  TYPES.SKELETON.HEAD_TEXTURE = ''
+  TYPES.SKELETON.ICON_MATERIAL = BONE
+  TYPES.SKELETON.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.SKELETON.DROPS]
+  [TYPES.SKELETON.DROPS.BONE]
+  TYPES.SKELETON.DROPS.BONE.MATERIAL = BONE
+  TYPES.SKELETON.DROPS.BONE.MIN = 1
+  TYPES.SKELETON.DROPS.BONE.MAX = 3
+  TYPES.SKELETON.DROPS.BONE.CHANCE = 1.0
+  [TYPES.SKELETON.DROPS.ARROW]
+  TYPES.SKELETON.DROPS.ARROW.MATERIAL = ARROW
+  TYPES.SKELETON.DROPS.ARROW.MIN = 1
+  TYPES.SKELETON.DROPS.ARROW.MAX = 3
+  TYPES.SKELETON.DROPS.ARROW.CHANCE = 1.0
+  [TYPES.CREEPER]
+  TYPES.CREEPER.DISPLAY_NAME = '&dcreeper spawner'
+  TYPES.CREEPER.ENTITY_TYPE = CREEPER
+  TYPES.CREEPER.HEAD_TEXTURE = ''
+  TYPES.CREEPER.ICON_MATERIAL = GUNPOWDER
+  TYPES.CREEPER.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.CREEPER.DROPS]
+  [TYPES.CREEPER.DROPS.GUNPOWDER]
+  TYPES.CREEPER.DROPS.GUNPOWDER.MATERIAL = GUNPOWDER
+  TYPES.CREEPER.DROPS.GUNPOWDER.MIN = 1
+  TYPES.CREEPER.DROPS.GUNPOWDER.MAX = 2
+  TYPES.CREEPER.DROPS.GUNPOWDER.CHANCE = 1.0
+  [TYPES.PIGLIN]
+  TYPES.PIGLIN.DISPLAY_NAME = '&dpiglin spawner'
+  TYPES.PIGLIN.ENTITY_TYPE = ZOMBIFIED_PIGLIN
+  TYPES.PIGLIN.HEAD_TEXTURE = ''
+  TYPES.PIGLIN.ICON_MATERIAL = GOLD_NUGGET
+  TYPES.PIGLIN.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.PIGLIN.DROPS]
+  [TYPES.PIGLIN.DROPS.ROTTEN_FLESH]
+  TYPES.PIGLIN.DROPS.ROTTEN_FLESH.MATERIAL = ROTTEN_FLESH
+  TYPES.PIGLIN.DROPS.ROTTEN_FLESH.MIN = 1
+  TYPES.PIGLIN.DROPS.ROTTEN_FLESH.MAX = 2
+  TYPES.PIGLIN.DROPS.ROTTEN_FLESH.CHANCE = 1.0
+  [TYPES.PIGLIN.DROPS.GOLD_NUGGET]
+  TYPES.PIGLIN.DROPS.GOLD_NUGGET.MATERIAL = GOLD_NUGGET
+  TYPES.PIGLIN.DROPS.GOLD_NUGGET.MIN = 1
+  TYPES.PIGLIN.DROPS.GOLD_NUGGET.MAX = 4
+  TYPES.PIGLIN.DROPS.GOLD_NUGGET.CHANCE = 0.85
+  [TYPES.PIGLIN.DROPS.GOLD_INGOT]
+  TYPES.PIGLIN.DROPS.GOLD_INGOT.MATERIAL = GOLD_INGOT
+  TYPES.PIGLIN.DROPS.GOLD_INGOT.MIN = 0
+  TYPES.PIGLIN.DROPS.GOLD_INGOT.MAX = 1
+  TYPES.PIGLIN.DROPS.GOLD_INGOT.CHANCE = 0.06
+  [TYPES.BLAZE]
+  TYPES.BLAZE.DISPLAY_NAME = '&dblaze spawner'
+  TYPES.BLAZE.ENTITY_TYPE = BLAZE
+  TYPES.BLAZE.HEAD_TEXTURE = https://textures.minecraft.net/texture/b78ef2e4cf2c41a2d14bfde9caff...
+  TYPES.BLAZE.ICON_MATERIAL = BLAZE_ROD
+  TYPES.BLAZE.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.BLAZE.DROPS]
+  [TYPES.BLAZE.DROPS.BLAZE_ROD]
+  TYPES.BLAZE.DROPS.BLAZE_ROD.MATERIAL = BLAZE_ROD
+  TYPES.BLAZE.DROPS.BLAZE_ROD.MIN = 1
+  TYPES.BLAZE.DROPS.BLAZE_ROD.MAX = 2
+  TYPES.BLAZE.DROPS.BLAZE_ROD.CHANCE = 1.0
+  [TYPES.IRON_GOLEM]
+  TYPES.IRON_GOLEM.DISPLAY_NAME = '&diron golem spawner'
+  TYPES.IRON_GOLEM.ENTITY_TYPE = IRON_GOLEM
+  TYPES.IRON_GOLEM.HEAD_TEXTURE = https://textures.minecraft.net/texture/e13f34227283796bc017244cb465...
+  TYPES.IRON_GOLEM.ICON_MATERIAL = IRON_INGOT
+  TYPES.IRON_GOLEM.BASE_ITEMS_PER_CYCLE = 1
+  [TYPES.IRON_GOLEM.DROPS]
+  [TYPES.IRON_GOLEM.DROPS.IRON_INGOT]
+  TYPES.IRON_GOLEM.DROPS.IRON_INGOT.MATERIAL = IRON_INGOT
+  TYPES.IRON_GOLEM.DROPS.IRON_INGOT.MIN = 3
+  TYPES.IRON_GOLEM.DROPS.IRON_INGOT.MAX = 5
+  TYPES.IRON_GOLEM.DROPS.IRON_INGOT.CHANCE = 1.0
+  [TYPES.IRON_GOLEM.DROPS.POPPY]
+  TYPES.IRON_GOLEM.DROPS.POPPY.MATERIAL = POPPY
+  TYPES.IRON_GOLEM.DROPS.POPPY.MIN = 0
+  TYPES.IRON_GOLEM.DROPS.POPPY.MAX = 2
+  TYPES.IRON_GOLEM.DROPS.POPPY.CHANCE = 0.45
+  [GUI]
+  [GUI.MAIN_MENU]
+  GUI.MAIN_MENU.TITLE = '{stack} {mob}'
+  GUI.MAIN_MENU.SIZE = 27
+  [GUI.STORAGE]
+  GUI.STORAGE.TITLE = '&8{mob} Storage ({page}/{max_page})'
+  GUI.STORAGE.SIZE = 54
+  GUI.STORAGE.ITEMS_PER_PAGE = 45
+  [GUI.PANEL]
+  GUI.PANEL.TITLE = '&8Your spawners in {world}'
+  GUI.PANEL.SIZE = 54
+  [GUI.WORLD_LIST]
+  GUI.WORLD_LIST.TITLE = '&8Spawner admin'
+  GUI.WORLD_LIST.SIZE = 27
+
+------------------------------------------------------------------------
+staff-mode.yml
+------------------------------------------------------------------------
+  [staff-mode]   # Staff mode hotbar (/staffmode). slot is 0-8; material is any item.
+  [staff-mode.tools]
+  staff-mode.tools.vanish = { slot: 0, material: LIME_DYE, material-off: GRAY_DYE }
+  staff-mode.tools.freeze = { slot: 1, material: ICE }
+  staff-mode.tools.stafflist = { slot: 4, material: CLOCK }
+  staff-mode.tools.betterview = { slot: 7, material: ORANGE_CARPET }
+  staff-mode.tools.randomtp = { slot: 8, material: PLAYER_HEAD }
+
+------------------------------------------------------------------------
+tablist.yml
+------------------------------------------------------------------------
+  [tablist]   # The header and footer of the tab list (the key that shows the player list). Placeholders: %online% (players online), %max%, %player%, %economy_ping% (the ping i
+  tablist.enabled = true
+  tablist.update-seconds = 2
+  [tablist.header]
+  [tablist.footer]
+
+------------------------------------------------------------------------
+teams.yml
+------------------------------------------------------------------------
+  [teams]   # Team options (the team menu, /team). Edit freely, then /donutrep reload. Everything the leader can change is OFF by default; the leaderboards are on.
+  teams.rename = false   # the leader can rename the team (team settings menu, /team rename <name>)
+  [teams.color]
+  teams.color.enabled = false   # the leader picks a team color (team settings menu, /team color <color>); the scoreboard team line uses it
+  teams.icons = false   # the leader picks an icon for the team (like homes); shown in the team menu and in the list of all teams
+  [teams.allies]
+  teams.allies.enabled = false   # /team ally <team>: two teams that agree cannot hurt each other (like teammates)
+  teams.allies.max = 3   # how many allies one team can have
+  teams.leaderboards = true   # /teamtop: most kills, deaths, playtime, money and shards by team
+  teams.leaderboard-cache-seconds = 60
+  teams.leaderboard-size = 10   # how many teams the board shows
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

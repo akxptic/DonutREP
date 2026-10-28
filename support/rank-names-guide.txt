@@ -1,0 +1,98 @@
+HOW TO CHANGE A RANK NAME (DonutREP)
+====================================
+
+Example: you want a rank called "cosmicplus" instead of "donutplus".
+A rank lives in THREE places. Change all three.
+
+  1. LuckPerms      - the real group players are in
+  2. ranks.yml      - how the rank looks (chat, tab list, scoreboard, /rank, /playerranks)
+  3. menus-info.yml - the /ranks menu text (it is written by hand, it does not read ranks.yml)
+
+(plugins/DonutREP/ranks.yml and plugins/DonutREP/menus-info.yml)
+This file is written by the plugin at every start (plugins/DonutREP/text/). Edit nothing in it.
+
+
+STEP 1 - LuckPerms (in game or console)
+---------------------------------------
+Make the new group and give it the same perks as the old one:
+
+    lp creategroup cosmicplus
+    lp group cosmicplus permission set donutrep.homes.20 true
+    lp group cosmicplus permission set donutrep.auctionhouse.16 true
+    lp group cosmicplus permission set donutrep.orders.limit.5 true
+    lp group cosmicplus permission set donutrep.enderchest.pages.2 true
+
+The perks are plain numbers. The highest number a player has wins, so the group name does not matter.
+(Ender chest pages also need ender-chest.yml -> extra-pages: true and rank-pages: true.)
+
+Move the players over:
+
+    lp user <player> parent set cosmicplus
+
+Delete the old group when nobody is in it:
+
+    lp deletegroup donutplus
+
+
+STEP 2 - ranks.yml
+------------------
+Find the old rank and change the key (the first word) and the name and tag:
+
+    groups:
+      cosmicplus:                       <- must be EXACTLY the LuckPerms group name
+        name: '&fCosmic&#00A4FC+'       <- full name (scoreboard, /rank)
+        tag: '&#00A4FC+'                <- short badge (chat, tab list, above the head)
+
+Rules:
+  - The best rank goes FIRST in the list. The first group a player is in wins.
+  - If the name does not match the LuckPerms group, the player shows as "Member".
+  - Colours: &c style codes and &#rrggbb hex codes both work.
+
+
+STEP 3 - menus-info.yml (the /ranks menu)
+-----------------------------------------
+Find the button of the rank and change its text:
+
+    DONUT_PLUS:
+      DISPLAY-NAME: '&fCosmic&#00A4FC+'
+      LORE:
+      - '&79 Homes'
+      - '&745 Auction Slots'
+      ...
+
+The perk lines are only text. Keep them the same as the numbers you gave the group in step 1.
+
+
+STEP 4 - apply it
+-----------------
+    /donutrep reload
+
+Check it:
+    /rank <player>     shows the rank and the LuckPerms groups of a player
+    /playerranks       shows every player's rank (one filter button per rank in ranks.yml)
+    /ranks             the menu players see
+
+
+ALSO CHANGE (if you use them)
+-----------------------------
+  - Store commands (StoreBridge config.yml or your store), for example:
+        lp user {name} parent set cosmicplus
+  - Any other plugin that prints a rank by itself (a chat plugin like LPC, LuckPerms prefixes).
+    Those come from LuckPerms, not from DonutREP.
+
+
+ADD A NEW RANK
+--------------
+Same steps: create the group (step 1), add it to ranks.yml (step 2), add a button in menus-info.yml (step 3), reload.
+
+REMOVE A RANK
+-------------
+Delete its entry in ranks.yml and its button in menus-info.yml, /donutrep reload, then lp deletegroup <name>.
+Players who were in it become plain "Member".
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

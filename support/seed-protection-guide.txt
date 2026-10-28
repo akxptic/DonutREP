@@ -1,0 +1,57 @@
+SEED PROTECTION - what to do on the server
+==========================================
+
+Seed crackers work out your world seed from things every player can see. DonutREP already replaces the hashed seed in the join / respawn packets (seed-protection.yml).
+The rest has to be set in the server's own files (a restart is needed). Nothing makes the seed impossible to find for somebody who walks to many structures and
+writes down the coordinates, but these steps stop the usual tools.
+
+1. STRUCTURE SEEDS - the best way (Paper)
+   config/paper-world-defaults.yml:
+     feature-seeds:
+       generate-random-seeds-for-all: true
+
+   Or by hand in spigot.yml (world-settings -> default). Use your own numbers, a different set on every server. This block was made for you just now:
+
+     world-settings:
+       default:
+         seed-village: 1929354369
+         seed-desert: 821810259
+         seed-igloo: 582270075
+         seed-jungle: 92510847
+         seed-swamp: 1732405135
+         seed-monument: 774971471
+         seed-shipwreck: 480689282
+         seed-ocean: 1006857454
+         seed-outpost: 959405244
+         seed-endcity: 503266188
+         seed-slime: 600057577
+         seed-nether: 1322838085
+         seed-mansion: 21556506
+         seed-fossil: 5128301
+         seed-portal: 1557539117
+         seed-ancientcity: 713761145
+         seed-trailruins: 1199575129
+         seed-trialchambers: 1516276485
+         seed-buriedtreasure: 958018954
+
+   Only chunks that are not generated yet use the new numbers; structures that already exist stay where they are. The cleanest result is a new world.
+
+2. ANTI-XRAY (ore positions) - DonutREP switches this on by itself (seed-protection.anti-xray: true) and keeps the old file as paper-world-defaults.yml.before-donutrep; restart once.
+   config/paper-world-defaults.yml:
+     anticheat:
+       anti-xray:
+         enabled: true
+         engine-mode: 2
+
+3. THE WORLD SEED ITSELF
+   Do not use a seed people know or can guess (not a word, a date or a short number). A long random number is best (server.properties -> level-seed, before the world is made).
+
+4. KEEP THE SECRET
+   The 'salt' in seed-protection.yml makes the fake seeds. Do not share the file. Changing it changes every fake value (nobody notices).
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

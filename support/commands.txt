@@ -1,0 +1,2139 @@
+DonutREP 1.22.27 - ALL COMMANDS, with examples
+========================================================================
+186 commands, in 14 groups, sorted A-Z inside each group. Read it like this:
+  <x> = you must type it      [x] = you may leave it out      a|b = pick one
+  Steve / Alex are example player names. Amounts accept k, m, b, t (2.5k = 2500).
+  'Aliases' are other names for the same command. 'Permission' is the node that lets a player use it
+  (most staff and admin commands are for ops by default; give the node in LuckPerms to anybody else).
+  This list is made from the plugin itself, so every command that exists is in it.
+
+========================================================================
+TABLE OF CONTENTS
+========================================================================
+   1. WHO CAN USE WHAT (admin / player commands, on / off, not working)
+   2. YOUR NOTES
+   3. MONEY AND SHARDS
+   4. ORDERS
+   5. SHOP, SELLING AND AUCTIONS
+   6. CHAT AND MESSAGES
+   7. HOMES, WARPS AND TRAVEL
+   8. TEAMS
+   9. DUELS, FFA AND PVP
+  10. CRATES AND KEYS
+  11. INFORMATION
+  12. YOUR SETTINGS AND SMALL TOOLS
+  13. STAFF: PLAYERS
+  14. STAFF: PUNISHMENTS
+  15. ADMIN: WORLD AND TOOLS
+  16. ADMIN: SERVER
+  17. LUCKPERMS: LIMITS (homes, auction house, orders)
+  18. NOT COMMANDS BUT GOOD TO KNOW
+  19. THINGS TO TEST IN 1.22.9 / 1.22.8 / 1.22.7 / 1.22.6 / 1.22.5 / 1.22.4 / 1.22.3 / 1.22.2 / 1.22.1 / 1.22.0 / 1.21.3 / 1.21.2 / 1.21.1 / 1.21.0 / 1.20.0 / 1.19.0 / 1.18.0 / 1.17.0 / 1.16.1 / 1.16.0 / 1.15.3 / 1.15.2 / 1.15.1 / 1.15.0 / 1.14.0 / 1.13.0 / 1.12.0 / 1.11.99 / 1.11.98 / 1.11.97 / 1.11.96 / 1.11.95 / 1.11.94 / 1.11.93 / 1.11.92 / 1.11.91 / 1.11.90 / 1.11.89 / 1.11.88 / 1.11.87 / 1.11.86 / 1.11.85 / 1.11.84 / 1.11.83 / 1.11.82 / 1.11.81 / 1.11.80 / 1.11.79 / 1.11.78 / 1.11.77 / 1.11.76 / 1.11.75 / 1.11.74 / 1.11.73 / 1.11.72 / 1.11.71 / 1.11.70 / 1.11.69 / 1.11.68 (new)
+  20. THINGS TO TEST IN 1.11.62 - 1.11.66 (new)
+  21. THINGS TO TEST IN 1.11.57 - 1.11.61
+  22. THINGS TO TEST IN 1.11.56
+
+  Look a section up with the search of your editor: every title below is written in capitals between two lines of '='.
+
+  A-Z INDEX (command -> section)
+  /addmoney             /addshards            /afk                  /afkmenu
+  /ahstats
+  /alts                 /amethysttool         /amod                 /anticheat
+  /arena                /auctionhouse         /balance              /ban
+  /banip                /billford             /blacklist            /border
+  /bordertp             /bounty
+  /chat                 /chatlog              /clearlag             /crate
+  /cratebind            /crateparty           /crates               /create
+  /cuboid               /delhome              /delwarp              /discord
+  /disguise             /donutrep             /draw                 /duel
+  /duelarena            /ecowatch             /ecsee                /enderchest
+  /fakeplayer           /feed                 /ffa                  /ffaarena
+  /ffastats             /findplayer           /fly                  /flyspeed
+  /freeze               /friend               /friends              /gamemode
+  /god                  /heal                 /help                 /helpop
+  /hide                 /hologram             /home                 /homes
+  /ignore               /invsee               /ipbans               /keyhistory
+  /keys                 /kick                 /kill                 /leaderboard
+  /leave                /license           /lightban             /logs
+  /maintenance
+  /marketwatch          /media                /meta                 /msg
+  /mute                 /newplayers         /nightvision          /note
+  /orders
+  /pay                  /phantom              /ping                 /playerranks
+  /playerunwipe         /playerwipe           /playtime             /pm
+  /pmo                  /portaladmin          /pregen               /profileviewer
+  /punish
+  /punishhistory
+  /purchasealert        /pvp                  /pvptop               /queue
+  /randomteleport
+  /rank                 /ranks                /recent        /removemoney
+  /removeshards
+  /rename               /renamehome           /reply                /report
+  /rtp                  /rtpq                 /rules                /safety
+  /sell                 /sellall              /sellhand             /sellhistory
+  /sellmulti            /sellmultiplier       /sellprogress         /servers
+  /serverwipe           /setafk               /sethome              /setmoney
+  /setshards            /setspawn             /settings             /setwarp
+  /shardpay             /shards               /shop                 /shopedit
+  /social               /spawn                /spawnancientdebris   /spawnbedrock
+  /spawndiamond         /spawner              /spawnerview          /spawnstash
+  /staffchat            /stafflist            /staffmode            /stats
+  /statswipe            /store                /sus                  /team
+  /teambaltop           /teamchat             /teamshardstop        /teleport
+  /tempban              /tempmute             /topsell              /tpa
+  /tpacancel            /tpaccept             /tpadeny              /tpahere
+  /tpahereauto          /tpauto               /twitter              /unban
+  /unbanip              /unblacklist          /unignore             /unmute
+  /unspawnbedrock       /vanish               /vcconsent            /vcmute
+  /vcunmute             /viewhomes            /warn                 /warp
+  /warpadmin            /worth
+
+========================================================================
+WHO CAN USE WHAT - admin commands, player commands, on / off, not working
+========================================================================
+  ADMIN COMMANDS (105) - op by default, hidden from players in the command list and tab completion. A player gets one only with a LuckPerms permission:
+    /addmoney, /addshards, /ahstats, /alts, /afkmenu, /amethysttool, /amod, /anticheat, /arena
+    /ban, /banip, /blacklist, /border, /bordertp, /chatlog, /clearlag, /cratebind, /crateparty, /create
+    /cuboid, /delwarp, /disguise, /donutrep, /duelarena, /ecowatch, /ecsee, /fakeplayer
+    /feed, /ffaarena, /findplayer, /fly, /flyspeed, /freeze, /gamemode, /god
+    /heal, /hide, /hologram, /invsee, /ipbans, /keyhistory, /kick, /kill
+    /lightban, /logs, /maintenance, /marketwatch, /mute, /note, /playerranks, /playerunwipe
+    /playerwipe, /pmo, /portaladmin, /pregen, /profileviewer, /punish, /punishhistory, /purchasealert, /randomteleport, /rank
+    /removemoney, /removeshards, /rename, /reports, /safety, /servers, /serverwipe, /setafk
+    /setmoney, /setshards, /setspawn, /setwarp, /shopedit, /spawnancientdebris, /spawnbedrock, /spawndiamond
+    /spawnerview, /spawnstash, /staffchat, /stafflist, /staffmode, /statswipe, /sus, /teamspy
+    /teleport, /tempban, /tempmute, /topsell, /unban, /unbanip, /unblacklist, /unmute
+    /unspawnbedrock, /vanish, /vcmute, /vcunmute, /viewhomes, /warn, /warpadmin, /forceafk, /spawnmenu, /newplayers, /recent, /watch
+
+  PLAYER COMMANDS - everybody can use them:
+    (everything else: /license /spawn /home /homes /sethome /delhome /renamehome /warp /rtp /rtpq /tpa /tpahere /tpaccept /tpadeny /tpacancel /tpauto /tpahereauto /pay /balance /shards
+    /shop /sell /sellmulti /sellmultiplier /sellprogress /sellhistory /worth /auctionhouse /orders /billford /crates /keys /crate (open, keys) /duel /queue /leave /draw /ffa /ffastats /pvp
+    /team /teamchat /teambaltop /teamshardstop /friend /friends /bounty /stats /pvptop /leaderboard /ping /playtime /settings /nightvision /phantom /msg /reply /pm /ignore /unignore
+    /chat (menu only for admins) /report /helpop /afk /rules /ranks /help /discord /twitter /instagram /tiktok /store /social /media /vcconsent /spawner)
+
+  OFF BY DEFAULT (set the switch in plus.yml -> features: to true to turn them on):
+    /enderchest and /ec   features.enderchest: false (the COMMANDS are off; clicking an ender chest block still opens it; /ecsee for admins works)
+    /shardpay             features.shardpay: false
+  ON BY DEFAULT, each one can be turned off with its own switch (plus.yml -> features:): /instagram /tiktok (and every command group: chat, home, tpa, sell, crate ...).
+  SUB-FEATURES with a switch: /tpa buttons (tpa: clickable), hover stats (hover-stats:), duel claims (duels.yml -> claims), chat menu (chatmenu: enabled),
+  /keyhistory (keyhistory: enabled), reports (reports: enabled), team chat spy (teamchat: spy), anti-cheat (anticheat: enabled), FFA timer (ffa.yml), world border and pregenerator (border.yml: border: enabled, pregen: enabled).
+
+  COMMANDS THAT DO NOT WORK (checked by running every command once):
+    /create               "This command is not configured on this server." - it does nothing (a placeholder from the original plugin).
+    /sellall /sellhand /meta /limits   removed on purpose - they do not exist (selling is /sell and its menu; limits are in the LuckPerms section below).
+    /shardshop /punishments            not registered (use /shop and /punishhistory).
+    /pvp kit ...          "Kits are turned off" until ffa.yml -> ffa.kits-enabled is true.
+    /ffa, /duel           need at least one enabled arena (/ffaarena, /arena) - without one they say so.
+    /spawner list         the list menu is off by default (spawners.yml); /spawner panel works.
+
+  IF A REGULAR PLAYER CAN USE AN ADMIN COMMAND: on a clean server none of the 96 admin commands can be used without a permission (tested with a player who is not op).
+  So the player has the permission from somewhere else: a LuckPerms wildcard (*, donutrep.*) on a group, an exact node, or ANOTHER PLUGIN that has
+  its own /fly, /gamemode ... (then DonutREP's command is not the one running). Find it:
+    /donutrep perms <player>           - lists the admin commands the player can use and why (it also names plugins that took a command over)
+    /lp user <player> permission info  - every permission and the group it comes from
+    /lp user <player> permission check donutrep.command.fakeplayer   - where one node comes from
+  Remove it:  lp group default permission unset donutrep.*     (or whatever the list shows)
+
+========================================================================
+YOUR NOTES (kept exactly as you wrote them)
+========================================================================
+/lp user TtvAJNumb permission set donutrep.homes.3 true 
+/crate key give <player> <crate> <amount>
+/crate keyall <crate> <amount>
+
+========================================================================
+MONEY AND SHARDS
+========================================================================
+
+/addmoney <player> <amount>
+    Add Money to a player.
+    Examples:  /addmoney Steve 10000
+    Permission: donutrep.command.addmoney
+
+/addshards <player> <amount>
+    Grant Shards to a player (console command StoreBridge runs to deliver a package).
+    Examples:  /addshards Steve 100
+    Permission: donutrep.command.addshards
+
+/balance [player]
+    Check your Money balance, or another player's.
+    Examples:  /balance
+               /bal Steve
+    Aliases:   /bal
+    Permission: donutrep.command.balance
+
+/pay <player> <amount>
+    Send Money to another online player.
+    Examples:  /pay Steve 500
+               /pay Steve 2.5k            (k = thousand, m = million, b = billion, t = trillion work in every amount)
+    Permission: donutrep.command.pay
+
+/removemoney <player> <amount>
+    Remove Money from a player.
+    Examples:  /removemoney Steve 500
+    Permission: donutrep.command.removemoney
+
+/removeshards <player> <amount>
+    Remove Shards from a player (console command StoreBridge runs on a chargeback).
+    Examples:  /removeshards Steve 50
+    Permission: donutrep.command.removeshards
+
+/setmoney <player> <amount>
+    Set a player's Money balance exactly.
+    Examples:  /setmoney Steve 25000
+    Permission: donutrep.command.setmoney
+
+/setshards <player> <amount>
+    Set a player's Shards balance exactly.
+    Examples:  /setshards Steve 1000
+    Permission: donutrep.command.setshards
+
+/shardpay <player> <amount>
+    Send Shards to another online player.
+    Examples:  /shardpay Steve 25
+    Permission: donutrep.command.shardpay
+
+/shards [player] | /shards everywhere <status|debug> [player]
+    Check your own Shards balance (no player lookup).
+    Examples:  /shards
+               /shards Steve
+               /shards everywhere status
+               /shards everywhere debug Steve
+    Everywhere: donutrep.shards.everywhere (nobody has it by default, ops too): a rank with it earns a shard every minute anywhere. Without it shards come from the shard / afk cuboids.
+    Permission: donutrep.command.shards
+
+========================================================================
+ORDERS
+========================================================================
+
+/orders [item] | my | collect | create <price> <amount> | fulfill <id> | cancel <id>      (also: /order)
+    Post buy requests other players can fulfill, or fulfill/collect/cancel one. /order is the same command.
+    Examples:  /orders                      (browse every open order)
+               /orders diamond              (only orders for diamonds)
+               /orders my                   (your own orders)
+               /orders collect              (take the items that were delivered to your orders)
+               /orders create 50 64         (a new order: pays 50 per item, wants 64 items)
+               /orders fulfill 7            (deliver items to order #7 and get paid)
+               /orders cancel 7             (cancel your order, unspent money comes back)
+    New menus (orders.yml -> new-menus: true, the default): /orders my is "Orders -> Your Orders": your orders first (item, requested, price each, delivered, time until it expires), then a grey
+               "New Order" slot for every slot you are allowed, then red "Locked" slots. Click an order: "Orders -> Edit Order" (the item, Cancel in the middle as a red block, Collect as a chest,
+               Back). Cancel opens "Orders -> Cancel Order" (red = keep, green = confirm). A grey "New Order" slot opens the Choose Item window (icons), then the enchantment window (if
+               enchantment orders are on, the default), then "How many?", "Price per item?" (shows the amount and the minimum) and "Review Order" (Cancel / Place Order); no chest menu opens.
+               A wrong number brings the same window back with a red line. The board has no Collect button then (collect inside Edit Order, or /orders collect). new-menus: false = the
+               original menus (the "Orders -> new order" chest window). Servers without dialogs (Spigot, CraftBukkit) always use the chest window.
+    Expiry:    orders.expire-days (7): after that nobody can deliver to the order and it leaves the board; it stays, its owner can still collect and cancel (refund). orders.delete-days (90): an
+               order not fully claimed by then is deleted - the part nobody delivered is refunded, delivered items nobody collected go with it. 0 = never. Orders from before the update are
+               counted from the day of the update.
+    Menu:      Sort and Filter work like in /ah (list of choices, left = next, right = previous), also in the
+               "select item" menu of /orders create. The categories are the same as in /ah.
+               The item list and /orders create only offer survival items (no spawn eggs, command blocks, barrier ...).
+               Spawners cannot be ordered or delivered; /sell, /sellhand, /sellall and the sell menu refuse them too.
+    Limits:    orders.yml -> orders: max-active-default: 5 (open orders per player without a permission), max-quantity-per-order: 2304,
+               allow-enchant-orders: false. A player's limit is the highest number of their donutrep.orders.limit.<n> permissions.
+    Permission: donutrep.command.orders
+
+========================================================================
+SHOP, SELLING AND AUCTIONS
+========================================================================
+
+/ahstats
+    Shows real Auction House activity - the highest-priced active listings.
+    Examples:  /ahstats
+    Permission: donutrep.admin.ahstats
+
+/auctionhouse [sell <price>|my|history|buy <id>|cancel <id>]
+    List, browse, and buy player-listed items on the Auction House. Staff with auctionhouse.admin can cancel anyone's listing.
+    Examples:  /ah
+               /ah sell 5000
+               /ah my
+               /ah history
+               /ah buy 12
+               /ah cancel 12
+    Menu:      the Sort and Filter buttons list every choice with an arrow on the current one (like the filter of
+               /playerranks): left-click = next, right-click = previous. Categories: All, Blocks, Tools, Food, Combat,
+               Potions, Books, Ingredients, Utilities, Misc (spawn eggs, music discs, pottery sherds, smithing templates,
+               banner patterns, bundles, keys). Spears, horse / wolf / nautilus armor and tipped arrows are Combat;
+               minecarts, boats, maps, compass, saddle, name tag, item frames are Utilities.
+    Survival:  only items that exist in survival can be listed: spawn eggs, command blocks, barrier, bedrock, infested blocks,
+               debug stick and similar are refused (1.11.63). Spawners (from /shop or /spawner give) can NOT be listed, ordered or sold (1.11.64).
+    Aliases:   /ah
+    Permission: donutrep.command.auctionhouse
+
+/billford
+    Open the Billford trader
+    Examples:  /billford
+    Layout:    billford.yml: the confirm button is at slot 23 and the clock at 32 (both one slot to the right of before), the reward at 25, and the loot a
+               trade asks for sits in a 3x3 block (slots 10-12, 19-21, 28-30). An existing billford.yml keeps its old numbers - change CONFIRM_SLOT,
+               COUNTDOWN_SLOT and the SLOT of each input, or delete the file to get the new one.
+    Permission: donutrep.command.billford
+
+/sell
+    Sell the item in your hand.
+    Examples:  /sell
+    Permission: donutrep.command.sell
+
+/sellall
+    Sell every sellable item in your inventory.
+    Examples:  /sellall
+    Permission: donutrep.command.sellall
+
+/sellhand [amount]
+    Sell the item in your hand.
+    Examples:  /sellhand
+               /sellhand 16
+    Permission: donutrep.command.sellhand
+
+/sellhistory
+    View your most recent sell transactions.
+    Examples:  /sellhistory
+    Permission: donutrep.command.sellhistory
+
+/sellmulti [category]
+    Sell a specific amount of a specific material from your inventory.
+    Examples:  /sellmulti
+               /sellmulti <category>
+    Note:      the multiplier of a category also applies to the SELL ALL button in a spawner's storage menu, and what
+               you sell there counts towards the next level, exactly like /sell (new in 1.11.57).
+               10 categories since 1.11.62: Crops, Ores, Mobs, Natural Items, Armor And Tools, Fish, Enchanted Book,
+               Potions, Blocks (real blocks only) and the new Miscellaneous (every item that is not a block and fits
+               nowhere else: music discs, dyes, pottery sherds, smithing templates, banner patterns, bundles, boats,
+               minecarts, buckets, maps, compass, clock, name tag, lead, paper, spawn eggs, written book ...).
+               Moved in 1.11.62: spears, horse / wolf / nautilus armor, harnesses, saddle, shears, brush, flint and steel
+               -> Armor And Tools; flowers, grass, ferns, vines, roots, moss, mud, snow, soul sand, fungi, mushroom
+               blocks -> Natural Items; golden apples, stews, soups, cake, bone meal -> Crops; scutes, blue / brown egg,
+               goat horn, tipped arrows -> Mobs; fish buckets -> Fish; experience bottle, glowstone dust -> Potions.
+               A moved item uses its new category's multiplier from the next sale; progress already earned stays where
+               it was. Prices, enchanted books and renamed / anvil-used items (amethyst tools) are unchanged.
+    Progress:  click a category: "<NAME> PROGRESS" with the category icon top left and one pane per level along a winding path - green COMPLETED,
+               yellow IN PROGRESS, gray LOCKED. The tooltip shows the bar, 'x1.05 100.0%' and 'earned/needed' (e.g. 30.0K/25.0K).
+    Permission: donutrep.command.sellmulti
+
+/sellmultiplier [category]
+    View, or (admin) set, the global sell-price multiplier.
+    Examples:  /sellmultiplier
+               /sellmultiplier <category>
+    Permission: donutrep.command.sellmulti
+
+/sellprogress [category]
+    View lifetime selling stats - items sold and Money earned.
+    Examples:  /sellprogress
+               /sellprogress <category>
+    Permission: donutrep.command.sellprogress
+
+/shop [words]
+    Open the shop. quickshop.yml decides which one (exactly one is on): the classic shop (End/Nether/Gear/Food/Shard/Crate Keys, the default),
+    QuickShop (auction: the items you saved; one click buys the cheapest matching /ah listings) or the survival shop (every survival item, by creative category).
+    With words it searches (QuickShop: the auction house search, survival shop: every category). More than one mode on = every admin is told in chat and /shop stays closed.
+    Examples:  /shop
+               /shop diamond sword        (QuickShop and the survival shop)
+               /shop reload               (classic shop)
+    Permission: donutrep.command.shop
+
+/shopedit <menu>
+    Reload the shop's config.yml entries.
+    Examples:  /shopedit <menu>        (a menu id from shop.yml)
+    Permission: donutrep.admin.shop
+
+/topsell [items]
+    View the top sellers leaderboard.
+    Examples:  /topsell
+               /sellstats
+    Aliases:   /sellstats
+    Permission: donutrep.command.topsell
+
+/worth [hand|reload]
+    Check the sell price of an item.
+    Examples:  /worth
+               /worth hand
+               /prices
+               /worth reload
+    Aliases:   /prices
+    Shulker:   a shulker box's tooltip shows the worth of everything inside it (plus.yml -> worth-display: shulker-contents: true). The first items are
+               listed by the game itself ("Stone x64 ... and 8 more..."); the "Worth:" line is the total.
+    Permission: donutrep.command.worth
+
+========================================================================
+CHAT AND MESSAGES
+========================================================================
+
+/chat <help|mute|unmute|delay|clear>
+    Staff administration of global chat - mute/unmute/delay/clear.
+    Examples:  /chat help
+               /chat mute
+               /chat unmute
+               /chat delay 5
+               /chat clear
+    Menu:      /chat with nothing after it opens the chat management menu (admins): mute / unmute, chat delay (left +1 s, right -1 s, shift 5 s),
+               clear chat, help. Every button runs the real /chat sub-command. plus.yml -> chatmenu: enabled: true (false = the old text help).
+    Permission: donutrep.command.chat
+
+/friend
+    Add or remove a friend
+    Examples:  /friend add Steve
+               /friend accept Steve
+               /friend deny Steve
+               /friend remove Steve
+               /friend list
+    Permission: donutrep.command.friend
+
+/friends
+    Open your friends list
+    Examples:  /friends
+    Permission: donutrep.command.friends
+
+/helpop <message>
+    Send a message to every online staff member.
+    Examples:  /helpop someone is griefing at spawn
+    Permission: donutrep.command.helpop
+
+/ignore <player|list>
+    Stop receiving private messages and chat lines from a player.
+    Examples:  /ignore Steve
+               /ignore list
+    Permission: donutrep.command.ignore
+
+/msg <player> <message>
+    Send a private message to another online player.
+    Examples:  /msg Steve hello there
+               /w Steve hi
+    Aliases:   /message, /tell, /whisper, /w
+    Permission: donutrep.command.msg
+
+/pm
+    Alias for /msg - send a private message to another online player.
+    Examples:  /pm              (turn private messages off / on)
+    Aliases:   /togglepm, /privatemessages
+    Permission: donutrep.command.pm
+
+/rename <name...|reset>
+    Rename the item in your hand.
+    Examples:  /rename &bMy Sword
+               /rename reset
+    Permission: donutrep.command.rename
+
+/reply <message>
+    Reply to the last player who messaged you (or you messaged).
+    Examples:  /r thanks!
+    Aliases:   /r
+    Permission: donutrep.command.reply
+
+/report <player> <reason>
+    Report a player to online staff.
+    Examples:  /report Steve using x-ray
+    Reports:   a report is SAVED (plugins/DonutREP/reports.yml), shown to online staff with [TP] [SUS] buttons, and sent to Discord ("Player Report
+               Notification" webhook, discord.yml). Admins read them with /reports (a menu). The reported player may be offline (if they played before).
+               A report needs a reason, and there is a cooldown (reports.cooldown-seconds, 60). donutrep.bypass.reportcooldown skips it.
+    Permission: donutrep.command.report
+
+/staffchat <message>
+    Send one message to staff chat, or toggle always routing your chat there.
+    Examples:  /sc staff meeting in 5
+    Aliases:   /sc
+    Permission: donutrep.command.staffchat
+
+/teamchat [message]
+    Chat with your team only (or switch team chat on and off)
+    Examples:  /tc hello team
+               /teamchat
+    Aliases:   /tc
+    Admins:    admins can read team chat: /teamspy (see above) - a log file, a spy switch and a Discord webhook.
+    Permission: donutrep.command.teamchat
+
+/unignore <player>
+    Undo a previous /ignore.
+    Examples:  /unignore Steve
+    Permission: donutrep.command.unignore
+
+========================================================================
+HOMES, WARPS AND TRAVEL
+========================================================================
+
+/setafk <cuboid> [point number]
+    (admin, 1.11.99) Add a teleport point to an AFK cuboid at the place where you stand. With a number it moves that point instead. There is no limit on the
+    number of AFK cuboids; every cuboid keeps its own points (up to areas: max-points, 20). A cuboid that is not an AFK cuboid yet becomes one. Players who go to the
+    cuboid (/afk) land on one of its points - a random one, or one after the other (set it per cuboid in /afkmenu; areas: point-mode is the default).
+    Examples:  /setafk afk1                 (point 1, then 2, 3 ... of the cuboid afk1)
+               /setafk afk1 2               (move point 2 to where you stand)
+    Before 1.11.99 /setafk forced a player's AFK status: that is /forceafk <player> [on|off] now (and /setafk zone is /forceafk zone).
+    Permission: donutrep.admin.cuboid
+
+/forceafk <player> [on|off] | /forceafk zone
+    (admin, 1.11.99) Force another player's AFK status on or off (this was /setafk before 1.11.99; /forceafk zone is the old /setafk zone).
+    Permission: donutrep.command.setafk
+
+/afkmenu
+    (admin, 1.11.99) A menu with all AFK cuboids (name, world, number of points, players inside); click one to edit it: every teleport point is an ender pearl
+    (left-click = teleport there, shift-click = move it to where you stand, right-click = delete it), Add a point (where you stand), how players are sent (random /
+    one after the other), and an on/off button for the cuboid. The nether star at the end of the list makes another cuboid an AFK cuboid.
+    Permission: donutrep.admin.cuboid
+
+/spawnmenu
+    (admin, 1.11.99) The same editor for the spawn cuboids (what /spawn sends players to). /setspawn <cuboid> [point number] adds or moves a spawn point;
+    /setspawn alone still sets the server's spawn point.
+    Permission: donutrep.admin.cuboid
+
+/setkey <cuboid> [point number]
+    (admin, 1.15.0) Adds a teleport point for a KEY-ALL cuboid where you stand (with a number: moves that point). The first point also makes the cuboid a key-all area.
+    Make the cuboid first: /cuboid wand, /cuboid create <name>; /cuboid bind <name> keyall true. Works like /setafk and /setspawn (plus.yml -> areas: max-points, point-mode).
+    Examples:  /setkey kz1
+               /setkey kz1 2
+    Permission: donutrep.admin.cuboid
+
+/keymenu
+    (admin, 1.15.0) The same editor as /afkmenu and /spawnmenu, for the key-all cuboids: the points of each cuboid (teleport, move, delete), add a point where you stand,
+    random or one after the other, on/off. The nether star at the end of the list makes another cuboid a key-all area.
+    Permission: donutrep.admin.cuboid
+
+/keyafk
+    (1.15.0) Go to a key-all area: a menu like /afk and /spawn - the big button sends you to a random key-all area, or click one. Players stand there to get key-all keys when
+    keyall.yml -> keyall: afk-only / cuboid-only limits the key to an area. Switch it off: plus.yml -> features: keyafk: false.
+    Permission: donutrep.command.keyafk (everybody)
+    (1.15.2) With afk-only or cuboid-only on, every player in the area has a timer of their own (keyall.yml): it starts when they enter, restarts when they leave or rejoin, and at 0 they get the key (area-percent is their chance). Where they also earn shards the timer is as long as the shard timer (area-match-shards: true) and both run together. In cuboid-only mode the action bar says "Next Key in ..." (area-actionbar: true; not where a shard countdown already uses it); in an afk area only the scoreboard keyall line shows the key time (the shard countdown stays in the action bar). The scoreboard keyall line shows YOUR time and only while you stand in the area.
+    (1.15.1) /setkey, /keymenu and /keyafk (and the keyall choice of /cuboid bind) only exist while keyall.yml -> afk-only or cuboid-only is true. With both false they are hidden from tab-complete for everybody (ops too) and refuse to run. Key-all for everyone is not affected.
+
+/afk
+    Toggle your own AFK status.
+    Examples:  /afk
+    Permission: donutrep.command.afk
+
+/delhome <name>
+    Delete a named home.
+    Examples:  /delhome base
+    Permission: donutrep.command.delhome
+
+/delwarp <name>
+    Delete a warp.
+    Examples:  /delwarp shop
+    Permission: donutrep.command.delwarp
+
+/findplayer <player>
+    Show a player's current world and coordinates.
+    Examples:  /findplayer Steve
+    Aliases:   /fp
+    Permission: donutrep.command.findplayer
+
+/home [name]
+    Teleport to one of your named homes.
+    Examples:  /home
+               /home base
+    Permission: donutrep.command.home
+
+/homes [name]
+    List every home you've set. With a name it teleports you to that home (a name with spaces works: /homes end border; Tab completes your home names).
+    Examples:  /homes
+               /homes base
+    Dialog:    dialog.yml -> homes: enabled: true (default false) makes /home and /homes open Minecraft dialog windows instead of the chest menu (Paper 1.21.7 and newer; Spigot keeps the chest menu).
+               The Homes window has a button for every slot: a home (its icon and name), a grey New Home (a free slot: a click makes a home where you stand, called Home <slot>) and, after Show More, red Locked slots.
+               A click on a home opens its window: Teleport, Change Icon (dialog.yml -> homes: icons: true; Choose Icon: Search, Default, Back, then the icon list), Rename (a name box, Save / Cancel), Delete (asks first: confirm-delete)
+               and Back. Team Home (dialog.yml -> homes: team-home: false by default): true adds a Team Home button in a row of its own at the end of the Homes window (Teleport, Set Here, Delete, Change Icon, Back; the team
+               permissions Visit / Edit Team Home apply). While the homes dialog is on and team-home is false, team homes do not work at all: /team home, /team sethome, /team delhome say so and the team menu buttons are hidden (saved team homes are kept). A home keeps its slot (data2/home-slots.yml); deleting leaves the slot free. How many homes you may have is the same as always (donutrep.homes.<n>, limits.defaults.homes): a higher rank unlocks more slots.
+               columns: 4 (3 for a big GUI scale, 5-6 for a small one), max-slots: 9 (how many slots Show More lists), icon-columns: 3 (the Choose Icon list).
+    Permission: donutrep.command.homes
+
+/language [code|auto]      (also: /lang)
+    Choose the language you read the plugin in. With no word it opens a window (a dialog on Paper, a chest menu elsewhere) with Automatic (your Minecraft language) and one button per language.
+    /language es, /language pt-br ... sets it directly; /language auto follows your Minecraft language again. Your choice is saved; nobody has to choose when they join.
+    Settings:  language.yml -> language: enabled (true), default (en: the language everybody starts on), auto-detect (true: a player who has not chosen starts on their Minecraft language when there is a file for it),
+               force (false: true = everybody sees the default language and /language is turned off).
+    Files:     the languages folder: one file per language (en, es, pt-br, fr, de, ru, tr, pl, it, nl, zh-cn, ja, ko). Each line is the English text -> the translation; {0}, {1} and the & codes stay. Copy a file to add your own language.
+               A text with no translation stays English. Messages with a click or hover button, and the text of other plugins, are not translated.
+    Permission: donutrep.command.language (everybody)
+
+/portaladmin <pos1|pos2|create <warp>|delete <id>|list>
+    Define physical portal regions that teleport players to a warp on contact.
+    Hologram:  every portal has a text above it (plus.yml -> portal-hologram: enabled, height, scale, default-lines). /portaladmin (menu) -> click a portal ->
+               "Change the hologram text" (| = new line, {warp} = where it leads, 'reset' = default) and an on/off button.
+    Examples:  /setwarp shop                (the warp the portal leads to)
+               /portaladmin pos1            (stand in one corner of the region)
+               /portaladmin pos2            (stand in the opposite corner)
+               /portaladmin create shop     (portal between the two corners, linked to the warp 'shop')
+               /portaladmin list
+               /portaladmin delete 1
+    Note:      tested in 1.11.68: pos1 / pos2 / create / list / delete work, walking into the region teleports to the warp, a second step
+               right away does not (short cooldown), and the portals are saved in the database and come back after a restart.
+               The setcuboid / setdestination / setdisplay / toggle / setpriority / sethologramhere / info sub-commands that older lists
+               showed do NOT exist in this plugin (the usage line was copied from the original); they were removed from this list.
+    Menu:      /portaladmin with nothing after it opens a menu (like the arena menus): Corner 1 / Corner 2 (set where you stand), Create (then choose the warp),
+               every portal is listed - click one: go to it, go to its warp, delete. The typed sub-commands above still work.
+    Permission: donutrep.command.portaladmin   (also needs warps.admin)
+
+/randomteleport
+    Force another player through a random teleport.
+    Examples:  /randomteleport
+    Aliases:   /randomtp
+    Permission: donutrep.command.randomteleport
+
+/renamehome <old> <new>
+    Rename one of your homes.
+    Examples:  /renamehome base farm
+    Permission: donutrep.command.renamehome
+
+/rtp [world]
+    Teleport to a random nearby location.
+    Examples:  /rtp
+               /rtp world_nether
+    Permission: donutrep.command.rtp
+
+/rtpq [join|leave]
+    Join the random-teleport queue instead of searching immediately.
+    Examples:  /rtpq
+               /rtpq join
+               /rtpq leave
+    Aliases:   /rtpqueue
+    Permission: donutrep.command.rtpq
+
+/sethome [name]
+    Set (or update) a named home at your current location.
+    Examples:  /sethome
+               /sethome base
+    Limits:    how many homes a player may have comes from the permission donutrep.homes.<n>, for example
+               /lp user Steve permission set donutrep.homes.10 true
+               The HIGHEST number a player has wins (a lower one cannot lower it), without any the default of
+               plus.yml -> limits.defaults.homes (3) applies. A lower limit never deletes homes that already exist.
+               To lower someone: /lp user Steve permission unset donutrep.homes.10  (also check their groups).
+               The same for /ah: donutrep.auctionhouse.<n> and /orders: donutrep.orders.limit.<n>.
+    Permission: donutrep.command.sethome
+
+/setspawn [cuboid] [point number]
+    Set the server's spawn point to your current location. With the name of a spawn cuboid: add a teleport point to that cuboid (with a number: move that point).
+    Examples:  /setspawn
+    Permission: donutrep.command.setspawn
+
+/setwarp <name>
+    Create or update a warp at your current location.
+    Examples:  /setwarp shop
+    Permission: donutrep.command.setwarp
+
+/spawn
+    Teleport to the server's spawn point.
+    Examples:  /spawn
+    Permission: donutrep.command.spawn
+
+/teleport <player> [target] | /teleport <x> <y> <z> [world]
+    Teleport a player to a target (or to you).
+    Examples:  /tp Steve
+               /tp Steve Alex       (move Steve to Alex)
+               /tp 100 70 -200
+               /tp 0 100 0 world_nether
+    Aliases:   /tp
+    Permission: donutrep.command.teleport
+
+/tpa <player>
+    Request to teleport to another player.
+    Examples:  /tpa Steve
+    Hover:     the sender's name in the request shows their money, kills, deaths, playtime and shards (hover over it) and a click opens
+               /stats <name>. plus.yml -> hover-stats: tpa: true/false (default true).   Needs the packetevents plugin.
+    World:     plus.yml -> tpa.show-world: false (default). true = the request also says which world the sender is in, e.g. 'Steve (Nether)
+               wants to teleport to you.' (tpa.world-format changes the look).
+    Buttons:   the request ends with clickable [ACCEPT] and [DENY] (like a team invitation). plus.yml -> tpa: clickable: true (default).
+    Who can send:  /settings -> Player -> TPA Requests (and TPA Here Requests for /tpahere) has three choices, a click goes to the next one: Everyone (default),
+               Friends & Followed (friends, and players you follow), Disabled. Staff with donutrep.bypass.settings can always send.
+    Permission: donutrep.command.tpa
+
+/tpacancel
+    Cancel every teleport request you've sent.
+    Examples:  /tpacancel
+    Permission: donutrep.command.tpacancel
+
+/tpaccept [player]
+    Accept a pending teleport request.
+    Examples:  /tpaccept
+               /tpaccept Steve
+    Permission: donutrep.command.tpaccept
+
+/tpadeny [player]
+    Deny a pending teleport request.
+    Examples:  /tpadeny
+               /tpadeny Steve
+    Permission: donutrep.command.tpadeny
+
+/tpahere <player>   (also /tphere <player>)
+    Request that another player teleport to you. /tphere is the same command under another name (switch: plus.yml -> features: tphere: true/false; false turns only /tphere off).
+    Examples:  /tpahere Steve
+    Hover:     the sender's name in the request shows their money, kills, deaths, playtime and shards (hover over it) and a click opens
+               /stats <name>. plus.yml -> hover-stats: tpahere: true/false (default true).   Needs the packetevents plugin.
+    World:     plus.yml -> tpa.show-world: false (default). true = the request also says which world the sender is in, e.g. 'Steve (Nether)
+               wants to teleport to you.' (tpa.world-format changes the look).
+    Buttons:   [ACCEPT] and [DENY] at the end of the request (tpa: clickable in plus.yml). Duel challenges have them too (/duel accept, /duel decline).
+    Permission: donutrep.command.tpahere
+
+/tpahereauto
+    Toggle auto-accepting incoming /tpahere requests.
+    Examples:  /tpahereauto     (accept every /tpahere automatically)
+    Permission: donutrep.command.tpahereauto
+
+/tpauto
+    Toggle auto-accepting incoming /tpa requests.
+    Examples:  /tpauto           (accept every /tpa automatically)
+    Permission: donutrep.command.tpauto
+
+/warp [name]
+    Teleport to a named warp, or list every warp.
+    Menu:      /warp shows the warps by name; the "New Warp" button and the right-click manage are for admins only.
+    Examples:  /warp
+               /warp shop
+    Permission: donutrep.command.warp
+
+/warpadmin <create|delete|list> [name]
+    Admin overview of every warp, with coordinates.
+    Examples:  /warpadmin create shop
+               /warpadmin list
+               /warpadmin delete shop
+    Permission: donutrep.command.warpadmin
+
+========================================================================
+TEAMS
+========================================================================
+
+/team <create|disband|invite|kick|join|leave|home|sethome|delhome|chat|info|pvp|rename|color|icon|ally>
+    Create, disband, or manage a team.
+    Examples:  /team create Cosmic
+               /team invite Steve
+               /team join Cosmic
+               /team leave
+               /team kick Steve
+               /team sethome
+               /team home
+               /team chat hello team
+               /team info
+               /team pvp
+               /team disband
+               /team rename Cosmic2          (leader; teams.yml -> teams: rename: true)
+               /team color red               (leader; teams.yml -> teams: color: enabled: true; a name or #rrggbb; no color opens the picker)
+               /team icon                    (leader; teams.yml -> teams: icons: true; pick any item)
+               /team ally Rivals             (leader; teams.yml -> teams: allies: enabled: true; the other leader types /team ally accept Cosmic)
+               /team ally remove Rivals      (also: /team ally deny <team>, /team ally list)
+    Permission: donutrep.command.team
+
+/teambaltop
+    Ranks teams by combined member Money.
+    Examples:  /teambaltop
+    Permission: donutrep.command.teambaltop
+
+/teamshardstop
+    Ranks teams by combined member Shards.
+    Examples:  /teamshardstop
+    Permission: donutrep.command.teamshardstop
+
+/teamtop [kills|deaths|playtime|money|shards]
+    (1.15.0) The team leaderboards: a menu with the top teams (the board of the first tab is Most Kills). Kills, deaths and playtime are the sum of the members' statistics. Click the buttons
+    at the bottom to switch. teams.yml -> teams: leaderboards: true (leaderboard-size, leaderboard-cache-seconds). /teambaltop and /teamshardstop stay.
+    Examples:  /teamtop
+               /teamtop deaths
+    Permission: donutrep.command.teamtop (everybody)
+
+========================================================================
+DUELS, FFA AND PVP
+========================================================================
+
+/arena <create|delete|setpos1|setpos2|setreturn|setarea|cleararea|wand|setdisplay|enable|disable|queue|list|reload>
+    Create and edit duel arenas
+    Examples:  /arena create a1
+               /arena setpos1
+               /arena setpos2
+               /arena setreturn
+               /arena wand            (a stick: left-click a block = corner 1, right-click a block = corner 2)
+               /arena setarea         (saves that box as the area of the selected arena; /arena cleararea removes it)
+               /arena setdisplay a1 &bAlpha
+               /arena enable a1
+               /arena list
+    Aliases:   /duelarena
+    Permission: donutrep.command.arena
+
+/draw
+    Offer or accept a draw in your duel
+    Examples:  /draw        (offer a draw; the other player types /draw too)
+    Popup:     a draw shows a big "Draw" with "No one died" under it in the middle of the screen (duels.yml -> draw-popup: true, draw-title, draw-subtitle),
+               then the small "Loot time: 59s" text while the loot can be picked up (duels.yml -> after-duel: loot-time-text).
+    Permission: donutrep.command.draw
+
+/duel [player|accept|deny|claims|reload]
+    Challenge a player to a 1v1 duel, or accept/decline a pending challenge.
+    Examples:  /duel Steve
+               /duel accept
+               /duel deny
+               /duel claims
+    Claims:    duels.yml -> duels.claims (default false). Two ways to get the loser's loot:
+                 false = the loot drops where the loser died, the winner has duels.after-duel.rtp-countdown-seconds (30) to pick it up,
+                         then is teleported away.
+                 true  = no pick-up time. The winner is teleported at once and the loser's items wait in /duel claims:
+                         one entry per duel (the loser's head, how many items, how long ago); click an entry to take it, or Claim all.
+                         What does not fit in the inventory stays in the claim. Saved to disk at once (duel-claims.yml).
+                         Unclaimed loot is deleted after duels.claims-keep-days (7). The winner gets a clickable message when the duel
+                         ends and every time they join. A draw leaves no loot. FFA is not changed.
+               The challenge message shows the sender's stats when you hover the name (hover-stats.duel).
+    Permission: donutrep.command.duel
+
+/duelarena
+    Manage the duel arenas (menu)
+    Examples:  /duelarena            (opens the duel arena menu)
+    Aliases:   /duelarenas
+    Permission: donutrep.admin.duels
+
+/ffa [join|reload|arena ...]
+    Join the FFA queue
+    Examples:  /ffa                (go straight into an FFA arena that has room)
+               /ffa join
+               /ffa leave
+               /ffa list
+               /ffa reload
+    Arena timer: ffa.yml -> rollback-interval-seconds: 300 (0 = off). The first changed block starts it. Over the last rollback-warning-seconds (30) a small
+               text in the middle of the screen counts down ("Arena resets in 12s"). At zero everybody inside is taken to the arena's /ffaarena setreturn
+               point (a random place when there is none), their own items come back, and the arena is put back. Duel arenas have no timer.
+    Anti-camp: ffa.yml -> anticamp (every rule is on by default): spawn-protection (4 s, ends when you attack) | spread-spawns (a new player is put at the
+               spawn farthest from everybody inside) | no-spawnkill-credit (a kill within 8 s of the victim arriving does not count) | rejoin-delay (5 s
+               after dying) | keep-moving (60 s within 3 blocks: a warning, then 2 damage every 3 s).
+    Building:  inside the arena (not the pod cuboid) players can place and break blocks - ffa.allow-building and ffa.pods.allow-building are true by default;
+               duels.yml -> allow-building is true too. The blocks are put back when the match ends, the last player leaves or the timer runs out.
+    Permission: donutrep.command.ffa
+
+/ffaarena <create|delete|setpos|setarea|cleararea|wand|setdisplay|settings|enable|disable|list|reload>
+    Create and edit FFA arenas
+    Examples:  /ffaarena create sand
+               /ffaarena setpos 1
+               /ffaarena wand         (same stick; /ffaarena setarea saves the box, /ffa wand also gives it)
+               /ffaarena setreturn
+               /ffaarena setdisplay sand &bSand Arena
+               /ffaarena settings sand max-players 6
+               /ffaarena enable sand
+               /ffaarena list
+    Permission: donutrep.command.ffaarena
+
+/ffastats [player]
+    Show FFA kills, deaths and streaks
+    Examples:  /ffastats
+               /ffastats Steve
+    Permission: donutrep.command.ffastats
+
+/leave
+    Forfeit your active duel, or leave the matchmaking queue.
+    Examples:  /leave
+    Permission: donutrep.command.leave
+
+/pvptop [ffa|duels]
+    The PvP leaderboard as a menu (like /baltop). FFA: kills, deaths, K/D, best streak. Duels: wins, losses, ratio. The button in the bottom row switches the board.
+    Settings:  plus.yml -> pvptop: enabled (true), default (ffa | duels), size (45). /pvp top only points here.
+    Permission: donutrep.command.pvptop (everybody)
+
+/pvp [join|leave|kit|stats|queue|history|assign|wand|create|setspawn|setspawn2|setlobby|setboundary|schematic|reset|reload]
+    Queue for the ranked PvP arena
+    Examples:  /pvp stats
+    Combat:    pvp.yml -> combat: leave-kills: true - /leave, /ffa leave and /pvp leave while combat tagged kill the player.
+               /pvp kit list     (kits are off unless ffa.kits-enabled is true)
+    Permission: donutrep.command.pvp
+
+/queue [join|leave]
+    Join the random-opponent duel matchmaking queue.
+    Examples:  /queue join
+               /queue leave
+    Permission: donutrep.command.queue
+
+========================================================================
+CRATES AND KEYS
+========================================================================
+
+/crate <create|delete|type|open|keys|reload|key|take|set|keyall|add|edit|remove|bind|unbind|info>
+    Crate definition/management command - create, delete, set a crate's type, virtually open one, check/give/take/set keys, or reload.
+    Examples:  /crate keys
+               /crate key give Steve common 5
+               /crate key take Steve common 1
+               /crate set Steve rare 3
+               /crate take Steve epic 1
+               /crate keyall common 1
+               /crate open common
+               /crate open common Steve
+               /crate info common
+               /crate reload
+               /crate cleartags [radius]     (admin) removes leftover floating crate names around you (radius 1-32, default 8):
+                                             every invisible marker armor stand with a visible name that the crate manager does not
+                                             track, whatever its text. Use it when the tag of a deleted crate stays after you wiped
+                                             the DonutREP folder. Tags of bound crates are not touched; it also removes holograms
+                                             of other plugins of that kind within the radius.
+    Keys:      keys are a balance, not items. Give them with /crate key give <player> <crate> <amount> or to everybody
+               online with /crate keyall <crate> <amount>. The timed key-all (plus.yml -> keyall:) gives everybody online a key; set ONE of afk-only: true (only players standing in an afk
+               cuboid) or cuboid-only: true (only players inside a cuboid bound with /cuboid bind <cuboid> keyall true). Both false (default) = everybody online. Both true = the round is skipped
+               and a warning is logged: only one mode is allowed. Players buy them in /shop -> Crate Keys: add an entry with
+               crate: <id>, price and currency to the shop's Crate Keys category, e.g.
+               common_key: { display-name: "&a&lCommon Key", material: TRIPWIRE_HOOK, price: 2500, currency: SHARD, slot: 11, crate: common }
+    Permission: donutrep.command.crate
+
+/cratebind <bind <id>|unbind>
+    Bind/unbind an existing chest, trapped chest, barrel, ender chest, or shulker box to a crate (CrateBindAddon's original feature, split out from /crate so it doesn't collide with the crate-management command of that name).
+    Examples:  /cratebind bind common     (look at a chest / barrel first)
+               /cratebind unbind
+    Permission: donutrep.admin.cratebind
+
+/crateparty <start [length] [every]|stop|status|check|reload>
+    Start a crate party - everybody gets random crate keys (crateparty.yml)
+    Examples:  /crateparty                       (shows how to use it)
+               /crateparty start                 (everyone online gets keys once)
+               /crateparty start 1h 5m           (1 hour, a key every 5 minutes)
+               /crateparty status
+               /crateparty stop
+               /crateparty check
+               /crateparty reload
+    Permission: donutrep.admin.crateparty
+
+/crates
+    Browse the crates and what they hold
+    Examples:  /crates
+    Note:      right-click a bound crate with a key: the menu "Common Crate Rewards" lets you pick the reward.
+               Where the rewards sit (the same for the preview): plus.yml -> crates:
+                 menu-layout: CENTER     TOP | CENTER (default) | BOTTOM
+                 menu-slots: []          or exact slots 0-44, in order, e.g. [10, 12, 14, 16, 28, 30, 32, 34]
+    Tag:       the floating text above a bound crate has three lines: the crate name, 'Right-click to open' and 'Keys: N' - N is the
+               number of keys of the player looking at it (every player sees their own). plus.yml -> crates: floating-tag: true,
+               tag-lines (use {crate} and {keys}), tag-range (24 blocks). floating-tag: false = only the original one-line name.
+    Permission: donutrep.command.crates
+
+/keys
+    See the crate keys you own
+    Examples:  /keys
+    Permission: donutrep.command.keys
+
+========================================================================
+INFORMATION
+========================================================================
+
+/alts <player>
+    Show accounts that have logged in from the same IP
+    Examples:  /alts Steve
+    Permission: donutrep.command.alts
+
+/bounty <add|set|info|list> [player] [amount]
+    Place, view or manage bounties
+    Examples:  /bounty
+               /bounty list
+               /bounty add Steve 5000
+               /bounty info Steve
+    Permission: donutrep.command.bounty
+
+/discord
+    Show the Discord invite link
+    Examples:  /discord
+    Link:      the invite text is plus.yml -> info: discord: (replace discord.eXample.space with your link, then /donutrep reload).
+    DiscordLink: when the DiscordLink plugin is installed, /discord confirm <code> and /discord accept (and the other words after /discord) are handled by it;
+               /discord alone still shows the invite. You do the /link in Discord, then /discord confirm <code> and /discord accept here.
+    Permission: donutrep.command.discord
+
+/help
+    List admin help topics, view one, or (for players) show a quickstart guide.
+    Examples:  /help
+    Permission: donutrep.command.help
+
+/instagram
+    Show the Instagram link
+    Examples:  /instagram
+    Link:      edit the text in plugins/DonutREP/plus.yml -> info: instagram: (the lines players see). Same for info: twitter / tiktok / store / social / media / discord.
+    Switch:    plus.yml -> features: instagram: true (false turns just this command off for players)
+    Permission: donutrep.command.instagram
+
+/leaderboard [type]
+    Show the top players
+    Examples:  /lb
+               /lb kills
+               /baltop
+    Aliases:   /lb, /top, /leaderboards, /baltop
+    Permission: donutrep.command.leaderboard
+
+/license [book]
+    Show the license of DonutREP in chat: free to use on your own server, not for sale (and not planned to be, not even in the future), no copying, sharing or recreating
+    without the written consent of akxptic, a DMCA takedown for anybody who does (1.12.0). The Discord link and a clickable line [Read the full license] are in the message;
+    /license book (or the click) opens the whole license as a book. Everybody can use it. Switch: plus.yml -> features: license.
+    Examples:  /license
+               /license book
+    Permission: none (everybody)
+
+/media
+    Show what is needed for the Media rank
+    Examples:  /media
+    Permission: donutrep.command.media
+
+/meta
+    Show which item is the current farming meta
+    Examples:  /meta
+    Aliases:   /farmingmeta
+    Permission: donutrep.command.meta
+
+/ping [player]
+    Show your ping or another player's
+    Examples:  /ping
+               /ping Steve
+    Permission: donutrep.command.ping
+
+/playtime [player]
+    Show how long you or another player has played
+    Examples:  /playtime
+               /pt Steve
+    Aliases:   /pt
+    Permission: donutrep.command.playtime
+
+/profileviewer <player>
+    Look at a player's profile and homes
+    Examples:  /pv Steve
+    Aliases:   /pv
+    Menu:      /profileviewer opens the online players as heads; click one for their profile (6 rows, "<name>'s Profile"):
+               row 2: their head, a sword with the stats (money, shards, kills, deaths, playtime) and a grass block with the number of homes per world;
+               rows 3-4: every home is a bed (the first one blue) with a block ABOVE it for its world - grass block = Overworld, netherrack = Nether,
+               end stone = End; the team as a banner under the beds. Click a bed to go to that home (9 homes per page, arrows for more).
+    Permission: donutrep.command.profileviewer
+
+/ranks
+    Show what each rank gives
+    Examples:  /ranks
+    Your own rank (any name, for example cosmicplus):
+      1. lp creategroup cosmicplus
+      2. Perks are plain numbers on the group (the highest number a player has wins, so the group name does not matter):
+           lp group cosmicplus permission set donutrep.homes.20 true
+           lp group cosmicplus permission set donutrep.auctionhouse.16 true
+           lp group cosmicplus permission set donutrep.orders.limit.5 true
+           lp group cosmicplus permission set donutrep.enderchest.pages.2 true   (needs ender-chest.yml -> extra-pages: true, rank-pages: true)
+      3. ranks.yml -> groups: add  cosmicplus:  with  name  and  tag  (the key must be the LuckPerms group name; best rank first), then /donutrep reload.
+         The chat tag, tab list, name tag, scoreboard, /rank and the /playerranks filter all follow that file.
+      4. Give it to a player: lp user <player> parent set cosmicplus  (a store command can run the same line).
+      The same steps, with the /ranks menu, are in plugins/DonutREP/text/rank-names-guide.txt.
+    Permission: donutrep.command.ranks
+
+/rules
+    Show the server rules
+    Examples:  /rules
+    Permission: donutrep.command.rules
+
+/servers
+    Show the status of the network's servers
+    Examples:  /servers
+    Permission: donutrep.command.servers
+
+/social
+    Show the server's social links
+    Examples:  /social
+    Permission: donutrep.command.social
+
+/stats [player]
+    Show a player's stats
+    Examples:  /stats
+               /stats Steve
+    Permission: donutrep.command.stats
+
+/store
+    Show the store link
+    Examples:  /store
+    Permission: donutrep.command.store
+
+/tiktok
+    Show the TikTok link
+    Examples:  /tiktok
+    Link:      edit the text in plugins/DonutREP/plus.yml -> info: tiktok:
+    Switch:    plus.yml -> features: tiktok: true (false turns just this command off for players)
+    Permission: donutrep.command.tiktok
+
+/twitter
+    Show the Twitter/X link
+    Examples:  /twitter
+    Permission: donutrep.command.twitter
+
+/viewhomes <player>
+    Browse and visit another player's homes
+    Examples:  /viewhomes                 (choose a player in a menu)
+               /viewhomes Steve          (their homes; a block under each home shows the world)
+    Aliases:   /homesee
+    Permission: donutrep.command.viewhomes
+
+========================================================================
+YOUR SETTINGS AND SMALL TOOLS
+========================================================================
+
+/enderchest [reload]
+    Open your own ender chest
+    Examples:  /ec
+               /enderchest reload
+    Aliases:   /ec
+    Pages:     ender-chest.yml -> extra-pages: false (default: one chest, exactly as before) | pages: 2 (how many, 2-20). With extra-pages: true every page
+               is 5 rows of items with arrows in the bottom row; /enderchest 2 opens page 2 and /ecsee <player> 2 shows a player's page 2.
+    Per rank:  rank-pages: true -> a player has default-pages (1) or the highest number N they have the permission donutrep.enderchest.pages.N for
+               (lp group cosmicplus permission set donutrep.enderchest.pages.2 true; any group name works), never more than `pages`. /ecsee shows every page. Items on pages a player can't reach stay saved.
+               Items from the old last row move to a free slot when the player opens the chest. Switching it off again brings page 1 back (the other
+               pages stay saved). /playerwipe and /playerunwipe handle every page.
+    Off:       features.enderchest (plus.yml) is FALSE by default: /enderchest and /ec do nothing ("Ender chests are turned off") for everybody, ops too, and clicking
+               an ender chest block does nothing. Set it to true to turn them back on. /ecsee (admins) still works. The message: plus.yml -> enderchest-off-message.
+    Permission: donutrep.command.enderchest
+
+/nightvision
+    Turn night vision on or off
+    Examples:  /nv
+    Aliases:   /nv
+    Permission: donutrep.command.nightvision
+
+/phantom
+    Turn phantom spawning on or off for you
+    Examples:  /phantom        (stop / allow phantoms spawning near you)
+    Permission: donutrep.command.phantom
+
+/safety
+    Open the safety settings (staff)
+    Examples:  /safety
+    Book:      /safety now just OPENS the safety guide to read - you get no item (the book could be sold). plus.yml -> safety: give-book: true gives the old book item.
+               /safety give <player> (admins) always gives the book. The text is in messages.yml (admincommands.watch-out-fake-discords-or-mods-can);
+               where /discord leads is plus.yml -> info: discord:.
+    Permission: donutrep.command.safety
+
+/settings
+    Open your personal settings
+    Examples:  /settings
+    Scoreboard lines: every player can switch their own scoreboard lines on or off in /settings (page 1): Show Money, Show Shards, Show Kills, Show Deaths, Show Playtime, Show Team,
+               Show Key-All Timer, Show Rank, Show Ping. All are on by default. scoreboard.yml -> player-line-switches: false removes these switches (everybody sees every line).
+    Fast Crystals: a switch in /settings (end crystal button). On = faster end crystal placing for that player. The default for new players
+               is pvp.yml -> fast-crystals.default-player-state (false); every player's own switch wins over it.
+    Permission: donutrep.command.settings
+
+/vcconsent [revoke]
+    Choose whether voice chat may record you
+    Examples:  /vcconsent             (opens the voice chat confirm menu)
+               /vcconsent revoke
+    Permission: donutrep.command.vcconsent
+
+========================================================================
+STAFF: PLAYERS
+========================================================================
+
+/anticheat [alerts|panel|status [player]]
+    The built-in anti-cheat: a panel to switch single checks on and off, chat alerts for staff, and the violation points of a player.
+    Examples:  /anticheat                  (opens the panel; /ac works too)
+               /anticheat alerts           (switch YOUR alerts on or off)
+               /anticheat status           (on/off, and the last alerts)
+               /anticheat status Steve     (Steve's violation points per check)
+    Checks:    Reach (A) | Hitbox (A) | KillAura (A many targets, B clicks per second) | Fly (A hovering, B rising too high) | Speed (A)
+               FastBreak (A) | AutoTotem (A) | CrystalAura (A) | AnchorAura (A)
+    Alerts:    "[AC] Steve failed Reach (A) (5)" - the number is the violation points; they fade (plus.yml -> anticheat: decay-per-second).
+               The same flags are in /sus (the player's inspection lists every check with its points).
+    Safe:      alert-only by default. Creative / spectator, frozen players, players with donutrep.bypass.ac, a ping above max-ping (350)
+               and a server TPS below min-tps (17) are not judged. A teleport, a hit (knockback), an explosion, a flight, a vehicle, water,
+               a ladder, a slime block ... give a grace time. Auto-punish is off (anticheat.punish.enabled) - set it and the vl first.
+    Settings:  plus.yml -> anticheat: every check has enabled / numbers (reach leeway, max-cps, hover-ticks, max-bps, factor ...).
+               skip-checks-grim-covers: true = with GrimAC installed the checks Grim already does are not run here.
+    Aliases:   /ac
+    Permission: donutrep.ac.alerts (see alerts, /anticheat alerts) | donutrep.ac.panel (panel, status) | donutrep.bypass.ac (never checked)
+
+/chatlog [player]
+    Read recent public chat, everyone or one player
+    Cleanup:   plus.yml -> chatlog: prune: true, keep-days: 7 - logs/chat-log.txt loses lines older than that (at start and every hour).
+    Examples:  /chatlog
+               /chatlog Steve
+    Permission: donutrep.command.chatlog
+
+/disguise
+    Disguise yourself as another player (staff)
+    Examples:  /disguise scramble
+               /disguise remove
+    Permission: donutrep.command.disguise
+
+/ecsee <player>
+    Look inside a player's ender chest
+    Examples:  /ecsee Steve
+    Permission: donutrep.command.ecsee
+
+/fakeplayer
+    Spawn a fake player for testing (staff)
+    Examples:  /fakeplayer 1
+               /fakeplayer clear
+    Aliases:   /fplayer
+    Permission: donutrep.command.fakeplayer
+
+/feed [player]
+    Fully restore food level for yourself, or (with permission) another player.
+    Examples:  /feed
+               /feed Steve
+    Permission: donutrep.command.feed
+
+/fly [player]
+    Toggle flight for yourself, or (with permission) another player.
+    Examples:  /fly
+               /fly Steve
+    Permission: donutrep.command.fly
+
+/flyspeed <1-10> [player]
+    Set flight speed (0-10) for yourself, or (with permission) another player.
+    Examples:  /flyspeed 5
+               /fs 3 Steve
+    Aliases:   /fs
+    Permission: donutrep.command.flyspeed
+
+/freeze <player> | /freeze reload
+    Lock a player in place - standalone version of the /sus panel's freeze button.
+    Examples:  /freeze Steve
+               /freeze reload
+    Permission: donutrep.command.freeze
+
+/gamemode <mode> [player]
+    Change your (or, with permission, another player's) game mode.
+    Examples:  /gamemode creative
+               /gm survival Steve
+               /gmc
+               /gms
+               /gma
+               /gmsp
+    Aliases:   /gm, /gmc, /gms, /gma, /gmsp
+    Permission: donutrep.command.gamemode
+
+/god [player]
+    Toggle damage immunity for yourself, or (with permission) another player.
+    Examples:  /god
+               /god Steve
+    Aliases:   /godmode
+    Permission: donutrep.staff.god
+
+/heal [player]
+    Fully restore health for yourself, or (with permission) another player.
+    Examples:  /heal
+               /heal Steve
+    Permission: donutrep.command.heal
+
+/hide
+    Hide your name with a random alias
+    Examples:  /hide                    (menu: Scramble / Disguise: select a name, then a skin)
+               /hide scramble
+               /hide mrbeast
+               /hide status
+               /hide remove
+    Note:      since 1.11.66 other players really see the new NAME (above the head and in the tab list), not only the skin.
+               Paper keeps the real name in the profile it sends, so the plugin rewrites the player-list entry of a hidden player
+               as it is sent (needs the packetevents plugin, the one GrimAC uses). Found with a test client that logs in as a second
+               player (tools\Probe.java in the source). The tab list shows the alias as well; every viewer sees a short flicker when
+               the hide changes. A vanished staff member stays hidden.
+    Who:       /hide is an ADMIN command (op by default). A rank can be allowed ONLY /hide scramble (plus /hide remove and /hide status) with LuckPerms:
+                 lp group vip permission set donutrep.hide.scramble true        (take it away: lp group vip permission unset donutrep.hide.scramble)
+               Everything else (the menu, aliases, list, check) stays admin only. /disguise is admin only.
+    Permission: donutrep.command.hide
+
+/invsee <player> | /invsee reload
+    Open a live, editable view of a player's inventory: one window - inventory, hotbar, helmet / chestplate / leggings / boots and off hand (1.11.71).
+    Window:    both sides stay in step while it is open. invsee.yml: enabled, title, allow-edit, allow-self-view, notify-target, log-usage.
+    Examples:  /invsee Steve
+               /invsee reload
+    Aliases:   /inventorysee
+    Permission: donutrep.command.invsee
+
+/kill
+    Kill a player (staff)
+    Examples:  /kill
+               /kill Steve
+    Permission: donutrep.command.kill
+
+/keyhistory [player]
+    (admin) See every change of a player's crate keys: given, spent, taken, set.
+    Examples:  /keyhistory                 (a list of players with key history - click one)
+               /keyhistory Steve           (Steve's history: red = taken, green = given, newest first)
+    History:   each entry says how many keys, the balance after it, the CAUSE (opened a crate, key-all, crate party, a physical key, or the command
+               that was typed and by whom, e.g. "Admin: /crate key give Steve common 5") and when. Kept in plugins/DonutREP/logs/key-history.log
+               (older than keyhistory.keep-days = 90 days is dropped at start). Nothing is recorded before this version.
+    Settings:  plus.yml -> keyhistory: enabled: true | keep-days: 90
+    Permission: donutrep.admin.keyhistory
+
+/logs
+    Browse the server's staff logs
+    Examples:  /logs
+    Permission: donutrep.command.logs
+
+/newplayers
+    (staff, 1.13.0) A menu of the players who joined in the last 2 hours (newplayers: hours): head, how long ago they joined, minutes played, world and position.
+    Left-click teleports you to them, right-click spectates them (and starts /watch), shift-click opens their /sus inspection. Buttons: Recent, Close, next / previous page.
+    Also: when somebody joins for the FIRST time, staff with the permission get the chat line "[New] Name joined for the first time. [Open /newplayers]" (newplayers: notify-staff),
+    and Discord gets a message (discord.yml -> discord: newplayer: webhook-url; after-minutes: a second message when they played 10 minutes; show-alts: the other accounts on their IP).
+    Settings: plus.yml -> newplayers: enabled, hours, notify-staff
+    Permission: donutrep.staff.newplayers
+
+/recent
+    (staff, 1.13.0) The last 5 players YOU teleported to (any teleport onto a player counts: /tp, /newplayers, /watch, the /sus menu), newest first, in a menu that updates by itself every second:
+    name, world, position, game mode, ping, new-player info and the last teleport of that player. The 6th player pushes the oldest out; going to somebody again moves them to the top.
+    Left-click teleports you to where they are now, right-click spectates them, shift-click opens /sus. Buttons: New players, All players.
+    Settings: plus.yml -> recent: enabled, size (1-9)
+    Permission: donutrep.staff.recent
+
+/watch [player|stop]
+    (staff, 1.13.0) Tail a player: every time they teleport (/home, /tpa, /rtp, /spawn, /warp, a pearl, a portal, another plugin) you get "[Watch] Name teleported (/home) to world x y z [Teleport there]" with a
+    sound; the click (or /watch go) takes you to where they are now. By default you are put in spectator mode on them and, after each teleport, put on them again - also when they change world (watch: auto-follow).
+    /watch stop ends it and gives you your old game mode back. /watch alone opens a player picker with a Search button (type a part of the name). Teleports shorter than watch: min-distance (8 blocks) are not reported.
+    Examples:  /watch Steve
+               /watch stop
+    Settings: plus.yml -> watch: enabled, spectate, auto-follow, min-distance
+    Permission: donutrep.staff.watch
+
+/note <add|remove|list> <player> [text|index]
+    Manage staff notes on a player.
+    Examples:  /note add Steve warned about spam
+               /note list Steve
+               /note remove Steve 1
+    Permission: donutrep.staff.punishments.view
+
+/playerranks
+    Menu with the rank of every player (with a rank filter)
+    Examples:  /playerranks
+    Permission: donutrep.admin.rank
+
+/punishhistory [player]
+    View a player's staff notes.
+    Examples:  /punishhistory
+               /punishhistory Steve
+    Note:      a stat wipe (/statswipe) is listed here as type STATSWIPE (purple). It is not active and blocks nothing.
+    Permission: donutrep.staff.punishments.view
+
+/pmo [on|off]
+    (admin) PLAY MODE: play like a normal player. Admin commands (punishments and /statswipe too) are refused and gone from the tab list, the donutrep.bypass.* permissions
+    are off, vanish / staff mode / fly / god are switched off, and it stays on after a relog. /pmo again brings everything back.
+    Aliases:   /playmode, /adminmode   (NOT /pm: that is the private message)
+    Settings:  plus.yml -> playmode: enabled, also-hide (commands of OTHER plugins to hide: gamemode, give, tp ...), keep (DonutREP commands that stay), turn-off, messages.
+    Limit:     you stay op; a command of another plugin that is not in also-hide still works.
+    Permission: donutrep.admin.playmode
+
+/reports [all|tp|handle|delete <id>]
+    (admin) The player reports. /report is saved; this is where staff read them.
+    Examples:  /reports                    (open reports, newest first - click one)
+               /reports all                (handled ones too)
+               /reports tp 12              (teleport to where report #12 was made)
+               /reports handle 12          (mark it handled)
+               /reports delete 12
+    Menu:      click a report: go to where it happened, teleport to the reported player, open /sus on them, mark as handled / open again, delete.
+    Staff alert: online staff get "[Report #12] Alex reported Steve: using x-ray [TP] [SUS] [REPORTS]" with those buttons (donutrep.staff.report.receive or
+               donutrep.admin.reports).
+    Discord:   discord.yml -> discord: report: webhook-url ("Player Report Notification"). plus.yml -> reports: enabled, cooldown-seconds (60), min-reason-length,
+               keep-days (30), notify-staff.
+    Permission: donutrep.admin.reports
+
+/teamspy [log [team]]
+    (admin) Read every team's chat. /teamspy switches the spy on or off for you; /teamspy log [team] shows the last team messages.
+    Examples:  /teamspy
+               /teamspy log
+               /teamspy log Rockets
+    Switch:    the same on/off switch is in /settings page 2 ("Team Chat Spy", only admins see it) and in the /chat menu. plus.yml -> teamchat: spy: true / log: true.
+    Log:       every team message is written to plugins/DonutREP/logs/team-chat.log.
+    Discord:   discord.yml -> discord: teamchat: webhook-url - every team message is posted there (batched every 10 s). Blank url = off.
+    Permission: donutrep.admin.teamchat
+
+/rank <player>
+    Check the rank of a player
+    Examples:  /rank Steve
+    Permission: donutrep.admin.rank
+
+/stafflist
+    List every online staff member and their vanish/staffmode status.
+    Examples:  /stafflist
+    Permission: donutrep.command.stafflist
+
+/staffmode [player|reload]
+    Stash your inventory and switch to creative + vanish + flight for investigating.
+    Examples:  /staffmode
+               /staffmode Steve
+    Aliases:   /staff
+    Permission: donutrep.command.staffmode
+
+/sus [player|reload]
+    Staff panel - browse online players, freeze/unfreeze, view inventory/ender chest.
+    Examples:  /sus
+               /sus Steve
+               /sus reload
+    Inspect:   click a player: their flags, inventory (InvSee), ender chest, freeze - and what they wear: helmet, chestplate, leggings, boots, off hand and main hand.
+    Permission: donutrep.staff.sus
+
+/vanish
+    Toggle invisibility to everyone without staff.vanish.see.
+    Examples:  /vanish
+    Permission: donutrep.command.vanish
+
+========================================================================
+STAFF: PUNISHMENTS
+========================================================================
+
+/ban <player> [reason]
+    Ban a player for good and save it to their record
+    Examples:  /ban Steve using hacks
+               /ban Steve 30d using hacks     (a time as the second word makes it a temp ban)
+    Permission: donutrep.staff.punishments.ban
+
+/banip <player|ip> [time] [reason]
+    Ban an IP address (or the latest IP of a player) - no account can join from it
+    Examples:  /banip Steve cheating            (their latest IP, forever; their account is banned too)
+               /banip Steve 7d alt evasion
+               /banip 203.0.113.9 spam
+    Aliases:   /ipban
+    Permission: donutrep.staff.punishments.ipban
+
+/blacklist <player> [reason]
+    Blacklist a player and save it to their record
+    Examples:  /blacklist Steve severe cheating
+    Permission: donutrep.staff.punishments.blacklist
+
+/ipbans
+    List the IP bans
+    Examples:  /ipbans
+    Permission: donutrep.staff.punishments.ipban
+
+/kick <player> [reason]
+    Kick a player and save it to their record
+    Examples:  /kick Steve afk farming
+    Permission: donutrep.staff.punishments.create
+
+/lightban <player> [reason]
+    Ban a player without wiping their items
+    Examples:  /lightban Steve using hacks    (like /ban but does not wipe their items)
+    Aliases:   /lban
+    Permission: donutrep.staff.punishments.ban
+
+/mute <player> [reason]
+    Mute a player and save it to their record
+    Examples:  /mute Steve spamming
+    Permission: donutrep.staff.punishments.mute
+
+/punish <player> [offense] [time]
+    Punish a player. With only a name it opens the PUNISH MENU: Light Ban, Ban, Stat Wipe, Loot Wipe (or the list of preset offenses), then a reason (ready-made or your own), then confirm.
+    Menu:      plus.yml -> punish-menu: enabled, custom-reason, actions (which buttons), reasons (the ready-made ones). Loot Wipe needs donutrep.staff.punishments.lootwipe (op).
+               Light Ban and Ban need the ban node, Stat Wipe its own node. A button you may not use shows as a barrier.
+    Examples:  /punish Steve                    (the menu)
+               /punish Steve spamming chat      (a preset offense from offenses.yml, no menu)
+               /punish Steve spamming chat 1d
+    Permission: donutrep.staff.punishments.punish
+
+/statswipe <player> [reason] | /statswipe restore <player> | /statswipe <player> <groups|all> confirm [reason]
+    Reset chosen parts of one player's progress. It is logged like a punishment, but it blocks nothing: the player can keep playing.
+    Examples:  /statswipe Steve cheated kills        (opens a menu: pick what to reset, then CONFIRM)
+               /statswipe restore Steve              (puts back the last wipe from its backup)
+               /statswipe Steve kills,duels confirm  (console / typed form, no menu)
+               /statswipe Steve all confirm duping
+    Groups:    kills (kills and deaths) | duels (duel wins/losses) | ffa (FFA kills, deaths, streaks) | sell (sell progress and levels)
+               keys (virtual crate keys) | playtime | money | shards
+    Backup:    everything wiped is saved first to plugins/DonutREP/statswipes/<uuid>-<time>.yml. If the backup cannot be written nothing is wiped.
+    History:   a STATSWIPE entry appears in /punishhistory (who, when, which groups, the reason) and in the punishment Discord webhook
+               (discord.yml -> punishments.types contains STATSWIPE).
+    Aliases:   /swipe
+    Permission: donutrep.staff.punishments.statswipe   (its own node: a /ban moderator does not get it automatically)
+
+/tempban <player> <time> [reason]
+    Ban a player for a set time
+    Examples:  /tempban Steve 7d spamming
+               /tempban Steve 1d 12h griefing
+    Permission: donutrep.staff.punishments.ban
+
+/tempmute <player> <time> [reason]
+    Mute a player for a set time
+    Examples:  /tempmute Steve 30m spamming
+    Permission: donutrep.staff.punishments.mute
+
+/unban <player> [reason]
+    Lift a player's ban
+    Examples:  /unban Steve
+               /pardon Steve
+    Aliases:   /pardon
+    Permission: donutrep.staff.punishments.unban
+
+/unbanip <player|ip>
+    Lift an IP ban
+    Examples:  /unbanip Steve
+               /unbanip 203.0.113.9
+    Aliases:   /pardonip
+    Permission: donutrep.staff.punishments.ipban
+
+/unblacklist <player> [reason]
+    Lift a player's blacklist
+    Examples:  /unblacklist Steve
+    Permission: donutrep.staff.punishments.unblacklist
+
+/unmute <player> [reason]
+    Lift a player's mute
+    Examples:  /unmute Steve
+    Permission: donutrep.staff.punishments.unmute
+
+/vcmute <player> [reason]
+    Mute a player in voice chat
+    Examples:  /vcmute Steve mic spam
+    Permission: donutrep.staff.vcmute
+
+/vcunmute <player> [reason]
+    Unmute a player in voice chat
+    Examples:  /vcunmute Steve
+    Permission: donutrep.staff.vcunmute
+
+/warn <player> [reason]
+    Warn a player and save it to their record
+    Examples:  /warn Steve language
+    Permission: donutrep.staff.punishments.create
+
+========================================================================
+ADMIN: WORLD AND TOOLS
+========================================================================
+
+/amethysttool give <player> <type> [duration] | /amethysttool reload
+    Give or manage amethyst tools
+    Examples:  /amethysttool give Steve drill 1h
+               /amethysttool give Steve hoe_silk 30m
+               /amethysttool reload     (types: drill, drill_silk, chopper, sell-axe, shovel, shovel_silk, hoe, hoe_silk, sell-hoe, bucket, shard-booster, chop)
+    Sell hoe:  (1.15.0) /amethysttool give Steve sell-hoe 1h - breaks 9 blocks like the hoe and SELLS the crops it breaks at once (the sell multiplier and sell progress apply, like /sellall and
+               the sell axe); leaves, hay and moss still drop. amethyst-tools.yml -> SELL-HOE: SELL-CROPS: true (false = it works like the plain hoe), ENABLED, DURATION ...
+    Settings:  amethyst-tools.yml, in the section of each tool (since 1.11.65):
+               ENABLED: true        false = that tool cannot be given, comes out of crates or works any more (copies players hold stop at once
+                                    with 'this tool is turned off'). Example: HOE: ENABLED: false and HOE_SILK: ENABLED: false.
+               AUCTIONABLE: true    true = players may list it on /ah (it is a renamed item, which /sell refuses). Default true for every tool
+                                    except BUCKET and SHARD-BOOSTER (false). /sell, the sell menu and the sell axe never take amethyst tools.
+               A tool's life is a fixed end time on the item: it keeps running while the tool sits on the auction house.
+               (/amethysttool reload applies it. A missing line counts as ENABLED true.)
+    Sparkle:   every block an amethyst tool breaks - the one you mined too - throws purple sparkles (amethyst-tools.yml -> PARTICLES: ENABLED, DUST: true,
+               DUST-COUNT, DUST-RED / GREEN / BLUE; BLOCK-MATERIAL and COUNT are the chips).
+    Permission: donutrep.command.amethysttool
+
+/amod [list|add|remove|history|reset|reload]
+    Anvil-name moderation (banned words list)
+    Examples:  /amod list
+               /amod add badword
+               /amod remove badword
+               /amod history Steve
+               /amod reload
+    Aliases:   /anvilmoderation, /anvilmod
+    Permission: donutrep.command.amod
+
+/border [status|reload|on|off|set <overworld|nether|end|all> <radius>|center <overworld|nether|end|all> <x> <z>]
+    (admin, 1.11.97) The world border of the Overworld, the Nether and the End: a square of 200000 blocks from the centre 0,0 (400000 wide) in every world.
+    Examples:  /border                          (status: radius and centre of the three worlds, damage, players outside)
+               /border set all 150000           (radius of all three worlds; or overworld / nether / end alone)
+               /border center end 0 0           (the centre of a world)
+               /border off | /border on         (no border at all / back on)
+               /border reload                   (read border.yml again; /donutrep reload does it too)
+    Crossing:  the moment a player crosses the border they get the warning once: the title WORLD BORDER, a chat line and a sound. After 1 second outside they take 1 heart,
+               then 2 hearts, 4, 8 ... every second (it doubles each time) until they walk back inside - the count starts again at 1 heart when they come back out.
+               The real Minecraft border is set too (the wall and the red edge of the screen), its own damage is turned off.
+    Settings:  border.yml -> border: enabled, exclude-worlds, vanilla-border, overworld / nether / end (enabled, radius, center-x, center-z), damage (enabled, start-hearts, multiplier,
+               max-hearts, grace-seconds, interval-seconds, affect-creative), warning (enabled, title, subtitle, message, sound, back-message).
+    Permission: donutrep.admin.border  (donutrep.bypass.border = never hurt, off for everybody by default; creative and spectator players are not hurt)
+
+/bordertp <overworld|nether|end> [east|west|north|south]
+    (admin, 1.11.97) Teleport to the edge of the border of a world (3 blocks inside; border.yml -> bordertp). The land there is made first. Where there is no ground
+    (void in the End, lava) a small obsidian platform is built (bordertp: platform).
+    Examples:  /bordertp end               (the east edge of the End)
+               /bordertp nether south
+    Permission: donutrep.admin.border
+
+/clearlag
+    Remove lag-causing entities right now
+    Examples:  /clearlag
+    Permission: donutrep.command.clearlag
+
+/create
+    Create a region, item or entry (staff)
+    Examples:  /create
+    Permission: donutrep.command.create
+
+/cuboid <wand|create|delete|list|setspawn|delspawn|bind <cuboid> <spawn|shard|afk|rtp-zone|rtp-queue|keyall> <true|false>|bind <cuboid> ffa <ffa arena>[,<arena>] [true|false]|bind <cuboid> duel [<duel arena>,<arena>|all] [true|false]|unbind <cuboid> [type]|hologram|reload>
+    Create and manage cuboid regions
+    Examples:  /cuboid wand
+               /cuboid create spawn1
+               /cuboid bind spawn1 spawn true
+               /cuboid bind afk1 afk true
+               /cuboid bind rtp1 rtp-zone true
+               /cuboid bind kz1 keyall true         (the only place that gets key-all keys, when plus.yml -> keyall: cuboid-only is true)
+               /cuboid bind sandpod ffa sand true        (FFA pod for the FFA arena 'sand'; false removes it)
+               /cuboid bind sandpod ffa sand,pit         (one pod, two arenas)
+               /cuboid bind duelpod duel a1,a2 true      (duel pod for two duel arenas; false removes it)
+               /cuboid bind duelpod duel all             (every enabled duel arena)
+               /cuboid unbind sandpod
+               /cuboid menu            (rename the FFA / duel cuboids)
+               /cuboid name sandpod &bShark Den
+               /cuboid podcheck
+               /cuboid list
+               /cuboid delete spawn1
+               /cuboid hologram rtp1 height 3
+               /cuboid reload
+    Setup:     a walk-in FFA or duel pod, step by step:
+                 1. /ffaarena create sand   (FFA)   or   /arena create a1   (duel), set the positions, /ffaarena enable sand  /  /arena enable a1
+                 2. /cuboid wand, mark the pod with two clicks, /cuboid create pod1
+                 3. /cuboid bind pod1 ffa sand true      or      /cuboid bind pod1 duel a1 true
+               The type after bind is spawn, shard, afk, rtp, duel or ffa (tab completion lists all six). true or false at the end
+               switches the pod on or off; without it the bind is made. /cuboid unbind pod1 removes it.
+    Permission: donutrep.command.cuboid
+
+/hologram <create|remove|list|move|scale|reload>
+    Place leaderboard holograms (top kills, deaths, balance, playtime, shards)
+    Examples:  /hologram create kills
+               /hologram create duels top1
+               /hologram list
+               /hologram move top1
+               /hologram scale top1 1.5
+               /hologram remove top1
+               /hologram reload
+    Aliases:   /holograms
+    Permission: donutrep.admin.hologram
+
+/pregen [start <world> [radius|border] [centerX centerZ]|pause|resume|stop|status]
+    (admin, 1.11.97) Make the land of a world ahead of time, like the Chunky plugin. <world> is the real name of the world: world, world_nether, world_the_end ...
+    It starts at the centre and walks outwards region by region; chunks that already exist are skipped (so it carries on where Chunky stopped), new ones are asked for
+    a few per tick. The speed is limited by the server's world generation: it will not beat Chunky by much (16 new chunks per tick, 64 at once, per world).
+    Examples:  /pregen start world                     (the radius of the border: 200000 around 0,0)
+               /pregen start world_nether 50k 0 0      (radius 50000, 1000 or 1k works too)
+               /pregen status                          (percent, chunks made / already there, chunks per second, a time left that is at most)
+               /pregen pause all | /pregen resume world_the_end | /pregen stop world_nether     (stop forgets the task)
+    Console:   every 5 minutes (border.yml -> pregen: log-minutes) a line like Chunky's:
+               Task running for world_the_end. Processed: 152727325 chunks (97.73%), ETA: 13:12:54, Rate: 74.6 cps, Current: -6149, -1329
+               (Current = the chunk the walk has reached; the ETA counts every chunk left as new, so it can be too long where many chunks exist already.)
+    Discord:   discord.yml -> discord: pregen: webhook-url (blank = off), every-percent: 10 (a message at 10%, 20% ... 0 = none), on-start, on-finish, username.
+               A message also goes out when a task is paused because its world is not loaded.
+    Safety:    nothing is asked for while the TPS is under 17, at most 64 chunks per world are being made at once. The progress is saved every 30 seconds in data2/pregen-state.yml;
+               after a restart the task waits paused - /pregen resume carries on (pregen: auto-resume: true does it by itself). One task per world; the worlds can run together.
+    Settings:  border.yml -> pregen: enabled, chunks-per-tick, max-in-flight, min-tps, skip-check (status = reads each saved chunk and counts only finished ones, header = only looks at the region file list), save-seconds, log-minutes, auto-resume
+    Note:      the game saves half finished chunks around every chunk it makes. skip-check: status (the default) looks into each saved chunk and finishes those; on a huge old world that
+               means reading every chunk once (hours, in background threads). skip-check: header only looks at the region file list (minutes) and treats half finished chunks as done.
+    Permission: donutrep.admin.pregen
+
+/spawnancientdebris [seconds]
+    Hide a random ancient debris vein to catch xray users
+    Examples:  /spawnancientdebris          (vein vanishes after 60 seconds)
+               /spawnancientdebris 600      (10 minutes)
+               /spawnancientdebris 0        (stays until removed)
+               /spawnancientdebris remove
+    Aliases:   /spawnad, /spawndebris
+    Permission: donutrep.admin.spawnbedrock
+
+/spawnbedrock [seconds|list|remove <id>|clear|reload]
+    Plant bait bedrock to catch xray users
+    Examples:  /spawnbedrock                (lasts 60 seconds, then the original blocks come back)
+               /spawnbedrock 600            (lasts 10 minutes)
+               /spawnbedrock 0              (stays until removed)
+               /spawnbedrock list
+               /spawnbedrock remove 3
+               /spawnbedrock clear
+               /spawnbedrock reload
+    Note:      the default is spawn-bedrock.yml -> SETTINGS.DEFAULT_SECONDS: 60 (0 = forever). An older TTL_SECONDS above 0
+               in your file still wins.
+    Aliases:   /bedrockbait
+    Permission: donutrep.admin.spawnbedrock
+
+/spawndiamond [seconds]
+    Hide a random diamond vein to catch xray users
+    Examples:  /spawndiamond                (vein vanishes after 60 seconds)
+               /spawndiamond 600            (10 minutes)
+               /spawndiamond 0              (stays until /spawndiamond remove or /unspawnbedrock)
+               /spawndiamond remove
+    Aliases:   /spawndia
+    Permission: donutrep.admin.spawnbedrock
+
+/spawner [give|info|panel|reload|remove|split]
+    Open and manage your spawners
+    Examples:  /spawner panel
+               /spawner info
+               /spawner give Steve pig 5
+               /spawner remove
+               /spawner split
+               /spawner reload
+    Note:      the storage menu is called like "Blaze Storage (1/1)" (spawners.yml -> GUI.STORAGE.TITLE; an existing
+               spawners.yml keeps its old title until you change that line to  '&8{mob} Storage ({page}/{max_page})').
+               SELL ALL there pays the price x your /sellmulti multiplier and counts as sell progress.
+    Permission: donutrep.command.spawner
+
+/spawnerview [player]
+    View every placed spawner
+    Examples:  /spawnerview
+               /spawnerview Steve
+    Permission: donutrep.admin.spawner.seeall
+
+/spawnstash
+    Place or remove stash markers (staff)
+    Examples:  /spawnstash list
+               /spawnstash create stash1   (select a build with WorldEdit first)
+               /spawnstash remove stash1
+    Aliases:   /stash
+    Permission: donutrep.command.spawnstash
+
+/unspawnbedrock [id]
+    Remove the bait bedrock you just placed
+    Examples:  /unspawnbedrock 3
+    Permission: donutrep.admin.spawnbedrock
+
+========================================================================
+ADMIN: SERVER
+========================================================================
+
+/donutrep <reload|menus|seed|statswipe|optimize|import|antiesp>
+    DonutREP admin command
+    Examples:  /donutrep reload
+               /donutrep import v1 plugins/OldPlugin preview      (carry data over from an older plugin: counts only, changes nothing)
+               /donutrep import v2 plugins/OldPlugin confirm      (backs up first, then imports)
+               /donutrep menus
+               /donutrep seed          (state of the seed protection)
+               /donutrep statswipe          (resets kills and deaths of EVERY player - for one player use /statswipe)
+               /donutrep optimize
+               /donutrep antiesp       (what anti-ESP does right now: mode, radius, how many blocks are known / hidden)
+                /donutrep antiesp check <player>   (why that player does or does not get disguised blocks: bypass, world, mode, nearest spawner and its distance)
+    Aliases:   /drep
+    Perms:     /donutrep perms <online player> [command] (admin) - which admin commands that player can use and WHY: op, an exact permission node, a wildcard
+               (* or donutrep.*) or another plugin that owns the command. Use it when a player who is not op can use an admin command; then look with
+               /lp user <name> permission info.
+    Reload:    /donutrep reload also reads billford.yml again and refreshes the settings that some commands kept.
+    Import:    /donutrep import <v1|v2> <folder> <preview|confirm> [replace] [again]   (permission donutrep.admin.import, plus.yml -> features: import)
+               <folder> is the data folder of the older plugin (the one with data.db), for example plugins/OldPlugin. v1 / v2 is the plugin version; the data is read the same way.
+               preview only counts: players, money, shards, settings, homes, warps, teams, ignores, friends, bounties, IP history, punishments, sell progress, crate keys,
+               crate blocks, spawners with loot, cuboids, portals, ender chests, and the yml files. confirm does the same and writes it.
+               Before confirm writes anything, DonutREP's data folder is copied to plugins/DonutREP/imports/<date>/backup and the old folder to .../source, and a report.txt
+               is written next to them. Nothing DonutREP already has is changed unless you add the word replace. The same folder cannot be imported twice unless you add again.
+               Carried over: money (cents rounded), shards, the player switches DonutREP has, homes (over the home limit or in a missing world are skipped), warps, teams with
+               leader and members, ignored players, friends, bounties, IP history (for /alts), bans / mutes / warns (a ban that is still running stays running),
+               sell progress, crate keys (for crates that exist here), crate blocks, spawners with their stored loot, ender chest items, cuboid areas, portals that lead to a warp.
+               yml files: a setting is taken over only when DonutREP has the same setting and it still has its default value; your own changes are kept. Comments stay.
+               Not importable (kept in the archive): kills, deaths and playtime (they live in Minecraft's own statistics), temporary states (hide, staff mode, freeze), logs,
+               team home / friendly fire / member rights, what a cuboid is bound to, portal names and rights, language files. Webhook addresses, tokens and IP addresses are never printed.
+    Permission: donutrep.command.donutrep
+
+/ecowatch <reload|test|status>
+    Manage EconomyWatchdog's Discord balance-jump alerts.
+    Examples:  /ecowatch status
+               /ecowatch test
+               /ecowatch reload
+    Permission: donutrep.admin.ecowatch
+
+/maintenance
+    Turn maintenance mode on or off
+    Examples:  /maintenance on
+               /maintenance off
+               /maintenance status
+    Permission: donutrep.command.maintenance
+
+/marketwatch <reload|status>
+    Check total circulating Money and MarketWatch's webhook status.
+    Examples:  /marketwatch status
+               /marketwatch reload
+    Permission: donutrep.admin.marketwatch
+
+/playerunwipe <player> [confirm]
+    Bring back a wiped player from their backup
+    Examples:  /playerunwipe Steve
+               /playerunwipe Steve confirm
+    Aliases:   /punwipe, /unwipe
+    Permission: donutrep.command.playerunwipe
+
+/playerwipe <player> [confirm]
+    Erase everything stored about one player
+    Examples:  /playerwipe Steve
+               /playerwipe Steve confirm
+    Aliases:   /pwipe, /wipe
+    Permission: donutrep.command.playerwipe
+
+/purchasealert <reload|test|status>
+    Manage Discord alerts for new store purchases (reads StoreBridge's backend).
+    Examples:  /purchasealert status
+               /purchasealert test
+               /purchasealert reload
+    Permission: donutrep.admin.purchasealert
+
+/serverwipe
+    Wipe the server's player data (staff)
+    Examples:  /serverwipe                  (prints a one-time token)
+               /serverwipe confirm <token>
+    Permission: donutrep.command.serverwipe
+
+========================================================================
+LUCKPERMS: LIMITS (homes, auction house, orders)
+========================================================================
+Players get limits from permissions, the HIGHEST number a player has wins (a lower one cannot lower it). Without any, the default applies:
+homes 3 / auction listings 5 (plus.yml -> limits.defaults) and orders 5 (orders.yml -> orders.max-active-default). A lower limit never deletes
+anything that already exists. Use  lp user <name> ...  for one player or  lp group <group> ...  for a whole rank. Every number can be anything (1, 7, 25, 100).
+
+  HOMES  (/sethome, /homes)            node:  donutrep.homes.<n>
+      lp user Steve permission set donutrep.homes.10 true
+      lp group vip permission set donutrep.homes.15 true
+      lp group mvp permission set donutrep.homes.30 true
+      lp user Steve permission unset donutrep.homes.10          (take it away again)
+
+  AUCTION HOUSE  (/ah sell)            node:  donutrep.auctionhouse.<n>      (listings at the same time)
+      lp user Steve permission set donutrep.auctionhouse.20 true
+      lp group vip permission set donutrep.auctionhouse.25 true
+      lp group mvp permission set donutrep.auctionhouse.50 true
+      lp user Steve permission unset donutrep.auctionhouse.20
+
+  ORDERS  (/orders create)             node:  donutrep.orders.limit.<n>      (open orders at the same time)
+      lp user Steve permission set donutrep.orders.limit.10 true
+      lp group vip permission set donutrep.orders.limit.15 true
+      lp group mvp permission set donutrep.orders.limit.25 true
+      lp user Steve permission unset donutrep.orders.limit.10
+
+  CHECK what a player has:  lp user Steve permission info   (also look at their groups: lp user Steve info)
+  A temporary limit:        lp user Steve permission settemp donutrep.homes.20 true 7d
+  Defaults (everybody):     plus.yml -> limits: defaults: homes: 3 / auction: 5 / orders: 5   (orders: orders.yml max-active-default wins)
+  The prefix donutrep. works in front of every node:  donutrep.homes.10 and donutrep.homes.10 are the same.
+  The nodes of other features (staff, admin, bypass) are in each command above under 'Permission:'.
+  All of them at once for an admin group:  lp group admin permission set donutrep.* true
+
+========================================================================
+NOT COMMANDS BUT GOOD TO KNOW
+========================================================================
+  ANTI-CHEAT (1.11.69): /anticheat, plus.yml -> anticheat. Alert-only. Checks and what they look at:
+    Reach (A)       the distance from the attacker's eyes to the nearest side of the target's box (3.0 + leeway 0.6 + ping)
+    Hitbox (A)      the look direction must pass through the target's box (tolerance 0.4 + ping); alerts from 3 points
+    KillAura (A)    3 different targets hit within 500 ms           KillAura (B)  more than 22 attacks in one second
+    Fly (A)         25 ticks in the air with no fall               Fly (B)       rising more than 1.35 blocks (+0.5 per jump boost level) without ground
+    Speed (A)       more than 9 blocks/s (scaled by the speed attribute; ice x1.9), measured over about a second by the clock so lag spikes do not count
+    FastBreak (A)   a block broken in less than 60 percent of its survival time (instant breaks and tools / blocks the plugin breaks itself are skipped)
+    AutoTotem (A)   a new totem in the off hand within 100 ms of a pop
+    CrystalAura (A) an end crystal hit in the tick it was placed, 3 times in 10 seconds
+    AnchorAura (A)  a respawn anchor charged and used again within 60 ms with a different item
+    Not done: Grim's own checks cannot be switched here (Grim has its own config); this anti-cheat does not read packets, it uses server events and the position every tick.
+  NEW in 1.15.3: /tphere (the same as /tpahere); the key timer of the cuboid-only mode shows "Next Key in ..." in the action bar and there is no boss bar any more (afk area: scoreboard only).
+  NEW in 1.15.2: /settings has a third page (Scoreboard: visibility and the line switches); key-all area modes use a personal timer per player (scoreboard line only inside the area, same length as the shard timer where both apply); /team ally tab-completes team names only; anti-ESP: ops no longer bypass by default (antiesp.ops-bypass, permission donutrep.bypass.antiesp), packetevents is a soft dependency, /donutrep antiesp check <player>.
+  NEW in 1.15.1: /setkey, /keymenu, /keyafk and the keyall cuboid bind are hidden and off unless keyall: afk-only or cuboid-only is true; the mob-spawn setting (Settings -> Mob Spawning) now blocks every hostile mob within 128 blocks.
+  NEW in 1.15.0: key-all area percent (keyall.yml: area-percent) and a check that every key name is a crate (staff are warned); /setkey, /keymenu and /keyafk (teleport points and a player menu for key-all cuboids);
+    ANTI-ESP (antiesp.yml, on by default): far spawners and chests look like deepslate / stone / a crafting table (radius + height rules; packetevents rewrites the chunk packets); team rename, color, icon and
+    allies (teams.yml, off by default) and /teamtop (most kills, deaths, playtime, money, shards); the SELL HOE (an amethyst tool that sells the crops it breaks); keyall.yml, antiesp.yml and teams.yml are
+    their own files now (an existing keyall section of plus.yml moves into keyall.yml at the first start); text/where-to-edit.txt says which file and key to change for every option.
+  NEW in 1.14.0: /donutrep import <v1|v2> <folder> <preview|confirm> (carry the data of an older plugin over, with backup, archive and report), per-player scoreboard line switches in /settings (team, key-all, rank, ping added), key-all only for players in an afk cuboid (keyall: afk-only) or in a key-all cuboid (keyall: cuboid-only, /cuboid bind <cuboid> keyall true) - only one of the two.
+  NEW in 1.13.0: /newplayers (menu of the players who joined in the last 2 hours, Discord alert for a first join, chat line for staff), /recent (your last 5 teleport targets, live) and /watch (alerts when a player teleports, stays on them in spectator mode). plus.yml -> newplayers / recent / watch, discord.yml -> discord: newplayer.
+  NEW in 1.12.0: /license - players can read the license in the game (a short notice with the Discord link, and the whole license as a book). plus.yml -> features: license.
+  NEW in 1.11.99: SEVERAL TELEPORT POINTS for every AFK and spawn cuboid (no limit on the number of cuboids). /setafk <cuboid> [number] and /setspawn <cuboid> [number] add or move a point where you stand,
+    /afkmenu and /spawnmenu are the editors (list of cuboids -> its points; add, move, delete, teleport, random or one after the other, on/off). Players who use /afk or /spawn land on one point
+    of the cuboid they chose (a random cuboid with the big button, then a point of it). plus.yml -> areas: max-points 20, point-mode random, show-names false (true = the menus show the cuboid names).
+    The old /setafk (force a player's AFK status) is /forceafk now. The points are in cuboids.yml (<cuboid>.points.afk / .points.spawn).
+  NEW in 1.11.98: /pregen takes only the real world names (world, world_nether, world_the_end); Discord messages for the pregenerator in discord.yml (pregen: every 10 percent, start, finish,
+    paused); the console progress line is in Chunky's words. The start-up banner shows DONUTREP on one line and a notice: recreating, copying or selling the plugin without the consent of
+    akxptic, on any social media platform or anywhere else, by any third party, leads to a DMCA (Digital Millennium Copyright Act) takedown; selling it is not planned, not even in the future.
+    LICENSE.txt has a new section 4b (no resale, no copies on social media, DMCA). Every yml and txt file - inside the jar and in the plugin folder (settings, text/, data2/, data/,
+    .defaults/, backups/, config-backups/) - now ends with a license notice (comment lines). The plugin puts it back at start, every 10 minutes and when the server stops, because a
+    file the plugin saves again loses it. Databases (.db) and logs cannot hold a comment and are left alone. ConfigSync takes the notice off before it merges a file.
+  NEW in 1.11.97: WORLD BORDER (border.yml, /border, /bordertp) and PREGENERATOR (/pregen). Border: radius 200000 around 0,0 in the Overworld, the Nether and the End; a warning when
+    you cross it, then damage that doubles every second (1, 2, 4, 8 hearts). Everything (radius, centre, damage, texts, sounds, worlds that are left out) is in border.yml; /border set changes a
+    radius for you. The pregenerator is /pregen (settings in border.yml -> pregen). A new file: an existing server gets it at the next start.
+  NEW in 1.11.96: the crate editor hides Add key to shop when there is no shop.yml (Donut Crates on its own).
+  NEW in 1.11.95: a permanent ban or a Loot Wipe also deletes the player's auction listings and orders (punishments.wipe-auctions-orders, on by default).
+  NEW in 1.11.94: the small crate menus (crates.small-menus) show one row of up to 9 rewards between gray glass panes; no mention of another plugin is left in the plugin.
+  NEW in 1.11.93: the saved ender chests (enderchests.yml) are in data2/ next to the spawner data; an old file is moved there on the first start.
+  NEW in 1.11.92: ender chest rows (rows-by-permission) are no longer given to ops automatically either. Homes, auction and order limits were never affected.
+  NEW in 1.11.91: ops no longer get every ender chest page by default (donutrep.enderchest.pages.2-20 are declared, default false).
+  NEW in 1.11.90: text/rank-names-guide.txt (how to change rank names).
+  NEW in 1.11.89: crates.small-menus (27-slot crate menus with a confirm step; off by default).
+  NEW in 1.11.88: ender chest pages per rank (rank-pages, default-pages in ender-chest.yml; permission donutrep.enderchest.pages.N).
+  NEW in 1.11.87: the sell axe pays with the /sellmulti multiplier and counts towards sell levels (it used to pay the base price only).
+  NEW in 1.11.86: donutrep.shards.everywhere is no longer part of the admin permissions (ops use the shard cuboids like players; give it to a rank in LuckPerms).
+  NEW in 1.11.85: no crate keys in the /shop by default; crate editor button 'Add key to shop' (currency + price), crates.auto-shop.
+  NEW in 1.11.84: the plugin's own files moved into folders: logs/ (activity, key history, chat, team chat), data2/ (spawner data, bedrock data), text/ (banned words, seed guide, this list).
+  NEW in 1.11.83: the activity log (activity-log.txt, the /logs menu) is off by default - activity-log: enabled: true turns it on.
+  NEW in 1.11.82: the Random reward button is in the crate preview too.
+  NEW in 1.11.81: crate spin animation (CrateSpin), random-button, show-chance (false by default; the crate editor always shows it).
+  NEW in 1.11.80: crate reward lore shows only the chance (crates.show-weight: true adds the weight number).
+  NEW in 1.11.79: /punish <player> opens a menu (Light Ban, Ban, Stat Wipe, Loot Wipe, preset offenses) with ready-made or custom reasons; Loot Wipe is new (own node, backup, LOOT WIPE in the history).
+  NEW in 1.11.78: click-buttons (plus.yml: tpa, duel, team, friend) + one 'Click Buttons' option per player in /settings.
+  NEW in 1.11.77: the config update is a THREE-WAY MERGE for every file (also crates, shop, menus, Billford ...): old default (kept in plugins/DonutREP/.defaults/, or the bundled
+    1.11.72 copy) vs your file vs the new default. Untouched = updated, changed = kept, new = added, deleted by you = stays deleted, dropped by the new version = removed if untouched.
+  NEW in 1.11.75: CONFIG UPDATE AT START (ConfigSync) - when you replace the jar, the settings your config files do not have yet are inserted (with comments, in place, old copy in
+    config-backups, last 10 kept). Your values/comments are never changed; lists you own (crates.yml, shop.yml, worth.yml, menus.yml, hologram.yml, offenses.yml, Billford trades, rtp worlds,
+    rank groups, hide aliases, scoreboard lines, spawner loot / prices) are never merged. A file that is not valid YAML is left alone with a warning.
+  NEW in 1.11.74: Billford trades give 110-140% of what they cost (was 100-110%).
+  NEW in 1.11.73: /pvptop menu (FFA/duels filter, pvptop.enabled), 24 fair Billford trades with optional bonus switches, worth tooltip stays after menus and commands.
+  NEW in 1.11.72: FFA full loot (ffa.yml -> ffa.full-loot, default true): deaths, combat leaves and logouts drop all items; /ffa leave no longer wipes gear picked up in the arena.
+  NEW in 1.11.71: /pmo play mode, /invsee as one window with armor and off hand, /pvp top duels|ffa, combat /leave kills, no attack after /draw, ender chest block works while the
+    commands are off, /spawner shop removed (use /shop), no New Warp button for players, Billford trades balanced (95-120%), worth tooltip on cursor and every slot, fewer sus dupe
+    and fly (B) false alarms, no Area line in /spawn and /afk, no world in the TPA menu, staff-mode items removed, portal holograms, chat-log cleanup (7 days).
+    The files of an existing server keep their old values: copy playmode:, chatlog:, portal-hologram: (plus.yml), combat leave-kills (pvp.yml) and the new billford.yml trades in.
+  NEW in 1.11.70: admin-only /hide (a rank gets /hide scramble through donutrep.hide.scramble), /enderchest and /ec off by default (features.enderchest), /report saved +
+    /reports menu + the "Player Report Notification" webhook, team chat log / spy / webhook (/teamspy), the /portaladmin menu, clickable [ACCEPT] [DENY] on tpa and duel
+    requests, /discord confirm and /discord accept handed to DiscordLink, armor and off hand in /sus, /instagram and /tiktok, /safety opens the book without giving it,
+    /donutrep perms (why can this player use that command), /donutrep reload now reads billford.yml (and the settings copies) again.
+  NEW in 1.11.69 (besides the anti-cheat): profile viewer (/profileviewer), Billford slots, draw popup, shulker worth, amethyst sparkle, ender chest pages,
+    /keyhistory, chat management menu, sell progress menu, scoreboard {region} and {pingcolor} (scoreboard.yml -> region: 'NA East', ping-good-ms, ping-ok-ms),
+    FFA arena timer + anti-camp, building on in duel and FFA arenas. Settings are in plus.yml, duels.yml, ffa.yml, ender-chest.yml, billford.yml,
+    amethyst-tools.yml and scoreboard.yml - an existing file keeps its old values, so copy the new lines in (or delete the file to get all defaults).
+  NEW in 1.11.68:
+    duels.yml:    claims: false (true = loot goes to /duel claims, no pick-up time), claims-keep-days: 7
+    plus.yml:     hover-stats: chat / tpa / tpahere / duel (all true) - hover a name to see money, kills, deaths, playtime, shards; click = /stats
+                  tpa: show-world: false - true shows the sender's world in /tpa and /tpahere requests
+                  crates: floating-tag: true, tag-lines, tag-range - the 3-line crate tag with the viewer's own keys
+    discord.yml:  punishments.types now includes STATSWIPE
+    /cuboid bind <name> duel|ffa <arena> [true|false] and /statswipe <player> are new (see above).
+    This list is also inside the jar and is copied to plugins/DonutREP/text/commands.txt at every start (edit the copy in Custom Plugins, not that one).
+  Weekly cleanup (plus.yml -> maintenance.weekly-cleanup, since 1.11.66, off by default since 1.11.67): once a week the small temporary notes the plugin keeps in memory
+      are cleared (a server restart clears them too). Nothing a player earned is touched (money, homes, levels, keys, ranks, stats).
+      enabled: false (OFF by default - set true to switch it on) | day: SUNDAY | time: "18:00" | warn-day: SATURDAY | warn-time: "18:00" | final-warning-minutes: 10 | announce-done: true
+      discord-webhook: ''  (Discord: channel settings > Integrations > Webhooks; blank = no messages)
+      A Discord message goes out on the warn day (what will be cleared and when, in words), 10 minutes before, and when it is done (with the numbers).
+      clear: true/false per kind of note: amethyst-click-cooldowns, spawner-bait-alert-times, sus-alert-cooldowns, crate-open-times, rank-menu-state,
+      spawn-reasons (all true), ecowatch-baseline and sus-flags (false). The chat-filter offense counts are never cleared: nobody goes back to 0.
+      A server that started after the cleanup time has fresh notes already, so nothing is cleared then.
+  Walk-in pods: no command - step into a cuboid made with /cuboid bind <cuboid> ffa <arena> (or duel [arenas]).
+  /ffa and /ffa join go to an FFA arena; /leave forfeits a duel; closing the game during a duel or FFA match kills you.
+  In a duel only /leave, /draw, /msg, /reply, /tell, /w work (duels.yml -> allow-commands).
+  Settings files: plugins/DonutREP/*.yml. /donutrep reload applies changes without a restart.
+
+========================================================================
+THINGS TO TEST IN 1.22.9 / 1.22.8 / 1.22.7 / 1.22.6 / 1.22.5 / 1.22.4 / 1.22.3 / 1.22.2 / 1.22.1 / 1.22.0 / 1.21.3 / 1.21.2 / 1.21.1 / 1.21.0 / 1.20.0 / 1.19.0 / 1.18.0 / 1.17.0 / 1.16.1 / 1.16.0 / 1.15.3 / 1.15.2 / 1.15.1 / 1.15.0 / 1.14.0 / 1.13.0 / 1.12.0 / 1.11.99 / 1.11.98 / 1.11.97 / 1.11.96 / 1.11.95 / 1.11.94 / 1.11.93 / 1.11.92 / 1.11.91 / 1.11.90 / 1.11.89 / 1.11.88 / 1.11.87 / 1.11.86 / 1.11.85 / 1.11.84 / 1.11.83 / 1.11.82 / 1.11.81 / 1.11.80 / 1.11.79 / 1.11.78 / 1.11.77 / 1.11.76 / 1.11.75 / 1.11.74 / 1.11.73 / 1.11.72 / 1.11.71 / 1.11.70 / 1.11.69 / 1.11.68 (new)
+========================================================================
+  [ ] 1.17.0 - SURVIVAL SHOP MENU: survival: true. The first menu is called Survival Shop and has ONE Close button (corner). The Shard Shop is under the crafting table, Crate Keys at the top, Search next to Tools. Open Natural Blocks: all logs are together, then all leaves, then all saplings (oak, spruce, birch ... in the order of the game); Building Blocks: oak planks, oak stairs, oak slab, oak fence ..., then spruce; Colored Blocks: all white items, then light gray. The filter starts on Organized (Name (A-Z) is the next choice).
+  [ ] 1.22.27 - CHOOSE ENCHANTMENTS, SMALLER: the enchantment window (QuickShop and orders) is the same window with a button for every level, but smaller so it fits a bigger GUI scale: name button 115 (was 140), level buttons 30 (was 40), Back / Skip / Continue / Cancel 100 (was 160), and the name has no level number any more. quickshop.yml -> enchant-name-width, enchant-level-width, enchant-button-width: make them smaller if a level or Continue still runs off your screen. (enchant-dialog: COMPACT = one level button per enchantment; not the default.)
+  [ ] 1.22.25 - ARENA WAND: /arena wand (also /ffaarena wand, /ffa wand) gives a stick; left-click a block = corner 1, right-click a block = corner 2; /arena setarea (or /ffaarena setarea) saves the box for the selected arena (/cleararea removes it). Without an area the arena is the box round its starting points plus duels.arena-padding / ffa.arena-padding (40) blocks. With an area: what players change inside it is put back (also by TNT, fire and flowing water), nobody can build outside it (height too). The setpos / setreturn spawn points are not changed.
+  [ ] 1.22.24 - RANK IN CHAT: in chat the name comes first and the rank after it again (ranks.yml -> chat-format: '&f{name}{rank} &8» &f{message}'); only the tab list has the rank in front (tab-format: '{prefix}&f{name}'). If you already have chat-format with {prefix}, change it to {name}{rank} yourself.
+  [ ] 1.22.23 - RANK IN FRONT: the rank tag is now in front of the name in the tab list and in chat (ranks.yml -> tab-format: '{prefix}&f{name}', chat-format: '{prefix}&f{name} &8» &f{message}'). {prefix} = the tag with a space after it; {rank} (tag with a space before it) still works for the old order. A server whose formats are still the two old defaults is changed once; a format you wrote yourself stays.
+  [ ] 1.22.22 - RANKS AUTO-ADD: a LuckPerms group that is not in ranks.yml gets an entry in its groups: block (name and tag from its LuckPerms prefix, editable afterwards). plus ranks.yml -> auto-add: true, checked every minute and at start; the default group (auto-exclude) is skipped; each group is added once (plugins/DonutREP/ranks-added.yml remembers it), so an entry you delete stays gone. Create a group in LuckPerms, wait a minute: its entry is in ranks.yml.
+  [ ] 1.22.21 - RANKS BY LUCKPERMS WEIGHT: the rank on the scoreboard, in chat, in the tab list and above the head is the LuckPerms group with the highest weight (/lp group owner setweight 100). A group that is not in ranks.yml shows too (ranks.yml -> auto-groups: true): its name and tag come from its LuckPerms prefix (auto-style PREFIX | DISPLAY | NAME); the default group never shows (auto-exclude). Same weight: listed groups win, in the order of ranks.yml. staff-first: [owner, admin, mod, helper] beats everything without weights. Changes show within a few seconds (the tab list looks again every 5 seconds).
+  [ ] 1.22.20 - /DISCORD LINKS + SERVER NAME: a web address in /discord, /twitter, /instagram, /tiktok, /store, /social, /media (plus.yml -> info: ...) is a clickable, underlined link that opens in the browser (https://x.y or discord.gg/abc). /playtime and /servers now use network.yml -> server-name (before, it always said CosmicSMP because they read only plus.yml); /donutrep reload applies it. The info: texts are read live, so a reload changes them too.
+  [ ] 1.22.19 - CRATE EDITOR HOVER TEXT: hovering a reward in the crate editor shows what the clicks do again: Left-click (put the selected item here, none selected: remove), Right-click (change the weight), Shift-left-click (remove this reward).
+  [ ] 1.22.18 - CRATE EDITOR CLICKS: on a reward in the editor: left-click = put the selected item there (nothing selected: remove), right-click = change the weight, shift-left-click = REMOVE it (even with an item selected), shift-right-click = nothing. No hover text on the rewards; no moving or swapping (remove it and put it again); the anvil opens the crate settings. A 27-slot layout holds 26 rewards (one slot is the anvil); a crate with 27 uses the classic editor. The Confirm Reward menu (27-slot crates, with a key): Cancel (red) is on the left, Confirm (green) on the right.
+  [ ] 1.22.17 - CRATES 54 SLOTS: plus.yml -> crates: menu-size: 54 (default 27). The top 45 slots hold the rewards where you put them (select an item in your inventory, click an empty slot; shift-left-click a reward, then an empty slot or another reward to move / swap; right-click = weight; shift-right-click = crate settings), the bottom row has Back, Close Editor and Crate Settings. The crate settings menu lost the template buttons; Add key to shop (Shards or Money, then the price), Give Yourself a Key, Crate Color and Delete Crate are centered, Back and Close Editor stay in the bottom row. menu-size: classic (or the old small-menus: false) = the old 54-slot menus.
+  [ ] 1.22.16 - FLOATING CRATE ITEM: it now changes to the next reward every 5 seconds (plus.yml -> crates: preview-cycle-ticks: 100; was 40 = 2 seconds). Set 200 for 10 seconds.
+  [ ] 1.22.15 - PLAY MODE: /pmo, then /pmo again: it switches back (1.22.13 and 1.22.14 switched /pmo itself off too, so an admin in play mode could not leave it). Admin and bypass rights stay off in play mode; only /pmo works.
+  [ ] 1.22.14 - CRATES: (1) 27-slot menus are the default (crates.small-menus: true): /crate edit of a crate = 27 slots, select an item in your inventory, click any empty slot to put it there; shift-left-click a reward then an empty slot (or another reward) to move / swap; right-click = weight; shift-right-click = crate settings (key, shop, colour, delete). Right-click a bound crate: only its rewards, each in its slot. A crate with more than 27 rewards opens the 54-slot menu. (2) Right-click a bound crate WITHOUT a key: the rewards open (crates.key-required-to-preview: false); true = only "you need a key". (3) A reward item floats and turns above every bound crate and changes to the next reward every 2 seconds (crates.preview-item, preview-cycle-ticks, preview-spin); the crate name moves up a little.
+  [ ] 1.22.13 - PLAY MODE FIX (/pmo): as an op type /pmo, then try admin subcommands of normal commands (/crate create, /spawner give, /hide, /shop edit mode, /team spy ...): they are refused now. Before, only the donutrep.bypass.* rights were switched off and every "is op" check still passed. /pmo again gives everything back.
+  [ ] 1.22.12 - FEATURE SWITCHES (plus.yml -> features:): about 75 new switches, one per command or small group (sell-gui, sell-multiplier, sell-progress, sell-history, sell-hand, sell-all, topsell, worth, shop-editor, economy-admin, pm, ffa, pvp, fly, heal, vanish, ban, mute, border, maintenance ...). Set one to false, /donutrep reload: a normal player gets "This feature is currently disabled" (ops always get through). sell-multiplier false also makes every sale pay x1.0 while /sell keeps working.
+  [ ] 1.22.11 - FREEZE FIX (server not responding, SusSystem.scanChunks in the thread dump): the dupe scan of containers read the items of unopened structure chests (shipwreck, buried treasure ...). Reading an item makes the chest's loot at that moment, and a treasure-map loot table then searches for a structure and reads region files on the main thread: the server froze for 10+ seconds. Chests that still have a loot table are skipped now (nobody can have put a duplicated item in them). Nothing to set. Test: stand near an unopened structure chest with sus.scan-containers true: the console shows no "server has not responded".
+  [ ] 1.22.10 - CRATE COLOUR ON A CRATE THAT IS ALREADY PLACED: after changing the colour of a crate that already stands in the world (for example Common), a second line with the raw colour codes (&#FF8800C&#FF7C09o ...) showed under the three-line tag. The crate manager makes a new one-line name when the colour changes, and it was only hidden at the next 2-second look (and only the first of several such names). Now every such name is hidden the moment it appears (in the same tick), and if one is ever shown it has the right colours instead of raw codes. Test: /crate color common, pick a colour, Save, and look at a placed Common crate: only the three lines (name, Right-click to open, Keys).
+  [ ] 1.22.9 - ICONS OF BEDS AND BANNERS: in the dialog windows a home (a bed) and the Team Home (a banner) showed an oak planks picture, because beds and banners have no flat picture of their own. They now show the wool of their colour (white bed = white wool, red banner = red wool). Open /homes with dialog.yml -> homes: enabled: true and look at Home 1, Team Home and the Choose Icon list.
+  [ ] 1.22.8 - DIALOG ESC AND TEAM ICON: press Esc in any dialog: it only closes the window. Before, Esc pressed the green button of the two-button windows (Review Order placed the order, Delete Home deleted the home) and Save in Crate Color. Crate Color now ends with a row Go back + Save and a pinned Cancel (Esc = Cancel); Choose Enchantments has Back to Items, Skip Enchantments, Continue and a pinned Cancel. TEAMS: one icon for a team everywhere (Team Settings, the homes menu, the Team Home window and the Homes dialog); the Team Home button of the Homes dialog (dialog.yml -> homes: team-home: true) shows the team icon. teams.yml -> icon-dialog: true (default false) makes Team Settings -> Team Icon a dialog window like the home icons.
+  [ ] 1.22.7 - LANGUAGE DIALOG SWITCH: language.yml -> language: dialogs: true (default). false = /language always opens the chest menu (Automatic + the languages) instead of the dialog window; Spigot and CraftBukkit always use the chest menu.
+  [ ] 1.22.6 - the floating name over a bound crate block (and its Right-click / Keys lines) takes the new colour right after Crate Color is saved - it used to keep the old name until the next restart.
+  [ ] 1.22.5 - CRATE COLOR: /crate create <id> now opens the Crate Color menu for the admin (plus.yml -> crates: ask-color-on-create: true; close it to keep the name white). Also /crate color <id> and the purple dye 'Crate Color' in the crate editor (/crates, right-click a crate). Menu: 24 ready-made colours, 'Custom hex' (type #FF8800 in chat), 'Gradient' (type two hex colours, #FF8800 #FF0066), Bold on/off, a name-tag preview and Save. The name in crates.yml (display-name), the /crates menu, the crate tag and the key in /shop all take the colour. crates: color-dialogs: true = the same as a dialog window (Paper 1.21.7+), default false.
+  [ ] 1.22.4 - FAVORITES NAMES: in Favorites (and in the Choose Item window) a shard-shop spawner is called after its mob (Pig Spawner, Cow Spawner ...) instead of just Spawner; crate keys keep their own names.
+  [ ] 1.22.3 - SHOP FAVORITES (quickshop.yml -> classic-favorites: enabled: false by default, dialogs: false by default; only the original /shop, classic: true): set enabled: true and /donutrep reload. /shop now has a nether star in the last slot (bottom right of the first menu); the item Confirmation Menus are unchanged. The star opens Favorites, a window like QuickShop: saved items from the top left (click = buy the saved amount at once, no confirm), grey 'Empty - Click to choose an item to buy' spots, red Locked spots past max-items, the stick (slot 53: click it, then a saved item to remove it) and a back arrow. Click an empty spot: chest menus (dialogs: false) = choose a category, choose the item, set the amount with Add/Remove 1/16/32/64 and Save. With dialogs: true (Paper 1.21.7+): a Choose Item window (search + every shop item with its icon), How many?, then Review Favorite showing the item, the amount and the cost; Add to Favorites saves it. Spigot/CraftBukkit always use chest menus. With enabled: false nothing changes (no star).
+  [ ] 1.22.1 - MORE LANGUAGE: /language ja (or any other), then open /team, /crate, /arena, /staff, /sus, a portal or spawner menu: they are in that language now. The scoreboard lines (money, kills, playtime ...) and the tab list header / footer are translated too. Ask a friend for a friend request: the text and the [ACCEPT] / [DENY] buttons are in your language and the buttons still work (hover text too). Add your own wording to languages/<code>.yml and /donutrep reload: it shows.
+  [ ] 1.22.0 - LANGUAGES: /language (or /lang) opens a window with Automatic and the 12 languages; click one: the answer and every menu, chat message and dialog window you open next is in that language (the text that has a translation: shops, homes, orders, auction, friends, settings). New players start on their Minecraft language (language.yml -> auto-detect) or on language.default. language.force: true = one language for everybody. Add your own language by copying languages/en.yml.
+  [ ] 1.22.0 - TRANSFER (/donutrep import v1|v2 <folder> preview|confirm): the preview and the report now also count orders (with the items waiting to be collected), auction listings (with their exact item), the money waiting in order and auction claims (paid once), saved QuickShop items, the fast-buy / fast-sell settings, duel and FFA numbers, sell history, team home / friendly fire / member permissions, home icons, and kills / deaths / playtime (written into the Minecraft statistics of players who are offline).
+  [ ] 1.21.3 - HOMES DIALOG ESC: with dialog.yml -> homes: team-home: true the Team Home button is a normal button in a row of its own at the end of the Homes window, so Esc closes the window (before, Esc pressed the bottom Team Home button). Without a team, Team Home opens a window: You are not in a team yet - Create Team (asks a name, runs /team create) and Back. In the Delete confirmation Cancel just closes the window.
+  [ ] 1.21.2 - dialog.yml: the settings of the homes dialog moved from homes-dialog.yml to dialog.yml (dialog: homes: enabled, columns, max-slots, confirm-delete, icons, icon-columns, team-home). On the first start your old homes-dialog.yml values are copied into dialog.yml and the old file is renamed to homes-dialog.yml.old. New dialogs are added to dialog.yml. QuickShop and orders keep their dialog settings in quickshop.yml and orders.yml.
+  [ ] 1.21.1 - HOMES DIALOG FIXES: /homes <name> teleports (also /homes end border); Tab completes home names; columns 4 so Locked / Show More are not cropped; the home window always has Teleport, Change Icon, Rename, Delete, Back (dialog.yml -> homes: icons: true, whatever features.custom-icons says); Choose Icon (Search, Default, Back, icon list). Team Home: dialog.yml -> homes: team-home: true shows a Team Home button in a row of its own at the end of the Homes window; false (default) = no button and /team home, /team sethome, /team delhome say team homes are turned off while the homes dialog is on.
+  [ ] 1.21.0 - HOMES DIALOG: dialog.yml -> homes: enabled: true, then /homes: End Border / New Home / Home 3 / Show More; Show More lists the locked slots; New Home makes Home <slot> where you stand; click a home: Teleport, Change Icon, Rename, Delete, Back; Rename keeps the slot and the icon; Delete asks first; /donutrep reload applies a change. A higher rank (donutrep.homes.<n>) unlocks more slots. enabled: false = the chest menu.
+  [ ] 1.20.0 - ENCHANTMENT WORTH BY RARITY (enchant-worth.yml -> per-level): common table enchantments 10 a level (protection, sharpness, efficiency, unbreaking ...), uncommon 20, fortune 50, looting 40, silk touch 120, infinity 150, treasure-only enchantments higher (mending 300, frost walker 80, soul speed 60, swift sneak 100, wind burst 120), curses 0. Sharpness V adds 50. Change any number in the file; an enchantment that is not listed uses the built-in number, a new one default-per-level (0 = the book worth).
+  [ ] 1.20.0 - SURVIVAL CATEGORY BOTTOM ROW: Previous Page bottom left (page 2 and up), Removed Items (admins in edit mode), Filter, Back (a barrier) in the middle, Search, Next Page bottom right. Back goes to all categories.
+  [ ] 1.20.0 - ENCHANTMENT WINDOW: Back to Items and Skip Enchantments are the same size as Continue, side by side and centered under the list. QuickShop How many to buy?: Cancel left, Add to Quick Buy right.
+  [ ] 1.19.0 - ENCHANTMENT WORTH (enchant-worth.yml): an enchanted item has ONE worth: the item + its enchantments (see 1.20.0 for the numbers). Hover the item: one Worth line with the total. The /sell menu, Shift-click in /sellmulti and the sell chest axe pay it times your sell multiplier; the survival shop asks (worth + enchantments) x the shop multiplier. enchant-worth.enabled: false = enchantments add nothing.
+  [ ] 1.19.0 - DISABLE MOB SPAWN: /settings -> Disable Mob Spawn now stops every hostile mob (endermen too) the world makes on its own within 144 blocks of you: natural spawns, chunk generation, portals, infested blocks, traps and mob spawners (spawners in mob-spawning mode). Spawn eggs, commands, breeding and plugins that spawn mobs on purpose still work. Mobs that were already there stay.
+  [ ] 1.19.0 - TPA SETTINGS: TPA Requests / TPA Here Requests: Everyone -> Friends & Followed -> Disabled (click). Old on/off values carry over.
+  [ ] 1.19.0 - /order: the same as /orders.
+  [ ] 1.19.0 - SURVIVAL SHOP: no Close button anywhere in it; Building Blocks by type (all planks, then stairs, slabs, walls, fences ...); a category title shows its page count (Natural Blocks Page 2/7); Search is where the page number was, Next Page bottom right.
+  [ ] 1.19.0 - DIALOGS: Choose Item has 3 columns (quickshop.yml -> dialog-columns); Review Order, How many? and Price per item? have smaller buttons and a smaller item; in Choose Enchantments Back to Items and Skip Enchantments sit side by side under the list.
+  [ ] 1.18.0 - ORDER DIALOGS: orders -> a grey New Order slot: Choose Item (+ enchantments) -> How many? (amount box, Cancel / Next) -> Price per item? (Amount, Minimum, price box, Cancel / Review Order) -> Review Order (item, enchantments, amount, price each, total held; Cancel / Place Order). A wrong number, a price under the minimum, cents or too little money brings the window back with a red line. orders.yml -> new-menus: false keeps the old chest window.
+  [ ] 1.18.0 - CHOOSE ITEM: the Search button is as wide as the items, so the rows line up. quickshop.yml -> dialog-columns: 4 (use 3 if the window is wider than your screen). Choose Enchantments: the item sits alone in the middle (no text beside it), name buttons 140.
+  [ ] 1.18.0 - SURVIVAL SHOP: Search everything is in the bottom right corner (where Close was), Close moved to slot 20; in a category Search is bottom right with Close next to it. A click on something that can be enchanted opens the Choose Enchantments window first (survival-shop.enchantments: true, servers with dialogs); survival-shop.enchant-level-price (0) adds that much per level of every chosen enchantment.
+  [ ] 1.18.0 - ENCHANTMENTS IN ORDERS: orders.yml -> allow-enchant-orders is now true by default (a server that already has the key keeps its value: set it to true). An order takes items with at least the wanted enchantment levels.
+  [ ] 1.18.0 - COMPASS ICONS: the compass icon points toward spawn and shows where you stand, so menus for players no longer use it (survival shop Search, friends Search a player: spyglass; Team Home and the Visit Team Home option: red bed). Orders and /settings keep theirs.
+  [ ] 1.17.0 - QUICKSHOP WINDOW SIZES: Choose Item fits the screen (4 columns, the Search box and Cancel are centered). Choose Enchantments: name 150, level buttons 40, Back / Skip / Continue 160.
+  [ ] 1.17.0 - ORDERS: /orders my = Orders -> Your Orders (see the /orders entry). Make an order from a grey New Order slot (barrier -> Choose Item window -> back with the item, type amount and price, confirm), click it: Edit Order, the chest collects, the red block cancels (Cancel Order, green = confirm, refund). orders.yml -> new-menus: false brings the original menus back.
+  [ ] 1.17.0 - ORDER EXPIRY: an order shows "6d 23h Until Order expires". After 7 days (orders.expire-days) it shows Expired and "Deletes in ...", is not on the board and nobody can deliver to it; its owner can still collect and cancel. After 90 days (orders.delete-days) it is deleted, the undelivered part refunded. Orders made before the update count from the day of the update.
+  [ ] 1.16.1 - SURVIVAL SHOP EXTRAS: the first menu also has Crate Keys (top middle) and the Shard Shop (spawners, bought with shards, under the crafting table) - they open the classic menus and their back button returns to the survival shop. An admin (op or donutrep.admin.shop) sees a stick: click it (first menu or any category) = edit mode: click an item to take it out of the shop; the items after it move up at once, no empty slot is left. The Removed Items button (edit mode) lists them and a click puts one back. They are saved in data2/survival-shop.yml.
+  [ ] 1.16.1 - QUICKSHOP WINDOWS: Choose Item shows the icon of every item in front of its name. Choose Enchantments has a row for every enchantment the item can have: its name and a button for each level (I, II ...); a click chooses that level (again: takes it away), the chosen level turns green, and an enchantment that cannot be together with it is taken away (Protection / Blast Protection). Back to Items, Skip Enchantments, Continue. The window is built again after every click, so a long list jumps back to the top.
+  [ ] 1.16.1 - SURVIVAL SHOP PRICE: the price is the /sell worth x the highest sell multiplier the server allows (1 + 20 levels x 0.05 = 2.0) x quickshop.yml -> survival-shop: times-max-sell (2) = 4 x the worth. Level a category up with /sellmulti: the shop price of its items stays the same. Set times-max-sell: 3, /donutrep reload: 6 x the worth.
+  [ ] 1.16.0 - SHOP MODES: quickshop.yml has classic: true, auction: false, survival: false: /shop is the old shop. Set auction: true as well, /donutrep reload: you (an admin) get a red message in chat, and a normal player typing /shop is told the shop is not set up; nothing opens. Set classic: false, /donutrep reload: /shop opens QuickShop. All three false: /shop says the shop is closed.
+  [ ] 1.16.0 - QUICKSHOP: auction: true (classic: false). /shop shows a 54-slot window titled QuickShop: grey Empty slots; bottom row hopper (filter: Default, Cheapest, Most Expensive, Name), ender chest, anvil (the auction house), sign (search), chest (your listings), stick (edit). Click an Empty slot: a Choose Item window with a search box; type a word, press Search, click an item. A tool or armor goes on to Choose Enchantments (one choice per enchantment it can have; Continue or Skip Enchantments), then How many to buy? (Max per purchase = its stack size) and Add to Quick Buy.
+  [ ] 1.16.0 - QUICKSHOP BUYING: with a second account list 64 cobblestone for 64 and 10 for 20 (/ah sell). Save cobblestone with amount 16: the slot shows the cheapest price each, the stock and "Next purchase: 10 for $20"; click it: you buy the 10 only (a 64-stack is bigger than 16, so it is skipped), the listing is gone from /ah, the seller is paid. An item nobody sells says Out of stock but can still be saved. Your own listing is never bought by you. The stick: click an item to remove it.
+  [ ] 1.16.0 - QUICKSHOP SETTINGS: /settings (Player) has QuickShop Auto Buy (on). Turn it off: a click on a saved item opens a Confirm Purchase window first. quickshop.yml -> auction-shop: confirm: true: the confirm window always opens and the /settings button is gone. allow-bigger-listings: true: when nothing smaller fits, the cheapest bigger listing is bought whole. dialogs: false: the item picker uses chest menus instead of dialog windows.
+  [ ] 1.16.0 - SURVIVAL SHOP: survival: true (classic: false). /shop opens nine categories (building, colored, natural, functional, redstone, food, ingredients, tools, combat) and a search; a category lists its items with prices (the /sell worth x the highest sell multiplier 2.0 x survival-shop.times-max-sell 2 = 4 x the worth; a player's own sell level does not change it), a filter (Name, Price low to high, Price high to low, Only what I can afford), pages and search; a click opens the 1/16/32/64 amount window; Confirm takes the money and gives the item. /shop diamond sword searches every category. No spawners, command blocks, bedrock or plain enchanted books.
+  [ ] 1.15.0 - KEY-ALL AREA: keyall.yml -> afk-only: true (or cuboid-only: true with /cuboid bind kz1 keyall true), area-percent: 50, /donutrep reload: stand in the area when the timer fires (or set every-minutes: 1): about half of the rounds give you the key, players outside never get it. Both true: nobody and the console warns. Change tier-crates -> common to a name that is not a crate: /donutrep reload warns every online op in chat and the console names the key.
+  [ ] 1.15.3 - /TPHERE: /tphere Steve: Steve gets the same request as /tpahere (accept with /tpaccept, deny with /tpadeny); features: tphere: false in plus.yml, /donutrep reload: normal players are told it is disabled, /tpahere still works. Tab-complete suggests player names.
+  [ ] 1.15.3 - KEY TIMER DISPLAY: cuboid-only: true, stand in a keyall cuboid: the action bar says "Next Key in 59s" and the scoreboard keyall line counts down; no boss bar. afk-only: true: in the afk cuboid the action bar keeps "Next shard in ..." and only the scoreboard has the key time.
+  [ ] 1.15.2 - SETTINGS PAGE 3: /settings: page 1 (Player) has buttons for Chat & Alerts and Scoreboard; the Scoreboard page holds Scoreboard Visibility and Show Money / Shards / Kills / Deaths / Playtime / Team / Key-All Timer / Rank / Ping; pages 1 and 2 no longer show them.
+  [ ] 1.15.2 - KEY-ALL AREA TIMER: keyall.yml afk-only: true (or cuboid-only: true with a keyall cuboid), /donutrep reload. Walk into the area: the scoreboard keyall line shows your own time (cuboid-only mode also shows "Next Key in ..." in the action bar); walk out: it disappears; walk back in: the time starts again from the full length. Rejoin inside the area: it starts again. In an afk cuboid (it earns shards) the key timer is as long as the shard timer (zones.shard.interval-seconds) and the key comes at the same moment as the shard; area-match-shards: false uses every-minutes. A player outside the area never gets a key; area-actionbar: false hides the action bar text. Both switches false: the old server-wide timer for everybody.
+  [ ] 1.15.2 - /TEAM ALLY TAB: type /team ally and press Tab: only team names (not players); /team ally remove Tab: only your allies; /team ally accept Tab: only teams that asked you.
+  [ ] 1.15.2 - ANTI-ESP AS A NORMAL PLAYER: ops are NOT excluded any more (give donutrep.bypass.antiesp or set antiesp.ops-bypass: true if staff must see everything). With a normal account walk more than 25 blocks from a spawner: it looks like a crafting table / stone / deepslate. /donutrep antiesp check <name> tells why a player sees what they see (bypass, world, mode, nearest spawner, distance).
+  [ ] 1.15.1 - KEY COMMANDS HIDDEN: keyall.yml with afk-only: false and cuboid-only: false, /donutrep reload: /setkey /keymenu /keyafk are not in tab-complete (even for an op), typing them says it only works while an area mode is on, and /cuboid bind kz1 keyall true is refused (keyall is not in its tab-complete). Set afk-only: true, /donutrep reload: they all appear and work.
+  [ ] 1.15.0 - /SETKEY /KEYMENU /KEYAFK: /cuboid create kz1, /setkey kz1 in two places: /keymenu lists kz1 with 2 points (pearl: teleport / shift-click move / right-click delete); a normal player types /keyafk: kz1 is in the menu, the big button sends them to one of the points. features: keyafk: false: normal players are told it is disabled.
+  [ ] 1.15.0 - ANTI-ESP: place a chest and a spawner 40 blocks from a player (use a second account): from there the chest looks like a crafting table (Y above 60), stone (below 60) or deepslate (below 0) and the spawner too; walk to within 24 blocks: they turn real; walk away: they disguise again. /donutrep antiesp shows the counts. An op with donutrep.bypass.antiesp sees the real blocks. antiesp.yml -> enabled: false: everything is real. radius: 60 makes the range bigger. Chunk data is rewritten only when the packetevents plugin is installed (the console says which mode at start).
+  [ ] 1.15.0 - TEAMS: teams.yml -> rename / color enabled / icons / allies enabled: true, /donutrep reload. Leader: /team -> Team Settings has Rename Team (type a name), Team Color (picker or /team color #ff8800), Team Icon (item picker), Allies. The scoreboard team line uses the color. /team ally Rivals: their leader gets [ACCEPT] [DENY]; allies cannot hit each other; /team ally remove Rivals ends it. A normal member cannot do any of this. /teamtop shows the leaderboards with five tabs.
+  [ ] 1.15.0 - SELL HOE: /amethysttool give <you> sell-hoe 1h, plant wheat or carrots on farmland, break one grown crop: the 3x3 is harvested, no items drop, the money goes up by the worth of the crops (with your sell multiplier; /sellprogress moves too). Leaves and hay still drop. amethyst-tools.yml -> SELL-HOE: SELL-CROPS: false: it works like the plain hoe.
+  [ ] 1.15.0 - WHERE TO EDIT: plugins/DonutREP/text/where-to-edit.txt exists after the first start and names the file and key for key-all, AFK keys, spawners, anti-ESP, teams, the sell hoe, the scoreboard and every other setting.
+  [ ] 1.14.0 - IMPORT PREVIEW: on a COPY of a server, put an older plugin's folder (with data.db) in plugins/, run /donutrep import v1 plugins/OldFolder preview: the counts per category appear, a player who is not you is not changed, nothing is written (no imports folder). A wrong folder says 'found no folder'.
+  [ ] 1.14.0 - IMPORT CONFIRM: the same with confirm: plugins/DonutREP/imports/<date>/ has backup/, source/ and report.txt. /balance of an imported player (use /balance <name> as admin or join with that account) shows the old money, /homes the old homes, /warp the old warps, /team the old team. Running confirm again says 'already imported'; with 'again' nothing is doubled; with 'replace' the old values come back. Open report.txt: every skipped item has a reason, no webhook or IP is in it.
+  [ ] 1.14.0 - IMPORT CONFIG: change a value in scoreboard.yml on the DonutREP side (for example ping-good-ms), import a folder that has another value: your change stays, a value you did not touch is taken over, the comments of the file are still there.
+  [ ] 1.14.0 - SCOREBOARD SWITCHES: /settings page 1: Show Team, Show Key-All Timer, Show Rank, Show Ping (and money, shards, kills, deaths, playtime): switch one off, the line leaves YOUR scoreboard only (switching off Ping keeps the region text). Everything is on for a new player. scoreboard.yml -> player-line-switches: false: the switches disappear and everybody sees every line.
+  [ ] 1.14.0 - KEY-ALL AREA: plus.yml -> keyall: afk-only: true, /donutrep reload (key-all timer is read at start): only players standing in an afk cuboid get the key. cuboid-only: true + /cuboid create kz1 + /cuboid bind kz1 keyall true: only players inside kz1 get it. Both true: nobody gets it and the console warns that only one mode is allowed. Both false: everybody online.
+  [ ] 1.13.0 - NEW PLAYERS: put a webhook in discord.yml -> discord: newplayer: webhook-url, join with a NEW account (or an alt): a Discord message after about a second and another after 10 minutes; a staff account gets '[New] Name joined for the first time'. /newplayers lists that account: left-click = teleport, right-click = spectate, shift-click = /sus.
+  [ ] 1.13.0 - RECENT: /tp to three different players (or click them in /newplayers); /recent shows them newest first and refreshes while it is open; a 6th player pushes the oldest out.
+  [ ] 1.13.0 - WATCH: /watch <player>: you spectate them; they type /home or /rtp: you get '[Watch] ... [Teleport there]' and your camera is on them again; /watch stop gives your game mode back. /watch alone: pick a head, or Search a part of the name.
+  [ ] 1.12.0 - LICENSE: /license shows the notice (not for sale, no copies, DMCA, Discord link); click [Read the full license] or type /license book: a book opens with the whole license. features: license: false -> a normal player is told the feature is disabled.
+  [ ] 1.11.99 - AFK POINTS: /cuboid create afk1 and /cuboid bind afk1 afk true, then stand in 3 places and /setafk afk1 each time. /afkmenu: afk1 is listed with 3 points; click it: 3 ender pearls
+      (left = teleport, shift = move, right = delete). /afk, click afk1 several times with another account: it lands on different points. Switch the comparator to one after the other: they go in order.
+      /spawnmenu and /setspawn <cuboid> the same for spawn cuboids. /forceafk Steve forces Steve's AFK status. /setspawn alone still sets the server spawn.
+  [ ] 1.11.98 - CONSOLE: the start-up banner shows DONUTREP in one line, and under the Discord line the notice about DMCA / no resale. /pregen start nether 64 is refused (use world_nether).
+      Put a webhook in discord.yml -> discord: pregen: webhook-url, /pregen start world 3000 0 0: a Discord message at the start, every 10 percent and at the end. The console line looks like Chunky's every 5 minutes.
+  [ ] 1.11.98 - LICENSE NOTICE: open plus.yml, border.yml, text/commands.txt, data2/*.yml, .defaults/*.yml and the files in backups/: each ends with the 6 comment lines (Copyright (c) 2026 akxptic ... DMCA ...).
+      Change a setting through /settings, wait 10 minutes or stop the server: the notice is at the bottom again. Replace the jar by the next version: the settings merge without any notice-related change.
+  [ ] 1.11.97 - BORDER: /border shows 200000 for the three worlds. /bordertp overworld (and nether, end) puts you at the east edge: stand still, nothing happens; step 5 blocks over the edge: the title WORLD BORDER, the
+      chat line and the sound once, 1 second later 1 heart of damage, then 2, 4, 8 until you walk back (the red edge of the screen shows near the border). Back inside: 'You are back inside the border.'
+      /border set overworld 1000 then walk out: same thing at 1000 blocks. /border set overworld 200000 afterwards. /border off: no warning, no damage; /border on. An admin in creative is not hurt.
+  [ ] 1.11.97 - PREGEN: /pregen start overworld 2000 0 0 (radius 2000): /pregen status shows percent and chunks per second; stop the server in the middle, start it, /pregen status says PAUSED at the same place,
+      /pregen resume carries on. /pregen start on a world that Chunky has done already: it finishes quickly (everything skipped). /pregen stop overworld forgets it.
+  [ ] 1.11.96 - the crate editor has the Add key to shop button only when /shop exists (shop.yml); the separate Donut plugins were rebuilt from this version.
+  [ ] 1.11.95 - BAN / LOOT WIPE vs /ah and /orders: put an item on /ah and make an order with an alt, /ban the alt (or /punish -> Loot Wipe): their listings are gone from /ah and their orders from /orders, no refund.
+      /lightban and /tempban leave them. plus.yml -> punishments: wipe-auctions-orders: false = they stay.
+  [ ] 1.11.94 - SMALL CRATE MENUS are one row now: small-menus: true -> a crate with up to 9 rewards shows them in the middle row of a 27-slot menu, gray glass panes above and below (no buttons in the choose menu, buttons in the bottom row of the preview).
+      A crate with 10 or more rewards opens the 54-slot menu. Nothing in the plugin names another plugin any more.
+  [ ] 1.11.93 - ender chest data moved: put items in your ender chest, restart: plugins/DonutREP/enderchests.yml is now plugins/DonutREP/data2/enderchests.yml (moved on the first start, items still there).
+  [ ] 1.11.92 - ENDER CHEST ROWS FOR OPS: with extra-pages off, an op in no rank gets default-rows, not the biggest rows-by-permission entry; give a group donutrep.enderchest.rows.vip to get 4 rows.
+  [ ] 1.11.91 - ENDER CHEST PAGES FOR OPS: with rank-pages: true an op in no rank gets default-pages (1 page) like everybody; give an op or an owner group donutrep.enderchest.pages.N to get more.
+  [ ] 1.11.90 - plugins/DonutREP/text/rank-names-guide.txt exists after the first start: how to make a rank or change its name (LuckPerms, ranks.yml, the /ranks menu).
+  [ ] 1.11.89 - SMALL CRATE MENUS: plus.yml -> crates: small-menus: true, /donutrep reload. Right-click a bound crate with a key: 27 slots, only the rewards (no buttons). Click a reward ->
+      a confirm menu (green Confirm, red Cancel). Confirm spends the key. The preview and the editor (/crates, right-click a crate) have 27 slots too. A crate with more than 9 rewards
+      (18 in the editor) opens the normal 54-slot menu (see 1.11.94: one row, gray panes above and below). small-menus: false = the old menus.
+  [ ] 1.11.88 - ENDER CHEST PAGES PER RANK: ender-chest.yml -> extra-pages: true, rank-pages: true, /donutrep reload. A player with no rank has 1 page (no arrows).
+      lp group donutplus permission set donutrep.enderchest.pages.2 true -> /enderchest has 2 pages; pages.3 -> 3 (plain numbers like donutrep.homes.20, any group name). /ecsee <player> still shows every page.
+  [ ] 1.11.87 - SELL AXE: right-click a chest with a sell axe. The money is the price x your /sellmulti multiplier for each category, and it counts towards the next sell level in /sellmulti (like /sellall).
+  [ ] 1.11.86 - SHARDS EVERYWHERE is no longer given to ops: as op, stand in a shard cuboid - you see 'Next shard in ...s' like a normal player. To earn shards everywhere (every minute, anywhere)
+      give the permission to a rank: lp group owner permission set donutrep.shards.everywhere true  (and put yourself in that group). /shards everywhere status shows if you have it.
+  [ ] 1.11.85 - CRATE KEYS IN /SHOP: /shop -> crate keys is EMPTY now ("Nothing for sale"); the old Common / Rare / Epic buttons are gone (an update removes them when you never edited them).
+      /crates -> right-click a crate -> bottom row, left of 'Give Yourself a Key': 'Add key to shop' -> Shards or Money -> type the price (2500, 2.5k): the key is in /shop -> crate keys; the same
+      button now says 'Remove key from shop' (left-click removes, right-click changes the price). plus.yml -> crates: auto-shop: true puts every NEW crate's key in the shop by itself
+      (auto-shop-currency, auto-shop-price); deleting a crate takes its key out.
+  [ ] 1.11.84 - FOLDERS: after the first start plugins/DonutREP has logs/ (activity-log.txt, key-history.log, chat-log.txt, team-chat.log), data2/ (spawners-data.yml, spawn-bedrock-data.yml)
+      and text/ (anvil-banned-words.txt, seed-protection-guide.txt, commands.txt); the files of an older version were moved there (the log says how many), nothing was lost. The settings files
+      (spawners.yml, spawn-bedrock.yml, anvil-moderation.yml, seed-protection.yml ...) and the databases (data/) stay where they were.
+  [ ] 1.11.83 - ACTIVITY LOG is OFF by default (plus.yml -> activity-log: enabled: false): activity-log.txt no longer grows, /logs <player> and /chatlog show the plain chat list.
+      enabled: true + /donutrep reload: the /logs menu (chat, commands, joins, quits, deaths per player) is back.
+  [ ] 1.11.82 - the 'Random reward' button (crates: random-button: true) is also in the crate PREVIEW (a crate block without a key, or /crates -> a crate): green dye, slot 47. Click it with a key: the spin.
+      Without a key it says you need one.
+  [ ] 1.11.81 - CRATE SPIN: plus.yml -> crates: random-button: true, /donutrep reload: the choose menu has a green 'Random reward' button (slot under the rewards). Click it: a 3-row menu rolls
+      the rewards sideways and slows down; red panes = not this one, the pane pair in the middle turns green on your reward, which you get. Or crates: open-mode: RANDOM: every open
+      is a spin. Close the menu or log out mid-roll: the reward is handed out at once. spin-animation: false = the reward at once. The preview shows no chance any more (show-chance: true).
+  [ ] 1.11.80 - CRATE PREVIEW: a reward says "Chance: 12.50%" and no longer "(weight 25)". plus.yml -> crates: show-weight: true brings the number back.
+  [ ] 1.11.79 - /PUNISH Steve: a menu: Light Ban, Ban, Stat Wipe, Loot Wipe (and 'Preset offense' = the old list). Click one, pick a ready-made reason or 'Custom reason' (type it in chat),
+      confirm. Light Ban / Ban / Stat Wipe run the normal commands (history, Discord, permissions as before); Loot Wipe clears inventory, armor, off hand and ender chests (backup in
+      plugins/DonutREP/lootwipes/) and shows in /punishhistory as LOOT WIPE. /punish Steve spam still applies a preset offense straight away.
+  [ ] 1.11.78 - CLICK BUTTONS: /tpa, /tpahere, a duel challenge, a team invite and a friend request show [ACCEPT] [DENY]. /settings page 2 -> Click Buttons off: none of them show the buttons
+      for that player (the text and the commands stay). plus.yml -> click-buttons: tpa / duel / team / friend false = no buttons of that kind for anybody; all four false = the option
+      disappears from /settings.
+  [ ] 1.11.77 - EVERYTHING UPDATES: replace the jar, start: every config file follows the new version - settings you never changed get the new default, new settings / trades / crates
+      are added, what the new version dropped is removed, what YOU changed or deleted is left exactly as it is. The log lists per file: added / updated / removed, the old copies are in
+      config-backups/<date-time>/. Check /billford (24 trades, your own interval kept), a menu, plus.yml. A file it cannot merge safely is left alone with a warning.
+  [ ] 1.11.75 - UPDATING WITHOUT DELETING: put the new jar in, start. The log says "Config update: added N new settings to plus.yml ..."; your values and comments are
+      unchanged, the new settings sit in their section with their comments, the old files are in plugins/DonutREP/config-backups/<date-time>/. A second start adds nothing.
+  [ ] 1.11.73 - /PVPTOP: a menu like /baltop. The sword/shield button switches FFA <-> Duels. /pvp top just points to /pvptop. plus.yml -> pvptop: enabled false turns it off.
+  [ ] BILLFORD: 24 trades now (every 3 days the next one), each worth 110-140% of what you give (a little more than you hand in), no money. billford.yml -> BONUSES: MONEY_ENABLED / SHARD_ENABLED (false)
+      turn on the example bonuses (trade 1 and 5 carry one). /donutrep reload applies it. Copy billford.yml over (or delete the old one) to get the new trades.
+  [ ] WORTH: open /shop, close it, run a command: hover items in your inventory - the Worth line stays. It is also on your own slots while a menu is open.
+  [ ] 1.11.72 - FFA FULL LOOT: join /ffa with gear, die: everything drops and the killer (or anybody) can pick it up and keeps it after /ffa leave (nothing is wiped).
+      Hit someone, then /ffa leave (or /leave, or log out): you die and your items drop. Not in combat: /ffa leave keeps all you carry. ffa.yml -> ffa.full-loot: false = the old
+      behaviour (items saved and given back, nothing drops). Ranked kits are not affected. The arena reset removes items left on the ground.
+  [ ] 1.11.71 - /PMO (play mode): as an admin type /pmo: "Play mode is ON". /ban, /gamemode, /fly, /sus, /invsee ... are refused and gone from the tab list, /home /spawn /tpa work.
+      Relog: still on (message). /pmo again: everything is back. Also try it with a LuckPerms wildcard on your account. Other plugins' commands: plus.yml -> playmode: also-hide.
+  [ ] /INVSEE Steve (or /sus -> click a player -> Open Inventory): ONE window: 3 rows of inventory, the hotbar, a gap, then helmet / chestplate / leggings / boots / off hand.
+      Take and put items while Steve plays: both sides update. Empty armor slots are gray panes. The Inspecting menu is the small original again.
+  [ ] /PVP TOP DUELS and /PVP TOP FFA list the best players; /pvp leaderboard is gone. In combat (just hit someone) /leave, /ffa leave and /pvp leave kill you.
+  [ ] /DRAW: both accept - they cannot hit each other any more (duels.yml -> draw-protect-seconds, 120).
+  [ ] ENDER CHEST: click an ender chest block: it opens. /enderchest and /ec say "turned off" for everybody (features.enderchest).
+  [ ] /WARP: a regular player sees the warp names only (no New Warp button); /warp name teleports. /SPAWNER SHOP just says: use /shop.
+  [ ] /SPAWN and /AFK menus: no "Area:" line. TPA confirm menu: no world item (tpa.show-world: true brings it back).
+  [ ] STAFF MODE: /staffmode on gives the tools, /staffmode off (or /pmo, a relog) removes them.
+  [ ] PORTAL HOLOGRAM: create a portal: text above it. /portaladmin -> click the portal -> Change the hologram text (| = new line, {warp}); the second button switches it off.
+  [ ] CHAT LOG: chat-log.txt only keeps chatlog.keep-days (7) days. WORTH: hover items in the inventory, on the cursor, after a drop - the Worth line stays.
+  [ ] DISCORD NICKNAME (DiscordLink 1.4.0): after /discord confirm the Discord nickname becomes your Minecraft name; if the bot may not rename you, you are told in the game.
+  [ ] 1.11.70 - ADMIN COMMANDS: with a regular account (not op, no wildcard): /fly /fakeplayer /keyhistory /hide /anticheat /viewhomes /alts /playerwipe /vcmute /reports
+      /teamspy say "Unknown or incomplete command" and are not in the tab list. If one works: /donutrep perms <name> shows why.
+  [ ] /ENDERCHEST and /EC do nothing ("turned off"); clicking an ender chest does nothing. features.enderchest: true brings them back.
+  [ ] /HIDE: lp group <rank> permission set donutrep.hide.scramble true - that rank can /hide scramble, but not /hide list or an alias; an admin can do all of it.
+  [ ] /REPORT Alex test: you are told, staff see the line with [TP] [SUS]; /reports lists it - click it: go there, mark handled, delete; the Discord channel gets the
+      "Player Report Notification" (put a webhook url in discord.yml first).
+  [ ] TEAM CHAT: /teamspy on, a team talks in /teamchat: you see "[Spy] [Team x] name: message"; /teamspy log; /settings page 2 has the switch; the team chat webhook posts.
+  [ ] /PORTALADMIN: opens the menu: set both corners, Create, pick the warp, walk in - you land at the warp; click the portal in the list to delete it.
+  [ ] TPA: /tpa a player - they see [ACCEPT] [DENY] and a click works. Same for /duel.
+  [ ] /DISCORD: /link <name> in Discord, then /discord confirm <code> and /discord accept - no more discord.eXample.space.
+  [ ] /SUS inspection: armor and off hand are shown. /instagram, /tiktok work and can be switched off in features:. /safety opens the book, no item.
+  [ ] /DONUTREP RELOAD: change a slot in billford.yml, /donutrep reload, /billford shows it.
+  [ ] 1.11.69 - PROFILE VIEWER: /profileviewer, click a player: head, sword, grass block; a bed per home with the world block above it; banner = team.
+  [ ] BILLFORD: the confirm button and the clock moved one slot to the right; the loot in a 3x3 block (only with the new billford.yml).
+  [ ] DRAW: two players /draw in a duel: big 'Draw' / 'No one died', then 'Loot time: Ns'.
+  [ ] SHULKER: hold a shulker with items: the tooltip ends with 'Worth: $...' (the total of what is inside).
+  [ ] AMETHYST TOOL: break blocks with a drill: purple sparkles on every block, the mined one too.
+  [ ] ENDER CHEST PAGES: extra-pages: true, pages: 3 in ender-chest.yml, /donutrep reload: /enderchest shows page 1 with a 'next' arrow, items stay on their page,
+      /enderchest 2 opens page 2. Items that were in the old last row are in a free slot.
+  [ ] /KEYHISTORY: give yourself keys (/crate key give <you> common 2), open a crate: /keyhistory <you> lists +2 and -1 with the causes.
+  [ ] CHAT MENU: /chat opens the menu: mute, unmute, delay (left/right click), clear all work.
+  [ ] SELL PROGRESS: /sellmulti, click a category: green / yellow / gray panes along a path, tooltip with the bar and 'x1.05 100.0%'.
+  [ ] SCOREBOARD: the bottom line shows 'NA East (23ms)' (scoreboard.yml -> region).
+  [ ] FFA TIMER: build a block in an FFA arena, wait rollback-interval-seconds (set 60 to test): a small countdown in the last 30 s, then everybody is taken to
+      the arena's setreturn point (or a random place), the block is back. ANTI-CAMP: after entering you take no damage for 4 s; a kill right after arriving gives
+      no kill; after dying you cannot rejoin for 5 s; standing still for 60 s hurts.
+  [ ] BUILDING: in a duel arena you can place and break blocks; after the duel they are back. The pod cuboid itself is not an arena.
+  [ ] ANTI-CHEAT (1.11.69): /anticheat opens a panel with 11 checks (click = on/off) and a master switch. /sus has an Anti-Cheat Panel button.
+      As a player WITHOUT bypass: a normal PvP fight, walking, sprint-jumping, boats, ladders, elytra, riptide, slime blocks, wind charge, ender pearls,
+      a lag spike (/tc or a bad connection) must NOT alert. With a test cheat client (or hacked client you own): reach, fly, speed, fast break should alert
+      as '[AC] Name failed Reach (A) (n)' and show in /sus. Tune the numbers in plus.yml -> anticheat if something alerts for a normal player.
+  [ ] DUEL CLAIMS OFF (default): win a duel: the loser's items drop, you have 30 seconds, then you are teleported (as before).
+  [ ] DUEL CLAIMS ON (duels.yml claims: true, /donutrep reload): win a duel: you are teleported at once, no items on the ground, a message with a
+      clickable [/duel claims]. /duel claims: one entry with the loser's head, item count and age. Click it: items go into your inventory; with a full
+      inventory what does not fit stays. Claim all works. Log out and in: the message comes again; the entries are still there.
+      A draw (/draw) leaves nothing. Set claims-keep-days: 0 is treated as 1; entries older than the days disappear.
+  [ ] /STATSWIPE Steve: a menu with 8 groups. Select a few, Continue, CONFIRM: those are reset (check /stats Steve, /balance Steve, /keys).
+      /punishhistory Steve shows a purple STATSWIPE entry; the Discord punishment webhook gets a 'stat wiped' message.
+      /statswipe restore Steve brings it all back. A staff member without donutrep.staff.punishments.statswipe is refused.
+  [ ] CUBOID PODS: /ffaarena create sand (+ positions, enable), /cuboid wand, /cuboid create pod1, /cuboid bind pod1 ffa sand true: walking in joins
+      FFA. /cuboid bind pod1 ffa sand false removes it. Same with duel: /cuboid bind pod2 duel a1 true. Tab completion after 'bind <name> ' lists
+      spawn shard afk rtp duel ffa.
+  [ ] HOVER STATS: hover a name in chat: money, kills, deaths, playtime, shards and CLICK TO VIEW STATS; click opens /stats <name>. Same for the
+      sender's name in a /tpa, a /tpahere and a duel challenge. Set one of hover-stats.chat / tpa / tpahere / duel to false: only that place loses it.
+  [ ] TPA WORLD: tpa.show-world: true: /tpa and /tpahere requests say the sender's world. false (default): no world.
+  [ ] PORTAL: /setwarp shop, /portaladmin pos1 and pos2 (two corners), /portaladmin create shop: walk into the region and you land at the warp.
+  [ ] CRATE TAG: three lines above a crate (name / Right-click to open / Keys: N). Give yourself keys: your number goes up, a second player sees their own.
+  [ ] FAST CRYSTALS: /settings -> the end crystal button switches Fast Crystals on and off for you.
+  [ ] LIMITS: lp user <you> permission set donutrep.homes.5 true: /sethome stops at 5. Same for donutrep.auctionhouse.<n> (/ah sell) and
+      donutrep.orders.limit.<n> (/orders create).
+
+========================================================================
+THINGS TO TEST IN 1.11.62 - 1.11.66 (new)
+========================================================================
+  [ ] /ah: the Filter and Sort buttons (bottom row) show 'Filter: All' / 'Price Sort: Newest' and list every choice
+      with an arrow on the current one. Left-click = next, right-click = previous (from All it goes round to Misc).
+      Check Combat (spears), Utilities (boats, minecarts), Misc (spawn eggs, music discs).
+  [ ] /orders: the same buttons; /orders create -> select item: the Filter works the same way.
+  [ ] /sellmulti: 10 categories, the new Miscellaneous (chest) is in the second row. Sell a music disc or a dye: it
+      counts for Miscellaneous. Sell a poppy: Natural Items. Sell a wooden spear: Armor And Tools.
+  [ ] A renamed item or an amethyst tool still cannot be sold; enchanted books are still in Enchanted Book.
+  [ ] SURVIVAL ONLY: /orders create -> select item: no spawn eggs, command blocks, barrier, bedrock in the list; hold a
+      spawn egg (creative) and /ah sell 100: 'cannot be obtained in survival'. A diamond can still be listed.
+  [ ] /HIDE NAME (1.11.66): two accounts. A: /hide scramble. B must see the random name in the TAB list and above A's head, not only in chat. Wait
+      10 seconds (the tab list refreshes every 5): still the random name. /hide remove: the real name is back. Also /hide -> select a name -> a skin.
+  [ ] WEEKLY CLEANUP (set enabled: true first, it is off by default): put a Discord webhook url in maintenance.weekly-cleanup.discord-webhook and set day / time / warn-time to a few minutes from now
+      (e.g. today, time 5 minutes ahead, warn-time 2 minutes ahead, final-warning-minutes: 1): you get the warning, the 1 minute warning, and the 'finished'
+      message with the numbers. Put them back afterwards.
+  [ ] FULL INVENTORY: fill your inventory, /safety (or /spawner give <you> pig, /cuboid wand): the item drops at your feet instead of vanishing.
+  [ ] AMETHYST TOOLS: set HOE: ENABLED: false (amethyst-tools.yml), /amethysttool reload: /amethysttool give <you> hoe says it is
+      turned off, 'hoe' is gone from the tab list, a hoe you already hold says 'this tool is turned off'. Set it back to true.
+  [ ] AUCTION: hold an amethyst drill and /ah sell 100: it lists. The bucket and the shard booster say they cannot be listed. /sellhand
+      and a /sell menu still refuse the drill. Buy it with a second account: same name, enchantments and time running.
+  [ ] CRATE TAG: stand next to a leftover floating name (a crate whose data was deleted) and run /crate cleartags: it disappears.
+  [ ] SPAWNERS: buy a spawner in /shop. /ah sell 100, /sellhand, the /sell menu and an /orders delivery all refuse it;
+      /orders create has no spawner in its item list. Spawner storage SELL ALL (the drops) still works.
+
+========================================================================
+THINGS TO TEST IN 1.11.57 - 1.11.61
+========================================================================
+  [ ] SPAWNER SELL: put drops in a spawner's storage, give yourself a higher /sellmulti level for that category,
+      press SELL ALL: you get price x multiplier (the same as /sell), and /sellmulti progress goes up.
+  [ ] XRAY BAIT: /spawndiamond, /spawnancientdebris, /spawnbedrock without a number: after 60 seconds the stone
+      comes back by itself. With a number (/spawndiamond 600) it lasts that long; 0 = until removed.
+  [ ] SPAWNER STORAGE TITLE: "Blaze Storage (1/1)" (a fresh spawners.yml; an old one needs the TITLE line changed).
+  [ ] /HIDE NAME: two accounts. A: /hide -> select a name -> a skin. B must see the new name above the head and in
+      the tab list, plus the skin. /hide scramble: B sees a random name. /hide remove: B sees the real name again.
+  [ ] CRATE REWARD MENU: right-click a bound crate with a key: the title is "Common Crate Rewards" (the E is not cut
+      off) and the rewards sit in the middle. Try menu-layout TOP / BOTTOM and menu-slots in plus.yml, then
+      /donutrep reload. Choosing a reward spends one key.
+  [ ] HOME LIMITS: /lp user <name> permission set donutrep.homes.3 true gives at most 3 only if nothing higher is
+      set (check /lp user <name> permission info and their groups).
+
+========================================================================
+THINGS TO TEST IN 1.11.56
+========================================================================
+  [ ] SEED PROTECTION (seed-protection.yml, needs the packetevents plugin): join, die and respawn, change
+      dimension - nothing may look wrong (biome edges can look slightly different). The real hashed seed
+      is never sent; every player gets a fake one that changes every rotate-minutes (30). /donutrep seed
+      shows the state. enabled / fake-hashed-seed false = off.
+  [ ] SEED PROTECTION - CONSOLE: start the server: after the banner a yellow 'SEED PROTECTION' block says
+      what is still open (default structure seeds -> set feature-seeds generate-random-seeds-for-all: true
+      in config/paper-world-defaults.yml or paste the block from plugins/DonutREP/seed-protection-
+      guide.txt into spigot.yml; anti-xray off; packetevents missing). It stays quiet once they are done,
+      or with seed-protection.startup-check: false.
+  [ ] ANTI-XRAY: DonutREP has no ore hiding of its own (/spawnbedrock only catches x-ray users with bait
+      blocks), so it switches Paper's anti-xray on by itself (seed-protection.yml -> anti-xray: true,
+      anti-xray-engine-mode: 2). First start after the update: the console says 'Anti-xray was switched on
+      in config/paper-world-defaults.yml ... RESTART' and config/paper-world-defaults.yml.before-donutrep
+      is the old file; restart once. After that the start-up block no longer mentions anti-xray, and ores
+      deeper than the exposed ones look like stone (or fake ores) to an x-ray user. anti-xray: false =
+      leave Paper's file alone. A world with its own anti-xray setting in its world folder (paper-
+      world.yml) is not changed.
+  [ ] WORTH TOOLTIP: hover 2 seeds: 'Worth: $1' and 'Stack of 2: $2'; one seed shows only 'Worth: $1'. An
+      old plus.yml with the two original lines is changed once on the first start; edit worth-
+      display.lines to change it ({worth} each, {total} stack, {amount}, {category}).
+  [ ] Earlier in the same series: leaving the game in a duel / FFA kills you; /ffa join goes straight into
+      an arena (15 s countdown, ffa.join-countdown false = at once); walk-in FFA / duel pods (/cuboid bind
+      <cuboid> ffa|duel, /cuboid menu to rename); /crateparty start 1h 5m; /banip; /viewhomes with the
+      world under each home; /draw works in a duel.
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

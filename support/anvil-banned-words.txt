@@ -1,0 +1,523 @@
+# Built-in anvil name filter. One word per line; '=' = whole word only. Edit freely, then /amod reload.
+# Names are normalised (leetspeak, spaces, symbols, repeated letters) before matching, so n1gg4 and n i g g a are caught too.
+# n*****
+nigger
+n1gger
+n!gger
+n|gger
+ni9ger
+niqger
+nig9er
+nigqer
+nigg3r
+n1993r
+n i g g e r
+n.i.g.g.e.r
+niiggeer
+# n****
+nigga
+n1gga
+n!gga
+n|gga
+ni9ga
+niqga
+nig9a
+nigqa
+nigg4
+nigg@
+n1994
+n i g g a
+n.i.g.g.a
+niiggaa
+# n*****
+nigguh
+n1gguh
+n!gguh
+n|gguh
+ni9guh
+niqguh
+nig9uh
+nigquh
+n199uh
+n i g g u h
+n.i.g.g.u.h
+niigguuh
+# n****
+niqqa
+n1qqa
+n!qqa
+n|qqa
+niqq4
+niqq@
+n1qq4
+n i q q a
+n.i.q.q.a
+niiqqaa
+# n*****
+niqqer
+n1qqer
+n!qqer
+n|qqer
+niqq3r
+n1qq3r
+n i q q e r
+n.i.q.q.e.r
+niiqqeer
+# n****
+nigra
+n1gra
+n!gra
+n|gra
+ni9ra
+niqra
+nigr4
+nigr@
+n19r4
+n i g r a
+n.i.g.r.a
+niigraa
+# n*****
+niglet
+n1glet
+n!glet
+n|glet
+ni9let
+niqlet
+nig1et
+nigl3t
+nigle7
+nigle+
+n19137
+n i g l e t
+n.i.g.l.e.t
+niigleet
+# n*****
+nignog
+n1gnog
+n!gnog
+n|gnog
+ni9nog
+niqnog
+nign0g
+nigno9
+nignoq
+n19n09
+n i g n o g
+n.i.g.n.o.g
+niignoog
+# w******
+wetback
+w3tback
+we7back
+we+back
+wet8ack
+wetb4ck
+wetb@ck
+wetba(k
+w3784(k
+w e t b a c k
+w.e.t.b.a.c.k
+weetbaack
+# b*****
+beaner
+8eaner
+b3aner
+be4ner
+be@ner
+bean3r
+834n3r
+b e a n e r
+b.e.a.n.e.r
+beeaaneer
+# c****
+chink
+(hink
+ch1nk
+ch!nk
+ch|nk
+(h1nk
+c h i n k
+c.h.i.n.k
+chiink
+# k***
+kike
+k1ke
+k!ke
+k|ke
+kik3
+k1k3
+k i k e
+k.i.k.e
+kiikee
+# k***
+kyke
+kyk3
+k y k e
+k.y.k.e
+kykee
+# t********
+towelhead
+7owelhead
++owelhead
+t0welhead
+tow3lhead
+towe1head
+towelh3ad
+towelhe4d
+towelhe@d
+70w31h34d
+t o w e l h e a d
+t.o.w.e.l.h.e.a.d
+tooweelheeaad
+# r******
+raghead
+r4ghead
+r@ghead
+ra9head
+raqhead
+ragh3ad
+raghe4d
+raghe@d
+r49h34d
+r a g h e a d
+r.a.g.h.e.a.d
+raagheeaad
+# s*********
+sandnigger
+5andnigger
+$andnigger
+s4ndnigger
+s@ndnigger
+sandn1gger
+sandn!gger
+sandn|gger
+sandni9ger
+sandniqger
+sandnig9er
+sandnigqer
+sandnigg3r
+54ndn1993r
+# r******
+redskin
+r3dskin
+red5kin
+red$kin
+redsk1n
+redsk!n
+redsk|n
+r3d5k1n
+r e d s k i n
+r.e.d.s.k.i.n
+reedskiin
+# z*********
+zipperhead
+z1pperhead
+z!pperhead
+z|pperhead
+zipp3rhead
+zipperh3ad
+zipperhe4d
+zipperhe@d
+z1pp3rh34d
+z i p p e r h e a d
+z.i.p.p.e.r.h.e.a.d
+ziippeerheeaad
+# s*******
+slanteye
+5lanteye
+$lanteye
+s1anteye
+sl4nteye
+sl@nteye
+slan7eye
+slan+eye
+slant3ye
+slantey3
+514n73y3
+s l a n t e y e
+s.l.a.n.t.e.y.e
+slaanteeyee
+# c**********
+cameljockey
+(ameljockey
+c4meljockey
+c@meljockey
+cam3ljockey
+came1jockey
+camelj0ckey
+cameljo(key
+cameljock3y
+(4m31j0(k3y
+c a m e l j o c k e y
+c.a.m.e.l.j.o.c.k.e.y
+caameeljoockeey
+# f*****
+faggot
+f4ggot
+f@ggot
+fa9got
+faqgot
+fag9ot
+fagqot
+fagg0t
+faggo7
+faggo+
+f49907
+f a g g o t
+f.a.g.g.o.t
+faaggoot
+# f****
+fagot
+f4got
+f@got
+fa9ot
+faqot
+fag0t
+fago7
+fago+
+f4907
+f a g o t
+f.a.g.o.t
+faagoot
+# t*****
+tranny
+7ranny
++ranny
+tr4nny
+tr@nny
+7r4nny
+t r a n n y
+t.r.a.n.n.y
+traanny
+# s******
+shemale
+5hemale
+$hemale
+sh3male
+shem4le
+shem@le
+shema1e
+shemal3
+5h3m413
+s h e m a l e
+s.h.e.m.a.l.e
+sheemaalee
+# r*******
+retarded
+r3tarded
+re7arded
+re+arded
+ret4rded
+ret@rded
+retard3d
+r374rd3d
+r e t a r d e d
+r.e.t.a.r.d.e.d
+reetaardeed
+# m********
+mongoloid
+m0ngoloid
+mon9oloid
+monqoloid
+mong0loid
+mongo1oid
+mongol0id
+mongolo1d
+mongolo!d
+mongolo|d
+m0n90101d
+m o n g o l o i d
+m.o.n.g.o.l.o.i.d
+moongoolooiid
+# c***
+cunt
+(unt
+cun7
+cun+
+(un7
+c u n t
+c.u.n.t
+cuunt
+# h*********
+heilhitler
+h3ilhitler
+he1lhitler
+he!lhitler
+he|lhitler
+hei1hitler
+heilh1tler
+heilh!tler
+heilh|tler
+heilhi7ler
+heilhi+ler
+heilhit1er
+heilhitl3r
+h311h1713r
+# s*******
+sieghiel
+5ieghiel
+$ieghiel
+s1eghiel
+s!eghiel
+s|eghiel
+si3ghiel
+sie9hiel
+sieqhiel
+siegh1el
+siegh!el
+siegh|el
+sieghi3l
+sieghie1
+# w*********
+whitepower
+wh1tepower
+wh!tepower
+wh|tepower
+whi7epower
+whi+epower
+whit3power
+whitep0wer
+whitepow3r
+wh173p0w3r
+w h i t e p o w e r
+w.h.i.t.e.p.o.w.e.r
+whiiteepooweer
+# g*********
+gasthejews
+9asthejews
+qasthejews
+g4sthejews
+g@sthejews
+ga5thejews
+ga$thejews
+gas7hejews
+gas+hejews
+gasth3jews
+gasthej3ws
+gasthejew5
+gasthejew$
+9457h3j3w5
+# k***********
+killyourself
+k1llyourself
+k!llyourself
+k|llyourself
+ki1lyourself
+kil1yourself
+killy0urself
+killyour5elf
+killyour$elf
+killyours3lf
+killyourse1f
+k111y0ur531f
+k i l l y o u r s e l f
+k.i.l.l.y.o.u.r.s.e.l.f
+# =c***
+=coon
+=(oon
+=c0on
+=co0n
+=(00n
+# =j**
+=jap
+=j4p
+=j@p
+=jaap
+# =p***
+=paki
+=p4ki
+=p@ki
+=pak1
+=pak!
+=pak|
+# =h****
+=honky
+=h0nky
+=hoonky
+# =i****
+=injun
+=1njun
+=!njun
+=|njun
+# =f**
+=fag
+=f4g
+=f@g
+=fa9
+=faq
+=f49
+# =d***
+=dyke
+=dyk3
+=dykee
+# =k**
+=kys
+=ky5
+=ky$
+# =n***
+=nazi
+=n4zi
+=n@zi
+=naz1
+=naz!
+=naz|
+# =s***
+=spaz
+=5paz
+=$paz
+=sp4z
+=sp@z
+=5p4z
+# =g**
+=gyp
+=9yp
+=qyp
+# =s***
+=spic
+=5pic
+=$pic
+=sp1c
+=sp!c
+=sp|c
+# =s****
+=spick
+=5pick
+=$pick
+=sp1ck
+=sp!ck
+=sp|ck
+# =g***
+=gook
+=9ook
+=qook
+=g0ok
+=go0k
+=900k
+# =g****
+=gooks
+=9ooks
+=qooks
+=g0oks
+=go0ks
+=gook5
+# =r*****
+=retard
+=r3tard
+=re7ard
+=re+ard
+=ret4rd
+=ret@rd
+# =r******
+=retards
+=r3tards
+=re7ards
+=re+ards
+=ret4rds
+=ret@rds
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

@@ -23,3 +23,8 @@ The images below show the entire system almost every feature can be turned on or
 ![10](https://cdn.modrinth.com/data/cached_images/21764063e1da271c94b7115e75258a9bb8251ecb.png)
 ![11](https://cdn.modrinth.com/data/cached_images/4ca728286368bea5aefa01d2516d2aafe418d17f.png)
 ![12](https://cdn.modrinth.com/data/cached_images/44148de39cf6f8c1a1cdf7dec092959f61e0316b.png)
+
+[![DonutREP Plugin Update: Everything New in Teams, Orders & Shops](https://img.youtube.com/vi/9IX2ikaChuI/0.jpg)](https://www.youtube.com/watch?v=9IX2ikaChuI)
+[![DonutREP Update: New Crates, Key-All, Arena Wand & Sell Hoe](https://img.youtube.com/vi/zorkRIwzvwk/0.jpg)](https://www.youtube.com/watch?v=zorkRIwzvwk)
+[![How to get Amethyst Tools on Your DonutSMP Server | DonutREP](https://img.youtube.com/vi/-3svUmC9Eiw/0.jpg)](https://www.youtube.com/watch?v=-3svUmC9Eiw)
+[![DonutSMP Plugin Setup: Cuboid Areas for RTP, Duels, FFA, AFK & Spawn (DonutREP)](https://img.youtube.com/vi/YuPOveCGv1Q/0.jpg)](https://www.youtube.com/watch?v=YuPOveCGv1Q)

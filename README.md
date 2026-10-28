@@ -3,11 +3,10 @@ BetterEconomy | All-in-one SMP plugin: crates, shop, auction, orders, spawners, 
 This plugin supports both old GUI menus & New Dialogue menus for DonutSMP.
 Join our Discord for help: https://discord.gg/Ad8DGbF43d
 
+Tutorials here: https://www.youtube.com/@Akxptic/videos
+
 The images below show the entire system almost every feature can be turned on or off in the .yml files. 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YuPOveCGv1Q" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/v-h0mUra6zE" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # NEW
 ![Hover](https://cdn.modrinth.com/data/cached_images/fa4c88987409f8bbf7aea090cedeaaf6381937cc.png)

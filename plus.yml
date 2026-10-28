@@ -1,0 +1,615 @@
+# DonutREP+ settings.
+# Colour codes: & and &#rrggbb. /donutrep reload applies most changes.
+# Other settings live in their own files: crates.yml, shop.yml, scoreboard.yml, pvp.yml, ranks.yml, network.yml, orders.yml ...
+
+
+# Text printed by the info commands. Replace the placeholder links with your own.
+info:
+  discord:
+    - ''
+    - '&fJoin our discord: &#6AF08Cdiscord.eXample.space'
+    - ''
+  twitter:
+    - ''
+    - '&fFollow on x: &#6AF08C@elonmusk'
+    - ''
+  instagram:
+    - ''
+    - '&fFollow on Instagram: &#6AF08C@yourserver'
+    - ''
+  tiktok:
+    - ''
+    - '&fFollow on TikTok: &#6AF08C@yourserver'
+    - ''
+  store:
+    - ''
+    - '&fVisit our store: &#6AF08Cstore.eXample.space'
+    - ''
+  social:
+    - ''
+    - '&fJoin our discord: &#6AF08Cdiscord.eXample.space'
+    - '&fFollow on x: &#6AF08C@elonmusk'
+    - '&fVisit our store: &#6AF08Cstore.eXample.space'
+    - ''
+  media:
+    - ''
+    - '&dMedia rank requirements &7- ask staff on discord.'
+    - ''
+  rules:
+    - ''
+    - '&c&lServer Rules'
+    - '&71. No cheating, hacking or exploiting bugs.'
+    - '&72. No duping.'
+    - '&73. Be respectful - no harassment or hate speech.'
+    - '&74. No advertising.'
+    - ''
+  ranks:
+    - ''
+    - '&7Rank perks are listed in our store: &#6AF08Cstore.eXample.space'
+    - ''
+
+# /rules opens a menu; new players must click Accept before they can move, chat or play.
+rules:
+  require-accept: true          # permission donutrep.bypass.rules skips the gate
+  menu:
+    server:
+      material: KNOWLEDGE_BOOK
+      slot: 12
+      name: '&#00A3FBServer Rules'
+      lore:
+        - '&#00A3FB● &fNo Hacked or Cheating Clients'
+        - '&#00A3FB● &fNo Movement Mods (Fly, Speed, Step)'
+        - '&#00A3FB● &fNo Inventory Management Mods'
+        - '&#00A3FB● &fNo Health Indicators or Mob Trackers'
+        - '&#00A3FB● &fNo Radar or Minimap Tracking'
+        - '&#00A3FB● &fNo Free-Camera Mods'
+        - '&#00A3FB● &fNo Auto Place or Easy Place'
+        - '&#00A3FB● &fNo Macros, Scripts or Auto Clickers'
+        - '&#00A3FB● &fNo Abusing Bugs or Glitches'
+        - '&#00A3FB● &fNo Duplicating Items'
+        - '&#00A3FB● &fNo IRL Trading (Money for Items)'
+        - '&#00A3FB● &fNo Rewards for Inviting Players'
+        - '&#00A3FB● &fNo Trading Across Servers'
+        - '&#00A3FB● &fNo Finding or Using the World Seed'
+        - '&#00A3FB● &fNo More Than 5 Accounts'
+        - '&#00A3FB● &fNo Mouse Tweaks or Scroll Tools'
+        - '&#00A3FB● &fNo Altered Crafting Recipes'
+        - '&#00A3FB● &fNo Impersonating Staff'
+        - '&#00A3FB● &fNo External Gambling'
+        - '&#00A3FB● &fNo Scamming Other Players'
+        - '&#00A3FB● &fNo Begging for Items or Money'
+    chat:
+      material: KNOWLEDGE_BOOK
+      slot: 14
+      name: '&#00A3FB&lChat Rules'
+      lore:
+        - ''
+        - '&#00A3FB● &fNo Spamming or Getting Others to Spam'
+        - '&#00A3FB● &fNo Raiding or Spamming (Chat, Discord or Other Servers)'
+        - '&#00A3FB● &fNo Harassment'
+        - '&#00A3FB● &fNo Advertising or Promoting Other Servers'
+        - '&#00A3FB● &fNo Self-Advertising (Your Own Channel, Server or Links)'
+        - '&#00A3FB● &fNo Racism, Discrimination or Hostility'
+        - '&#00A3FB● &fNo Threats of Any Kind'
+        - '&#00A3FB● &fNo Sharing Other Players'' Private Information'
+        - '&#00A3FB● &fNo Posting or Sharing of Explicit or Inappropriate Content'
+        - '&#00A3FB● &fNo Pretending to Be Someone Else'
+        - '&#00A3FB● &fNo Evading a Ban'
+        - '&#00A3FB● &fNo Misleading Staff'
+        - '&#00A3FB● &fReport Bugs, Glitches and Cheaters'
+
+# Anti-dupe + anti-cheat flags shown in /sus. A dupe is flagged when the same stamped item id is found twice online.
+sus:
+  anti-cheat: true
+  max-blocks-per-second: 12.0
+  max-reach-distance: 6.0
+  knockback-grace-seconds: 3.0
+  ore-window: 200
+  ore-threshold: 0.35
+  ore-minimum: 8
+  alert-cooldown-seconds: 30
+  alert-permission: donutrep.staff.sus
+  dupe-detection: true
+  dupe-scan-seconds: 5
+
+enderchest-off-message: '&cEnder chests are turned off on this server.'   # shown when somebody tries to open one while features.enderchest is false
+
+# /safety opens the safety guide as a book to read - no item. give-book: true gives the book item again (it can be sold). /safety give <player> always gives it.
+safety:
+  give-book: false
+
+# Player reports (/report <player> <reason>): saved, shown to staff with buttons, sent to Discord (discord.yml -> discord: report:). Admins read them with /reports.
+reports:
+  enabled: true
+  cooldown-seconds: 60
+  min-reason-length: 3
+  keep-days: 30
+  notify-staff: true
+
+# /pmo (aliases /playmode, /adminmode): an admin plays like a normal player. Every admin command of this plugin (punishments and /statswipe too) is refused and gone from
+# the tab list, the donutrep.bypass.* permissions are off, and it stays on after a relog. The admin stays op, so a command of ANOTHER plugin has to be listed in also-hide.
+playmode:
+  enabled: true
+  also-hide: [gamemode, give, tp, teleport, op, deop, effect, enchant, time, weather, kill, summon, clear, xp, difficulty, setblock, fill, clone, execute, data, tellraw, title, gamerule]
+  keep: []                       # DonutREP commands that stay usable in play mode
+  turn-off: { vanish: true, staff-mode: true, fly: true, god: true }       # what is switched off when play mode turns on
+  message-on: '&aPlay mode is ON. &7You play like a normal player: admin commands and bypasses are off. Type &f/pmo&7 again to switch back.'
+  message-off: '&eAdmin mode is back. &7Your commands work again.'
+  message-join: '&7Play mode is still &aON&7. Type &f/pmo&7 for admin mode.'
+  blocked-message: "&cPlay mode is on, so you can't use that. Type &f/pmo &cto go back to admin mode."
+
+# /punish <player> (without an offense) opens a menu: Light Ban, Ban, Stat Wipe, Loot Wipe (+ the old list of preset offenses), then a reason, then confirm.
+# Each button runs the normal command (/lightban, /ban, /statswipe) so permissions, history and the Discord webhook are the same. Loot Wipe has its own node: donutrep.staff.punishments.lootwipe.
+punish-menu:
+  enabled: true              # false = /punish <player> shows the old list of preset offenses
+  custom-reason: true        # the "Custom reason" button (the staff member types it in chat)
+  actions: { lightban: true, ban: true, statswipe: true, lootwipe: true, preset: true }       # which buttons are shown
+  reasons:                   # the ready-made reasons (up to 27)
+    - 'Hacking / cheating'
+    - 'X-ray'
+    - 'Duping / exploiting a bug'
+    - 'Griefing'
+    - 'Ban evasion / alt account'
+    - 'Harassment / toxicity'
+    - 'Advertising'
+    - 'Spamming'
+    - 'Scamming'
+    - 'Inappropriate name or skin'
+    - 'Breaking the server rules'
+
+# The [ACCEPT] [DENY] buttons you can click instead of typing, for each kind of request. false = no buttons of that kind for anybody.
+# Every player also has "Click Buttons" in /settings (page 2): off = no buttons for them at all, on = buttons for the kinds that are true here.
+# (If all four are false the option is not shown in /settings.) The commands in the message always work.
+click-buttons:
+  tpa: true        # /tpa and /tpahere requests
+  tphere: true     # /tphere (the same as /tpahere); false = /tphere is off, /tpahere still works
+  duel: true       # duel challenges
+  team: true       # team invitations
+  friend: true     # friend requests
+
+# /pvptop: the PvP leaderboard menu (button = FFA / duels). enabled false = the command says it is off.
+pvptop:
+  enabled: true
+  default: ffa          # which board opens first: ffa | duels
+  size: 45              # how many players are listed (up to 45)
+
+# A text above every portal (/portaladmin menu -> click a portal -> Change the hologram text). {warp} = where it leads. | in a typed text = a new line.
+portal-hologram:
+  enabled: true
+  height: 0.8
+  scale: 1.0
+  default-lines: ['&5&lPortal', '&7Walk in to travel to &f{warp}']
+
+# The activity log (logs/activity-log.txt): what each player typed, ran, and when they joined, left or died - the menus of /logs <player> and /chatlog read it. OFF by default:
+# nothing is recorded and /logs and /chatlog show the plain chat list from logs/chat-log.txt instead. An existing activity-log.txt is left in the logs folder (delete it if you do not need it).
+activity-log:
+  enabled: false
+
+# logs/chat-log.txt (/chatlog): lines older than keep-days are deleted (when the server starts and once an hour). prune: false = keep everything.
+chatlog:
+  prune: true
+  keep-days: 7
+
+# /chat with no arguments opens the chat management menu (mute, delay, clear) for players who may use /chat. false = the old text help.
+chatmenu:
+  enabled: true
+
+# /keyhistory (admin): every change of a player's crate keys is written to logs/key-history.log (who, how many, the new balance, the cause).
+keyhistory:
+  enabled: true        # false = nothing is recorded and /keyhistory says so
+  keep-days: 90        # older lines are dropped when the server starts
+
+# DonutREP's own anti-cheat (/anticheat: panel, alerts, status). Alert-only unless punish.enabled is true. A failed check adds violation points (vl) that fade
+# (decay-per-second); staff with donutrep.ac.alerts see "[AC] Name failed Reach (A) (5)" once a check's alert-vl is reached, and every flag is in /sus.
+# Players with donutrep.bypass.ac are never checked; creative / spectator, frozen players and a high ping or low TPS (max-ping, min-tps) are skipped.
+# Each check can be switched off here (enabled: false) or with a click in /anticheat. Numbers can be tuned per check.
+anticheat:
+  enabled: true
+  decay-per-second: 0.05          # 1 point fades in 20 seconds
+  alert-cooldown-seconds: 2.0     # the same check for the same player alerts at most this often
+  max-ping: 350                   # above this ping a player is not judged
+  min-tps: 17.0                   # below this server TPS nobody is judged
+  skip-checks-grim-covers: false  # true = with GrimAC installed, the checks listed in grim-covers are not run here (Grim already does them)
+  grim-covers: [reach, hitbox, killaura, autoclick, fly-hover, fly-rise, speed]
+  punish:
+    enabled: false                # true = run the commands below once a check reaches vl (never for a first flag)
+    vl: 25
+    commands:
+      - 'kick {player} Unfair advantage ({check})'
+  checks:
+    reach:       { enabled: true, leeway: 0.6, alert-vl: 1 }              # reach of the player (3.0 normal) + leeway + ping
+    hitbox:      { enabled: true, tolerance: 0.4, alert-vl: 3 }           # how far outside the target's box the look direction may pass
+    killaura:    { enabled: true, targets: 3, window-ms: 500, alert-vl: 2 }
+    autoclick:   { enabled: true, max-cps: 22, alert-vl: 2 }
+    fly-hover:   { enabled: true, hover-ticks: 25, alert-vl: 1 }
+    fly-rise:    { enabled: true, max-jump: 1.35, alert-vl: 1 }           # blocks above the last ground (jump boost adds 0.5 per level)
+    speed:       { enabled: true, max-bps: 9.0, alert-vl: 1 }             # blocks per second without effects; speed effects and ice scale it
+    fastbreak:   { enabled: true, factor: 0.6, alert-vl: 2 }              # 0.6 = broken in less than 60 percent of the survival time
+    autototem:   { enabled: true, min-ms: 100, alert-vl: 2 }
+    crystalaura: { enabled: true, max-ticks: 1, count: 3, alert-vl: 1 }
+    anchoraura:  { enabled: true, min-ms: 60, alert-vl: 2 }
+
+# /rtpq: the players of one match (rtp-rules.queue.min-players of them) land in the same area, at most this many blocks apart.
+rtpq:
+  spread-radius: 16
+
+# Voice chat: when true (and the voicechat plugin is installed) players cannot speak until they accept /vcconsent.
+voicechat:
+  require-consent: true
+
+# Cuboid bindings (/cuboid bind <cuboid> <spawn|afk|shard|rtp-zone> true).
+zones:
+  shard:
+    interval-seconds: 60      # one reward every this many seconds spent inside a shard cuboid
+    amount: 1
+    recent-movement-seconds: 0    # 0 = sitting idle earns; set e.g. 15 to require recent movement
+    reset-on-leave: true
+  rtp:
+    countdown-seconds: 30     # every rtp-zone cuboid has its own countdown: everybody inside the same zone sees the same time
+    continuous: false         # false = a zone with nobody inside stops and goes back to the full time; the countdown starts when somebody steps in. true = it never stops
+    same-spot: true           # true = everybody inside a zone is sent to the SAME coordinates; each zone gets its own spot, never inside an rtp zone. false = everybody gets a spot of their own
+    world: ''                 # blank = the player's current world
+    # the text floating above every rtp zone is set in hologram.yml (rtp-zone:)
+
+# Money shown next to other players' names (each player can turn it off in /settings).
+nametags:
+  money-default: true
+
+# Per-player limits come from permissions (the highest number a player has wins), for example:
+#   lp group default permission set donutrep.homes.20 true
+#   lp group default permission set donutrep.auctionhouse.16 true
+#   lp group default permission set donutrep.orders.limit.5 true
+# Without any of those, these defaults apply.
+# Weekly cleanup of the small temporary notes the plugin keeps in memory (a server restart clears them too). Nothing a player earned is touched: money, homes, levels,
+# keys, ranks and stats are saved elsewhere. Chat-filter offense counts are never cleared. A Discord webhook is told on the warn day, a few minutes before, and when done.
+maintenance:
+  weekly-cleanup:
+    enabled: false                 # OFF by default. true = switch the weekly cleanup on
+    day: SUNDAY                    # the day the cleanup runs
+    time: "18:00"                  # at this time (server time, 24 hours)
+    warn-day: SATURDAY             # the day the first warning goes out
+    warn-time: "18:00"
+    final-warning-minutes: 10      # a second warning this many minutes before the cleanup
+    announce-done: true            # a message when it is finished (with the number of records removed)
+    discord-webhook: ''            # Discord: channel settings > Integrations > Webhooks. Blank = no Discord messages
+    clear:                         # true = this kind of note is cleared, false = kept
+      amethyst-click-cooldowns: true
+      spawner-bait-alert-times: true
+      sus-alert-cooldowns: true
+      crate-open-times: true
+      rank-menu-state: true
+      spawn-reasons: true
+      ecowatch-baseline: false     # the balance /ecowatch compares with; cleared = the next check starts a new comparison
+      sus-flags: false             # the flags /sus shows staff (evidence) - keep false unless you want them gone each week
+
+# Hover stats: hover a player's name to see their money, kills, deaths, playtime and shards; click to open /stats <name>. Each place has its own switch.
+hover-stats:
+  chat: true            # the name in the chat
+  tpa: true             # the /tpa request message
+  tpahere: true         # the /tpahere request message
+  duel: true            # the duel challenge message
+
+# /tpa and /tpahere requests
+tpa:
+  clickable: true       # a /tpa, /tpahere or duel request ends with clickable [ACCEPT] [DENY] buttons (like a team invitation)
+  show-world: false     # true = the request says which world the sender is in (e.g. "wants to teleport to you (Nether)")
+
+limits:
+  defaults:
+    homes: 3
+    auction: 5
+    orders: 5
+
+# Turn whole command groups off by setting them to false (all on by default). /donutrep reload applies changes.
+features:
+  keyafk: true            # /keyafk: players go to a key-all area (the places that give key-all keys)
+  import: true             # /donutrep import <v1|v2> <folder> <preview|confirm>: carry data over from an older plugin's data folder (admins only)
+  license: true            # /license: the license notice and the whole license as a book
+  chat: true
+  ignore: true
+  message: true
+  bounty: true
+  cuboid: true
+  afk: true
+  shards: true
+  warp: true
+  team: true
+  billford: true
+  home: true
+  leaderboards: true
+  nightvision: true
+  phantom: true
+  rtp: true
+  sell: true
+  settings: true
+  shop: true
+  instagram: true      # /instagram (the link is info: instagram: above) - false turns just this command off
+  tiktok: true         # /tiktok (info: tiktok:) - false turns just this command off
+  enderchest: false    # /enderchest and clicking an ender chest are OFF by default (nobody can open one, ops too). true = on. /ecsee still works for admins
+  gamemode: true
+  social: true
+  spawn: true
+  stats: true
+  tpa: true
+  tpauto: true
+  findplayer: true
+  crate: true
+  shardpay: false      # /shardpay (sending shards to other players) is off by default
+  ranks: true
+  rules: true
+  help: true
+  servers: true
+  auctionhouse: true
+  orders: true
+  pay: true
+  duel: true
+  friends: true
+  kill: true
+  spawner: true
+  spawnstash: true
+  hide: true
+  balance: true
+  top: false                 # /top (an alias of /leaderboard) is off by default
+  prices: false              # /prices (an alias of /worth) is off by default
+  ah-claims: false           # /ah claims is off by default
+  crates-menu: false         # false (default) = players without op/admin cannot open /crates (they open a crate at its crate block, and see its rewards without a key). true = everybody can
+  shards-view-others: true   # /shards <player> shows another player's shards
+  custom-icons: false        # true = players can change the icon of their homes and of the team home
+  team-pvp-lock: true        # teammates cannot hit each other until /team pvp is on
+
+  # ---- finer switches (1.22.12): each turns off just these commands (and the menu they open). Players are told "This feature is currently disabled" (ops always get through).
+  # A command that is also in a group above works only while both switches are on (sell-gui and sell both guard /sell).
+  # selling
+  sell-gui: true             # /sell (the sell window)
+  sell-multiplier: true      # false = /sellmulti and /sellmultiplier are off AND every sale pays x1.0 (levels are still counted)
+  sell-progress: true        # /sellprogress
+  sell-history: true         # /sellhistory
+  sell-hand: true            # /sellhand
+  sell-all: true             # /sellall
+  topsell: true              # /topsell
+  worth: true                # /worth
+  shop-editor: true          # /shopedit
+  # money and markets
+  economy-admin: true        # /addmoney /setmoney /removemoney /addshards /setshards /removeshards
+  crate-parties: true        # /crateparty
+  keys-menu: true            # /keymenu
+  ah-stats: true             # /ahstats
+  # players
+  pm: true                   # /pm
+  language: true             # /language
+  playtime: true             # /playtime
+  ping: true                 # /ping
+  recent: true               # /recent
+  new-players: true          # /newplayers
+  see-homes: true            # /viewhomes
+  profile-viewer: true       # /profileviewer
+  team-chat: true            # /teamchat
+  leave: true                # /leave
+  teleport: true             # /teleport and /randomteleport
+  # pvp
+  ffa: true                  # /ffa
+  ffa-stats: true            # /ffastats
+  ffa-arenas: true           # /ffaarena
+  duel-arenas: true          # /duelarena and /arena
+  pvp: true                  # /pvp
+  pvp-top: true              # /pvptop
+  draw: true                 # /draw
+  # staff tools (ops are never blocked)
+  fly: true                  # /fly
+  fly-speed: true            # /flyspeed
+  heal: true                 # /heal
+  feed: true                 # /feed
+  god: true                  # /god
+  vanish: true               # /vanish
+  freeze: true               # /freeze
+  invsee: true               # /invsee
+  staff-mode: true           # /staffmode
+  staff-list: true           # /stafflist
+  staff-chat: true           # /staffchat
+  helpop: true               # /helpop
+  report: true               # /report and /reports
+  rename: true               # /rename
+  note: true                 # /note
+  watch: true                # /watch
+  sus: true                  # /sus
+  logs: true                 # /logs and /chatlog
+  economy-watch: true        # /ecowatch
+  market-watch: true         # /marketwatch
+  alts: true                 # /alts
+  purchase-alerts: true      # /purchasealert
+  # punishments (ops are never blocked)
+  ban: true                  # /ban /tempban /unban /banip /unbanip /ipbans /lightban
+  mute: true                 # /mute /tempmute /unmute /vcmute /vcunmute
+  warn: true                 # /warn
+  kick: true                 # /kick
+  blacklist: true            # /blacklist /unblacklist
+  punish-history: true       # /punishhistory and /punish
+  # server
+  border: true               # /border /bordertp /pregen
+  portal-manager: true       # /portaladmin
+  warp-manager: true         # /warpadmin
+  afk-menu: true             # /afkmenu
+  spawn-menu: true           # /spawnmenu
+  maintenance: true          # /maintenance
+  clearlag: true             # /clearlag
+  hologram: true             # /hologram
+  anticheat: true            # /anticheat
+  voice-chat: true           # /vcconsent
+  spawner-view: true         # /spawnerview
+  amethyst-tools: true       # /amethysttool
+
+# Sell progression: every level (money earned from selling a category) raises that category's multiplier by `step`.
+sellprogress:
+  step: 0.05
+  levels: [25000, 150000, 500000, 1000000, 5000000, 25000000, 250000000, 550000000, 850000000, 1000000000, 2000000000, 4000000000, 8000000000, 10000000000, 20000000000, 40000000000, 80000000000, 160000000000, 320000000000, 640000000000]
+
+# Crate keys are a stored balance (no key items).
+crates:
+  open-mode: CHOOSE      # CHOOSE = right-click a bound crate with a key and pick the reward you want; RANDOM = random reward
+  show-chance: false     # true = the reward lore in the preview says "Chance: 12.50%" (only useful in RANDOM mode; the crate editor for admins always shows it)
+  show-weight: false     # true = the chance line also says "(weight 25)" (needs show-chance)
+  # menu-size: 27 (default) or 54: every reward sits in the slot the admin put it in. 27 = one 27-slot menu for the crate, its editor and the preview (with a key, clicking a reward asks you to confirm).
+  # 54 = the top 45 slots hold the rewards and the bottom row holds the buttons (Back, key, Random, Close, Edit); a click on a reward claims it. Select an item in your inventory, click an empty slot to put it
+  # there; shift-left-click a reward then an empty slot (or another reward) to move / swap it; shift-right-click = crate settings. A crate with more rewards than fit opens the classic 54-slot menu.
+  # "classic" (or the old crates.small-menus: false) = the old 54-slot menus where the rewards are laid out by menu-layout / menu-slots below.
+  menu-size: 27
+  menu-filler: true      # gray glass panes in the slots that hold no reward (false = empty slots)
+  key-required-to-preview: false   # false (default) = a player can click a bound crate and see its rewards without a key. true = no key, no look inside (they are only told they need a key)
+  preview-item: true     # the reward item that floats and turns above a bound crate and changes to the next reward (false = only the text tag)
+  preview-cycle-ticks: 100   # ticks (20 = 1 second) between one reward and the next: 100 = 5 seconds, 200 = 10 seconds
+  preview-spin: true     # the floating item turns slowly
+  random-button: false   # true = a "Random reward" button under the rewards of the choose menu: the crate picks (by weight) and plays the spin
+  spin-animation: true   # the rolling menu (red panes = not this one, the green pane pair = your reward) for random opens; false = the reward at once
+  auto-shop: false       # true = creating a crate (/crates, /crate create) also puts its key in /shop -> Crate keys at the price below; deleting the crate takes it out
+  auto-shop-currency: SHARD   # SHARD or MONEY
+  auto-shop-price: 1000       # (the key can always be added, changed or removed by hand: crate editor -> "Add key to shop")
+  ask-color-on-create: true   # true = after /crate create the colour menu opens for the admin (colour of the crate's name: 24 ready-made colours, a hex code typed in chat, or a gradient); closing it keeps the crate white. Also: /crate color <id> and the crate editor's Crate Color button
+  color-dialogs: false        # true = the colour choice is a dialog window (Paper 1.21.7 and newer); false = chest menu
+  spin-ticks-start: 2    # how fast the roll starts (ticks per step) ...
+  spin-ticks-end: 10     # ... and how slow it ends
+  menu-layout: CENTER    # where the rewards sit in the 'choose a reward' menu and the rewards preview: TOP (top left, rows from slot 0), CENTER (middle of the menu) or BOTTOM (just above the key/close bar)
+  # The floating tag above a crate: every player sees their own key count. {crate} = the crate name, {keys} = the viewer's keys for it.
+  floating-tag: true     # false = only the original one-line crate name
+  tag-lines:
+    - '{crate}'
+    - '&7Right-click to open'
+    - '&7Keys: &e{keys}'
+  tag-range: 24          # blocks: the tag is shown to players this close
+  menu-slots: []         # or put every reward exactly where you want: a list of slots 0-44 (left to right, top to bottom), for example [10, 12, 14, 16, 28, 30, 32, 34]. Used in order; empty = use menu-layout
+
+# "X is now AFK" / "X is no longer AFK" broadcast to everyone.
+afk:
+  announce: false
+
+# No cents anywhere: prices, pay, balances and sells are whole dollars.
+economy:
+  whole-numbers: true
+
+# Worth on hover: hovering an item in your inventory or a chest adds these lines to its tooltip (needs the packetevents plugin).
+# Tokens: {worth} price each, {total} price of the whole stack, {amount}, {category}. Each player can turn it off with Worth Display in /settings.
+worth-display:
+  enabled: true
+  shulker-contents: true     # a shulker box shows the worth of everything inside it (true/false)
+  lines:
+    - '&7Worth: &a${worth}'
+    - '&7Stack of {amount}: &a${total}'      # only shown when you hold more than one
+    - '&8{category}'
+
+# PvP is switched off inside every cuboid (set false to only protect cuboids bound to spawn).
+cuboid:
+  pvp-disabled: true
+
+
+# /leaderboard (menu): team leaderboard entry
+leaderboard:
+  teams: true
+
+# /ban (permanent) wipes the player's items - inventory, armour, off hand and ender chests. /lightban and /tempban never do.
+punishments:
+  ban-wipes-items: true
+  wipe-auctions-orders: true          # a permanent ban or a Loot Wipe also deletes everything the player has on /ah (the items are gone) and all their orders (no refund). false = those stay
+  # IP bans (/banip <player|ip> [time] [reason], /unbanip, /ipbans): a banned address cannot join with any account.
+  ip-ban-also-bans-account: true      # /banip <player> also bans that account (so /punishments shows it); /unbanip <player> lifts both
+  ip-ban-allow-local: false           # false = 127.0.0.1 / ::1 cannot be banned (that would lock out everybody on the server machine)
+  ip-ban-message: "&c&lYour IP address is banned!\n&8&m----------------------------\n&7Reason: &f{reason}\n&7Expires: &f{exp}\n&8&m----------------------------"
+
+# Items with a custom name, or that went through an anvil, cannot be sold in /sell, with the sell axe or on /ah.
+sell-protection:
+  block-modified-items: true
+
+# /settings alert switches (Pay Alerts, Auction Alerts, Order Alerts): chat lines matching these patterns (plain text, regex)
+# are not shown to players who turned the switch off. Change a pattern if you reword the original messages.
+# Totem Particles (/settings): off = the totem pop (particles, sound and the totem flash) is not shown. hide-own: false = you still see your own totem pop.
+totem-particles:
+  hide-own: true
+
+# Chat messages that also play a sound (sounds.yml: tpa-request, pay-received) - for players with Notification Sounds on and the matching alert (Teleport / Pay Alerts) on.
+sound-triggers:
+  tpa-request:
+    - '^.* wants to .*/tpaccept or /tpadeny.*'
+  pay-received:
+    - '^\S+ sent you [$\d].*'
+
+alert-filters:
+  TELEPORT_ALERTS:
+    - '^.* wants to .*/tpaccept or /tpadeny.*'
+  PAY_ALERTS:
+    - '^\S+ sent you [$\d].*'
+  AUCTION_NOTIFICATIONS:
+    - '.* bought your listing #\d+ for .*'
+  ORDER_NOTIFICATIONS:
+    - '^Order #\d+ fulfilled.*'
+
+# Team chat: /teamchat <message> (or /tc) writes to your team only; /teamchat alone switches team chat mode on or off. A team member who turned "Team Chat Visibility" off in /settings does not see it.
+teamchat:
+  # every team message is written to logs/team-chat.log; admins read it live with the Team Chat Spy switch (/settings page 2, /chat menu, /teamspy) or /teamspy log [team]
+  spy: true            # false = the spy switch is gone
+  log: true
+  format: '&b[Team] &f{player}&7: &f{message}'      # {player} {team} {message}
+  enabled: '&7Team chat is on: everything you type goes to your team. Type &f/teamchat &7to switch it off.'
+  disabled: '&7Team chat is off: you are back in the public chat.'
+  no-team: '&cYou are not in a team. Create one with /team create <name>.'
+  not-allowed: '&cYou can''t use team chat.'                 # the team leader can switch CHAT off for a member in /team settings
+
+# Clear lag: dropped items are removed every few minutes, with a countdown in chat (a player can hide those messages: /settings -> Clear Entities Messages). /clearlag removes everything at once.
+clearlag:
+  enabled: true
+  every-minutes: 5
+  show-countdown: false                            # true = the countdown shows in chat before each cleanup (the cleanup itself always runs); players can hide it in /settings
+  show-result: false                               # true = chat says how many entities were cleared
+  warn-seconds: [60, 30, 10, 5, 4, 3, 2, 1]        # the countdown shows at these seconds before a cleanup (show-countdown)
+  dropped-items: true
+  min-item-age-seconds: 60                         # an item younger than this stays, so what was just dropped is not wiped
+  animals: false
+  monsters: false
+  excluded-worlds: [duels]
+  exclude-death-drops: true                        # the loot of a player who died is never cleared: it stays until the game's own despawn (5 minutes)
+  exclude-named: true                              # named items and mobs stay
+  exclude-tamed: true
+  exclude-villagers: true
+  excluded-entity-types: []                        # e.g. ALLAY, IRON_GOLEM
+  excluded-item-materials: []                      # e.g. NETHERITE_INGOT, ELYTRA
+  messages:
+    countdown: '&7Clearing dropped items in &b{seconds}s&7...'
+    success: '&7Cleared &b{total} &7dropped items and entities.'
+
+# Cuboid binds that protect an area (bind types: spawn, afk, shard, rtp-zone, rtp-queue).
+zone-protection:
+  build: [spawn, rtp-zone, rtp-queue, shard]       # no placing or breaking blocks
+  drop: [spawn, afk, rtp-zone, rtp-queue, shard]   # no dropping items
+  pvp: [spawn, rtp-zone, rtp-queue, shard]         # no PvP (cuboid.pvp-disabled: true switches PvP off inside every cuboid)
+
+# Randomized Coords (/settings): while on, the coordinates DonutREP shows a player (scoreboard {coords}, the location after /rtp) are shifted by a random
+# X / Z offset that is new at every login. Turning it on or off kicks the player so the next login starts clean.
+randomized-coords:
+  kick-on-toggle: true
+  min-offset: 1000
+  max-offset: 50000
+
+# Teleport points of the afk and spawn cuboids (/setafk <cuboid>, /setspawn <cuboid>, /afkmenu, /spawnmenu).
+areas:
+  max-points: 20            # at most this many teleport points for one cuboid
+  point-mode: random        # random = a player lands on a random point of the cuboid | order = one point after the other (a cuboid can change it in /afkmenu)
+  show-names: false         # true = the /afk and /spawn menus show the name of the cuboid instead of AFK #1, Spawn #1
+
+# Staff tools for new players and for tailing a suspect.
+newplayers:
+  enabled: true             # /newplayers and the new-player notices
+  hours: 2                  # a player is new for this many hours after the first join
+  notify-staff: true        # a chat line for staff (donutrep.staff.newplayers) when somebody joins for the first time
+recent:
+  enabled: true             # /recent: the last players you teleported to, live
+  size: 5                   # how many (1-9); the oldest drops off when a new one is added
+watch:
+  enabled: true             # /watch <player>: an alert when they teleport
+  spectate: true            # /watch also puts you in spectator mode on them (stop = your old game mode back)
+  auto-follow: true         # after they teleport a spectating staff member is put on them again, across worlds too
+  min-distance: 8           # a teleport shorter than this many blocks is not reported
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================
+

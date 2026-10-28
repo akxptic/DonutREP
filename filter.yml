@@ -1,0 +1,48 @@
+# Chat filter. Everything here is off until filter.chat.enabled is true. Players with the bypass permission are never filtered.
+# The banned-word check uses the same list as the anvil filter (anvil-banned-words.txt) and catches leetspeak and spaced-out letters.
+filter:
+  chat:
+    enabled: false
+    notify-staff: true            # staff with donutrep.staff.punishments.view see what was blocked
+    bypass-permission: donutrep.bypass.filter
+  words:
+    enabled: true
+    # punishment for the 1st, 2nd, 3rd ... banned word (the last one repeats). Leave the list empty to only block the message.
+    punishments:
+      - 'warn %player% Chat filter: banned word'
+      - 'tempmute %player% 10m Chat filter: banned word'
+      - 'tempmute %player% 1h Chat filter: banned word'
+  spam:
+    enabled: true
+    min-delay-ms: 700             # messages sent faster than this are blocked
+    block-repeats: true           # the same message again within repeat-seconds is blocked
+    repeat-seconds: 10
+  caps:
+    enabled: true
+    min-length: 8                 # shorter messages are ignored
+    max-percent: 70               # more capitals than this (in %) ...
+    action: LOWERCASE             # LOWERCASE = the message is sent in lower case, BLOCK = it is not sent
+  links:
+    enabled: false
+    block-links: true
+    block-ips: true
+    allow: [example.com, discord.gg/yourserver]     # links containing any of these are fine
+  commands:
+    enabled: true                 # also check the text of these commands for banned words
+    names: [msg, tell, w, whisper, message, reply, r, pm, me, say, team, helpop, report]
+  # words in here are removed before checking, so they can never be mistaken for a banned word
+  allow-list: [Nigeria, Niger, Scunthorpe, Assassin, Class, Classic, Grass, Bass]
+  messages:
+    word: '&cYour message was blocked by the chat filter.'
+    spam: '&cYou are sending messages too fast.'
+    repeat: '&cDon''t repeat yourself.'
+    caps: '&cPlease don''t use so many capital letters.'
+    link: '&cYou can''t post links.'
+    ip: '&cYou can''t post IP addresses.'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

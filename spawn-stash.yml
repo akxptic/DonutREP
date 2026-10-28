@@ -1,0 +1,146 @@
+# Spawn stashes: small bait builds that catch xray users, and what happens when somebody digs into one.
+# Add a new entry under TYPES to get another /spawnstash type - no code change needed.
+# Blocks are listed as OFFSET [x, y, z] from where the stash is placed.
+# SPAWNER blocks are always skeleton cages that never spawn and never drop (SPAWNER_TYPE is ignored). Containers (CHEST, BARREL, SHULKER boxes) take CONTAINER_ITEMS: SLOT, MATERIAL, AMOUNT.
+# SIGN blocks can have SIGN_LINES. CLAIM_SPAWNERS_ON_BREAK gives the managed spawner item to the player who breaks a stash spawner.
+
+SETTINGS:
+  ENABLED: true
+  DEFAULT_TTL_SECONDS: 900          # how long a stash stays before it is put back
+  DEFAULT_ALERT_RADIUS: 8.0         # staff are told when someone is this close to a stash block
+  ALERT_COOLDOWN_SECONDS: 30
+  CHECK_INTERVAL_TICKS: 20
+  OVERWRITE_BLOCKS: true
+  PROTECT_BLOCKS: false
+  CLAIM_SPAWNERS_ON_BREAK: false
+  ROLLBACK_ON_RELOAD: true
+  LOG_TO_CONSOLE: true
+  MAX_BLOCKS_PER_STASH: 256
+
+MESSAGES:
+  USAGE:
+    - "&8&m----------- &dspawnstash &8&m-----------"
+    - "&f/{label} &7- place a random stash"
+    - "&f/{label} <type> &7- place a stash of that type"
+    - "&f/{label} spawn <type> &7- same as above"
+    - "&f/{label} list &7- active and configured stashes"
+    - "&f/{label} remove <id|nearest|all> &7- put stashes back"
+    - "&f/{label} reload &7- read spawn-stash.yml again"
+  SPAWNED: "&aStash {type} is up. &7(id {id})"
+  REMOVED: "&aStash &f#{id} &aremoved."
+  REMOVED-ALL: "&aRemoved &f{count}&a active stash(es)."
+  EXPIRED: "&7Stash #{id} timed out and was put back."
+  RELOADED: "&aSpawn stash settings reloaded."
+  DISABLED: "&cSpawn stashes are turned off."
+  PLAYER-ONLY: "&cOnly players can use this command."
+  NO-PERMISSION: "&cYou do not have permission."
+  NO-ACTIVE: "&cNo active stash found."
+  BLOCKED-BREAK: "&cThis stash is protected. Use &f/spawnstash remove nearest &cto put it back."
+  SPAWNER-CLAIMED: "&aYou took &f{amount}x {spawner}&a from a stash."
+  SPAWNER-CLAIMED-DROPPED: "&aYou took &f{amount}x {spawner}&a. &7Your inventory is full, so it was dropped."
+  INVALID-TYPE: "&cUnknown stash type '&f{type}&c'. Use &f/spawnstash list&c."
+  INVALID-CONFIG: "&cThe spawn stash config is not valid: &f{reason}&c."
+  ALERT:
+    - "&8[&dstash&8] &f{player} &7set off &d{reason}&7 at stash &f#{id}&7 (&f{type}&7)"
+    - "&7Where: &f{world} {x}, {y}, {z} &8| &7placed by: &f{creator}"
+  ALERT-HOVER: "&eClick to teleport to &f{player}"
+
+TYPES:
+  "1":
+    ENABLED: true
+    DISPLAY_NAME: "&dburied geode"
+    TTL_SECONDS: 900
+    ALERT_RADIUS: 8.0
+    PASTE_OFFSET: [0, 0, 0]
+    BLOCKS:
+      - {OFFSET: [-1, 0, 0], MATERIAL: CALCITE}
+      - {OFFSET: [0, 0, 0], MATERIAL: SMOOTH_BASALT}
+      - {OFFSET: [1, 0, 0], MATERIAL: CALCITE}
+      - {OFFSET: [-1, 0, 1], MATERIAL: SMOOTH_BASALT}
+      - {OFFSET: [0, 0, 1], MATERIAL: CHEST, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: AMETHYST_SHARD, AMOUNT: 16}]}
+      - {OFFSET: [1, 0, 1], MATERIAL: SMOOTH_BASALT}
+      - {OFFSET: [-1, 1, 0], MATERIAL: CALCITE}
+      - {OFFSET: [1, 1, 0], MATERIAL: CALCITE}
+      - {OFFSET: [-1, 1, 1], MATERIAL: BUDDING_AMETHYST}
+      - {OFFSET: [0, 1, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [1, 1, 1], MATERIAL: BUDDING_AMETHYST}
+      - {OFFSET: [-1, 2, 1], MATERIAL: SMOOTH_BASALT}
+      - {OFFSET: [0, 2, 1], MATERIAL: CALCITE}
+      - {OFFSET: [1, 2, 1], MATERIAL: SMOOTH_BASALT}
+
+  "2":
+    ENABLED: true
+    DISPLAY_NAME: "&5collapsed vault"
+    PASTE_OFFSET: [0, 0, 0]
+    BLOCKS:
+      - {OFFSET: [-1, 0, 0], MATERIAL: STONE_BRICKS}
+      - {OFFSET: [0, 0, 0], MATERIAL: CRACKED_STONE_BRICKS}
+      - {OFFSET: [1, 0, 0], MATERIAL: STONE_BRICKS}
+      - {OFFSET: [-1, 0, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [0, 0, 1], MATERIAL: CHEST, CONTAINER_ITEMS: [{SLOT: 11, MATERIAL: DIAMOND, AMOUNT: 8}, {SLOT: 15, MATERIAL: GOLD_INGOT, AMOUNT: 12}]}
+      - {OFFSET: [1, 0, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [-1, 1, 1], MATERIAL: TRAPPED_CHEST, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: IRON_INGOT, AMOUNT: 20}]}
+      - {OFFSET: [0, 1, 1], MATERIAL: MOSSY_STONE_BRICKS}
+      - {OFFSET: [1, 1, 1], MATERIAL: CHEST, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: EMERALD, AMOUNT: 10}]}
+      - {OFFSET: [-1, 2, 1], MATERIAL: STONE_BRICKS}
+      - {OFFSET: [0, 2, 1], MATERIAL: STONE_BRICKS}
+      - {OFFSET: [1, 2, 1], MATERIAL: STONE_BRICKS}
+
+  "3":
+    ENABLED: true
+    DISPLAY_NAME: "&aflooded mine shaft"
+    PASTE_OFFSET: [0, 0, 0]
+    BLOCKS:
+      - {OFFSET: [-1, 0, 0], MATERIAL: COBBLESTONE}
+      - {OFFSET: [0, 0, 0], MATERIAL: RAIL}
+      - {OFFSET: [1, 0, 0], MATERIAL: COBBLESTONE}
+      - {OFFSET: [-1, 0, 1], MATERIAL: BARREL, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: IRON_INGOT, AMOUNT: 24}]}
+      - {OFFSET: [0, 0, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [1, 0, 1], MATERIAL: COBBLESTONE}
+      - {OFFSET: [-1, 1, 1], MATERIAL: OAK_PLANKS}
+      - {OFFSET: [0, 1, 1], MATERIAL: LANTERN}
+      - {OFFSET: [1, 1, 1], MATERIAL: OAK_PLANKS}
+      - {OFFSET: [-1, 2, 1], MATERIAL: OAK_PLANKS}
+      - {OFFSET: [0, 2, 1], MATERIAL: OAK_PLANKS}
+      - {OFFSET: [1, 2, 1], MATERIAL: OAK_PLANKS}
+
+  "4":
+    ENABLED: true
+    DISPLAY_NAME: "&cnether outpost"
+    PASTE_OFFSET: [0, 0, 0]
+    BLOCKS:
+      - {OFFSET: [-1, 0, 0], MATERIAL: BLACKSTONE}
+      - {OFFSET: [0, 0, 0], MATERIAL: BLACKSTONE}
+      - {OFFSET: [1, 0, 0], MATERIAL: BLACKSTONE}
+      - {OFFSET: [-1, 0, 1], MATERIAL: GILDED_BLACKSTONE}
+      - {OFFSET: [0, 0, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [1, 0, 1], MATERIAL: CHEST, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: ANCIENT_DEBRIS, AMOUNT: 6}]}
+      - {OFFSET: [-1, 1, 1], MATERIAL: POLISHED_BLACKSTONE_BRICKS}
+      - {OFFSET: [0, 1, 1], MATERIAL: POLISHED_BLACKSTONE_BRICKS}
+      - {OFFSET: [1, 1, 1], MATERIAL: GILDED_BLACKSTONE}
+      - {OFFSET: [0, 2, 1], MATERIAL: CRYING_OBSIDIAN}
+
+  "5":
+    ENABLED: true
+    DISPLAY_NAME: "&dend archive"
+    TTL_SECONDS: 1200
+    ALERT_RADIUS: 10.0
+    PASTE_OFFSET: [0, 0, 0]
+    BLOCKS:
+      - {OFFSET: [-1, 0, 0], MATERIAL: END_STONE_BRICKS}
+      - {OFFSET: [0, 0, 0], MATERIAL: PURPUR_BLOCK}
+      - {OFFSET: [1, 0, 0], MATERIAL: END_STONE_BRICKS}
+      - {OFFSET: [-1, 0, 1], MATERIAL: SPAWNER, SPAWNER_TYPE: SKELETON, SPAWNER_ACCESS: PUBLIC}
+      - {OFFSET: [0, 0, 1], MATERIAL: CHEST, CONTAINER_ITEMS: [{SLOT: 11, MATERIAL: DIAMOND, AMOUNT: 16}, {SLOT: 13, MATERIAL: NETHERITE_INGOT, AMOUNT: 2}]}
+      - {OFFSET: [1, 0, 1], MATERIAL: END_STONE_BRICKS}
+      - {OFFSET: [-1, 1, 1], MATERIAL: PURPUR_PILLAR}
+      - {OFFSET: [0, 1, 1], MATERIAL: PURPLE_SHULKER_BOX, CONTAINER_ITEMS: [{SLOT: 13, MATERIAL: ECHO_SHARD, AMOUNT: 10}]}
+      - {OFFSET: [1, 1, 1], MATERIAL: PURPUR_PILLAR}
+      - {OFFSET: [0, 2, 1], MATERIAL: END_STONE_BRICKS}
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

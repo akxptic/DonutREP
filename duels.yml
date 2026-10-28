@@ -1,0 +1,74 @@
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PVP - dueling (/duel, /queue, /leave).
+# ═══════════════════════════════════════════════════════════════════════════════
+pvp:
+  duel:
+    # How long (seconds) a /duel challenge stays open before it silently expires.
+    challenge-timeout-seconds: 30
+
+# Duel extras (the original duel settings are the pvp: section: how long a challenge stays open).
+duels:
+  # Where players go when they leave or die in a duel or an FFA match (the return point is /arena setreturn and /ffaarena setreturn)
+  # true = a random teleport, false = the arena's return point. An arena without a return point always gives a random teleport.
+  on-death-rtp: true                 # someone dies in a duel / FFA match: where they go after the respawn
+  on-leave-rtp: true                 # someone leaves with /leave or /ffa leave (or logs out and back in)
+  on-finish-rtp: false               # the battle is over: where the winner goes (duels: after the loot time below)
+  kill-on-quit: true                 # logging out during a duel kills the player (they lose, their items drop for the winner); false = they are only counted as a loss
+  allow-building: true               # true (default) = players can place and break blocks inside a duel arena (not in the pod cuboid); it is rolled back after the fight (see rollback). false = nobody can
+  use-arenas: true                  # a duel starts in a duel arena (/arena create ...): both players are teleported to its pos1 / pos2 and wait for the countdown
+  rollback: true                     # blocks, fire and loot the fight left in the arena are put back once both players have left it (after the loot time)
+  arena-padding: 40                  # blocks around pos1 / pos2 that count as the arena
+  arena-message: '&7You are in the duel arena &f{arena}&7.'
+  arena-full-message: '&cAll duel arenas are in use, please wait your turn.'   # /duel <player> and /duel accept when no duel arena is open
+  countdown-seconds: 5               # when a duel starts both players are frozen and see a countdown (0 = no countdown)
+  block-commands: [spawn, home, homes, sethome, tpa, tpahere, tpaccept, rtp, rtpq, warp, afk, ah, auctionhouse, orders, shop, sell, enderchest, ec, team, crate, crates, settings]
+  block-all-commands: true           # inside a duel only the commands in allow-commands work (no /shop /orders /ah, no rtp, homes, warps ...)
+  allow-commands: [leave, msg, reply, r, tell, w]
+  # Loot of a duel. false (default) = the loser's items drop where they died and the winner has the countdown below to pick them up.
+  # true = no pick-up time: the winner is teleported at once and the loser's items wait for the winner in /duel claims (one entry per duel, click to take, or Claim all).
+  claims: false
+  claims-keep-days: 7                # unclaimed duel loot is deleted after this many days (only when claims is true)
+  # A duel that ends in a draw (both players type /draw): a big title in the middle of the screen
+  draw-popup: true
+  draw-title: '&fDraw'
+  draw-subtitle: '&7No one died'
+  after-duel:
+    loot-time-text: '&eLoot time: &f{time}s'   # the small text in the middle of the screen while the loot can be picked up
+    rtp-countdown-seconds: 30        # after a duel the players can pick up the loot; then they are teleported to a random location (0 = off; claims: true ignores this)
+    world: ''                        # world for that teleport ('' = the overworld)
+  block-message: '&cYou can''t use this command during a duel.'
+  # players with Duel Music turned on in /settings hear this while they duel
+  music:
+    enabled: true
+    sound: 'minecraft:music_disc.pigstep'
+    volume: 0.6
+    length-seconds: 148              # how often the track is started again
+
+  # Walk-in duel pods: /cuboid bind <cuboid> duel [<arena>,<arena>|all]. Two players who step into a pod get a duel arena nobody is in (any of the pod's arenas);
+  # the first one waits in the pod, the second starts the duel. The text above the pod shows the arena and 0/2, 1/2 or 2/2. A third player is told to wait.
+  pods:
+    countdown-seconds: 15        # starts when TWO players wait in the pod (both see the same clock); if one steps out it stops; at zero both are put in the arena (0 = at once)
+    countdown-message: '&7Stay in the pod for &e{time} seconds&7 - then you are put in a duel arena. Step out to cancel.'
+    countdown-subtitle: '&7Stay in the pod'
+    waiting-bar: '&7Waiting for an opponent...'
+    found-message: '&aOpponent found: &f{opponent}&a. The duel in &f{arena}&a starts in &e{time} seconds&a - stay in the pod.'   # both players get this when the second one steps in; the countdown is shared
+    partner-left-message: '&7Your opponent left the pod. Waiting for another player...'
+    hologram: true
+    hologram-height: 2.0
+    hologram-scale: 1.0
+    hologram-lines:              # {arena} {players} {max}
+      - '&b&l{arena}'
+      - '&f{players}&7/&f{max}'
+    waiting-message: '&7You are waiting for an opponent in &f{arena}&7. Stay in the pod - the duel starts when somebody joins.'
+    start-message: '&aDuel found in &f{arena}&a against &f{opponent}&a!'
+    left-message: '&7You left the pod - you are not waiting for a duel any more.'
+    full-message: '&cArena is full, please wait your turn.'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================
+

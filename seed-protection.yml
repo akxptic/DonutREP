@@ -1,0 +1,21 @@
+# Seed protection: makes it harder to find out your world seed (seed cracking).
+#
+# The server sends every player a "hashed seed" when they join and respawn. Seed crackers read it. With fake-hashed-seed on, each player is sent a fake value
+# instead - different for every player and changed every rotate-minutes. The real seed never leaves the server.
+# This does not hide the seed for somebody who walks to many structures and writes the coordinates down: also do what plugins/DonutREP/text/seed-protection-guide.txt says
+# (random structure seeds, anti-xray). The console tells you what is still open when the server starts.
+seed-protection:
+  enabled: true
+  fake-hashed-seed: true
+  rotate-minutes: 30        # a player's fake value changes this often (0 = it never changes while the server runs)
+  salt: '0e9f269cef7fac3773a74ea3e10d8119cdd8a9e7667a16d5'
+  anti-xray: true           # true = DonutREP switches Paper's anti-xray on in config/paper-world-defaults.yml when it is off (a backup is kept; restart once). It hides ores from x-ray users and from seed crackers.
+  anti-xray-engine-mode: 2  # 1 = ores are replaced by stone (lighter), 2 = fake ores are mixed in (hides more, a bit heavier)
+  startup-check: true       # false = no warning block in the console
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

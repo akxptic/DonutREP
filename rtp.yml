@@ -1,0 +1,57 @@
+
+# Where players start and respawn. Spawn areas are cuboids bound to spawn (/cuboid bind <name> spawn true); /setspawn is the fallback.
+spawn:
+  first-join-rtp: false          # true = brand new players are dropped at a random location; false = they start at spawn
+  respawn-rtp: false             # true = after dying players are dropped at a random location
+  random-spawn-area: true        # (when the two rtp switches above are off) players joining or respawning go to a random spawn area that is not full
+  area-capacity: 200             # a spawn area with this many players inside counts as full
+  respawn-on-bed: false          # true = a bed or respawn anchor still counts when you die
+  rtp-world: ''                  # world for the join / respawn rtp ('' = the world the player is in)
+  first-join-delay-ticks: 20
+  messages:
+    searching: '&7Finding you a safe place to start...'
+    welcome: '&aWelcome! You spawned at &fX:{x} Y:{y} Z:{z}&a.'
+    respawn-searching: '&7Finding you a safe place to respawn...'
+    respawned: '&aYou respawned at &fX:{x} Y:{y} Z:{z}&a.'
+    failed: '&cCould not find a random location for you.'
+
+# Limits for /rtp and /rtpq.
+rtp-rules:
+  cooldown-seconds: 8            # wait this long between two /rtp
+  countdown-seconds: 5           # /rtp: "stay still for N seconds", then the teleport. Moving cancels it. 0 = teleport at once
+  countdown-bypass: false        # false (default) = EVERYONE waits, ops and admins too. true = players with the permission donutrep.bypass.rtpcountdown skip the countdown (an op or a donutrep.* group has it)
+  show-search: false             # true = also show "looking for a safe spot" (chat + action bar) and "safe spot found" after the countdown. false (default) = only the countdown is shown
+  search-min-ticks: 30           # after the countdown the "looking for a safe spot" display stays at least this long (20 ticks = 1 second), even when a spot is ready at once. 0 = no minimum
+  found-ticks: 20                # then "safe spot found" shows this long before the teleport. 0 = teleport as soon as a spot is found
+  messages:                      # the words of /rtp ({seconds}, {world}, {elapsed} are filled in)
+    warning: '&eStay still for &b{seconds}&e seconds or the teleport is called off.'
+    countdown: '&7Teleporting in &b{seconds}s'
+    cancelled: '&cTeleport cancelled because you moved.'
+    cancelled-bar: '&cTeleport cancelled'
+    searching: '&aLooking for a safe spot in {world}...'
+    search-bar: '&7Looking in {world}... &b{elapsed}s'
+    found-bar: '&aSafe spot found in {world}! &7Getting ready to teleport...'
+  block-in-combat: true          # no /rtp or /rtpq while combat tagged
+  queue-rejoin-wait-seconds: 60  # someone who left the /rtpq queue must wait this long before joining it again
+  queue:
+    min-players: 2               # /rtpq waits until this many players are waiting
+    countdown-seconds: 8         # then it counts down; every player who joins restarts the countdown
+
+# /rtp, /rtpq and rtp-zone cuboids: how far from the world's centre (0, 0) a player can land. Set a range per world.
+# Worlds that are not listed use the default. Every loaded world is added to the list below automatically.
+rtp:
+  default:
+    min-radius: 200
+    max-radius: 5000
+  worlds:
+    world: { min-radius: 200, max-radius: 5000 }
+    world_nether: { min-radius: 100, max-radius: 2000 }
+    world_the_end: { min-radius: 100, max-radius: 1000 }
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================
+

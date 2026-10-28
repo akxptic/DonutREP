@@ -1,0 +1,598 @@
+# Menus: change a title, the panes of a menu (filler), or a button (slot number -> name / material / lore / hide: true).
+# A menu is found by its id (the title without colours and numbers). Only what is written here changes; the rest stays as built in.
+# /donutrep menus  lists the menus   /donutrep menus export <id|all>  writes the menus you have opened to menus-export.yml
+# Remove an entry to get the built-in menu back. /donutrep reload applies changes.
+# Buttons whose text changes (numbers, money, player names) are not listed; menus that are opened with a different title
+# every time (crate names, player names) are not listed either.
+# Example:  auction-house:
+#             title: '&8Market'
+#             filler: GRAY_STAINED_GLASS_PANE
+#             buttons:
+#               49: { name: '&aRefresh', material: EMERALD }
+#               53: { hide: true }
+menus:
+  afk-areas:
+    buttons:
+      45:
+        name: '&eToggle AFK status'
+        material: CLOCK
+      53:
+        name: '&cClose'
+        material: BARRIER
+  anvil-moderation:
+    buttons:
+      49:
+        name: '&aAdd banned word'
+        material: LIME_DYE
+      51:
+        name: '&eReload'
+        material: COMPARATOR
+  armor-and-tools-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Armor And Tools'
+        material: CHEST
+  auction-history:
+    buttons:
+      47:
+        name: '&fFilter'
+        material: HOPPER
+      49:
+        name: '&fBack to auction'
+        material: ARROW
+      51:
+        name: '&fRefresh'
+        material: CLOCK
+  auction-house:
+    buttons:
+      47:
+        name: '&fPrice Sort'
+        material: CAULDRON
+      48:
+        name: '&fFilter'
+        material: HOPPER
+      49:
+        name: '&fAuction'
+        material: ANVIL
+      50:
+        name: '&fSearch'
+        material: OAK_SIGN
+      51:
+        name: '&fYour Items'
+        material: CHEST
+  auction-house-your-items:
+    buttons:
+      46:
+        name: '&fAuction History'
+        material: WRITABLE_BOOK
+      49:
+        name: '&fBack'
+        material: ARROW
+  blocks-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Blocks'
+        material: CHEST
+  chat-logs:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  confirm-delete:
+    buttons:
+      15:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  confirm-delete-crate:
+    buttons:
+      11:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+      15:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  confirm-kill:
+    buttons:
+      11:
+        name: '&cDeny'
+        material: RED_STAINED_GLASS_PANE
+      15:
+        name: '&aAccept'
+        material: LIME_STAINED_GLASS_PANE
+  confirm-purchase:
+    buttons:
+      15:
+        name: '&aConfirm Purchase'
+        material: LIME_STAINED_GLASS_PANE
+      22:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+  confirm-tpa:
+    buttons:
+      11:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+      15:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  confirm-tpa-here:
+    buttons:
+      11:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+      15:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  confirm-voice-chat:
+    buttons:
+      11:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+      15:
+        name: '&cDecline'
+        material: RED_STAINED_GLASS_PANE
+  confirmation-menu:
+    buttons:
+      21:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+      23:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  crates:
+    buttons:
+      18:
+        name: '&aCreate Crate'
+        material: LIME_DYE
+      19:
+        name: '&eReload Crates'
+        material: COMPARATOR
+      26:
+        name: '&cClose'
+        material: BARRIER
+  crops-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Crops'
+        material: CHEST
+  deaths:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  duel-a-player:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  duel-queue:
+    buttons:
+      22:
+        name: '&cClose'
+        material: BARRIER
+  enchanted-book-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Enchanted Book'
+        material: CHEST
+  fish-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Fish'
+        material: CHEST
+  followers:
+    buttons:
+      49:
+        name: '&fRequests'
+        material: WRITABLE_BOOK
+      52:
+        name: '&cBack'
+        material: BARRIER
+  following:
+    buttons:
+      49:
+        name: '&fRequests'
+        material: WRITABLE_BOOK
+      52:
+        name: '&cBack'
+        material: BARRIER
+  friend-requests:
+    buttons:
+      49:
+        name: '&a&lRequests'
+        material: WRITABLE_BOOK
+      52:
+        name: '&cBack'
+        material: BARRIER
+  friends:
+    buttons:
+      49:
+        name: '&fRequests'
+        material: WRITABLE_BOOK
+      52:
+        name: '&cBack'
+        material: BARRIER
+  getting-started:
+    buttons:
+      18:
+        name: '&cBack'
+        material: ARROW
+      26:
+        name: '&aNext'
+        material: ARROW
+  homes:
+    buttons:
+      31:
+        name: '&cClose'
+        material: BARRIER
+  item-prices:
+    buttons:
+      45:
+        name: '&fPrevious Page'
+        material: ARROW
+      49:
+        name: '&aSort'
+        material: CAULDRON
+      53:
+        name: '&fNext Page'
+        material: ARROW
+  kills:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  leaderboards:
+    buttons:
+      22:
+        name: '&cClose'
+        material: BARRIER
+  mobs-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Mobs'
+        material: CHEST
+  money:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  natural-items-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Natural Items'
+        material: CHEST
+  ongoing-servers:
+    buttons:
+      26:
+        name: '&cClose'
+        material: BARRIER
+  online-staff:
+    buttons:
+      22:
+        name: '&cClose'
+        material: BARRIER
+  orders:
+    buttons:
+      47:
+        name: '&fSort'
+        material: CAULDRON
+      48:
+        name: '&fFilter'
+        material: HOPPER
+      49:
+        name: '&fRefresh'
+        material: CLOCK
+      50:
+        name: '&fSearch'
+        material: SPYGLASS
+      51:
+        name: '&fMy Orders'
+        material: CHEST
+      52:
+        name: '&fCollect'
+        material: ENDER_CHEST
+  orders-collect:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&aCollect page'
+        material: HOPPER
+      53:
+        name: '&aDrop page'
+        material: DROPPER
+  orders-confirm-delivery:
+    buttons:
+      11:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+      15:
+        name: '&aConfirm delivery'
+        material: LIME_STAINED_GLASS_PANE
+  orders-delete-order:
+    buttons:
+      10:
+        name: '&cBack'
+        material: RED_STAINED_GLASS_PANE
+      16:
+        name: '&aConfirm'
+        material: LIME_STAINED_GLASS_PANE
+  orders-deliver-items:
+    buttons:
+      35:
+        name: '&aReview delivery'
+        material: LIME_STAINED_GLASS_PANE
+  orders-history:
+    buttons:
+      49:
+        name: '&fBack'
+        material: COMPASS
+  orders-my-orders:
+    buttons:
+      46:
+        name: '&fOrder History'
+        material: WRITABLE_BOOK
+      47:
+        name: '&aNew Order'
+        material: LIME_DYE
+      49:
+        name: '&fBack'
+        material: COMPASS
+  orders-new-order:
+    buttons:
+      18:
+        name: '&fBack'
+        material: ARROW
+      22:
+        name: '&aConfirm order'
+        material: LIME_STAINED_GLASS_PANE
+  orders-order:
+    buttons:
+      18:
+        name: '&fBack'
+        material: ARROW
+      22:
+        name: '&aCollect this order'
+        material: ENDER_CHEST
+      24:
+        name: '&cCancel order'
+        material: BARRIER
+  orders-select-item:
+    buttons:
+      47:
+        name: '&fFilter'
+        material: HOPPER
+      49:
+        name: '&fBack'
+        material: ARROW
+      50:
+        name: '&fSearch'
+        material: OAK_SIGN
+      53:
+        name: '&fNext Page'
+        material: ARROW
+  ores-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Ores'
+        material: CHEST
+  place-items-in-here-to-sell:
+    buttons:
+      49:
+        name: '&a&lConfirm Sell'
+        material: LIME_STAINED_GLASS_PANE
+  player-ranks:
+    buttons:
+      49:
+        name: '&eFilter: &dMedia'
+        material: HOPPER
+      51:
+        name: '&cClose'
+        material: BARRIER
+  playtime:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  potions-progress:
+    buttons:
+      49:
+        name: '&fBack'
+        material: ARROW
+      53:
+        name: '&aSell Potions'
+        material: CHEST
+  punishment-roster:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  rtp-menu:
+    buttons:
+      26:
+        name: '&cClose'
+        material: BARRIER
+  rtp-queue:
+    buttons:
+      13:
+        name: '&aJoin RTP Queue'
+        material: LIME_DYE
+      22:
+        name: '&fBack'
+        material: ARROW
+      26:
+        name: '&cClose'
+        material: BARRIER
+  rules:
+    buttons:
+      18:
+        name: '&c&lDecline'
+        material: RED_STAINED_GLASS_PANE
+      26:
+        name: '&a&lAccept Rules'
+        material: LIME_STAINED_GLASS_PANE
+  sell-history:
+    buttons:
+      49:
+        name: '&aSort'
+        material: ANVIL
+  sell-item:
+    buttons:
+      15:
+        name: '&aConfirm Listing'
+        material: LIME_STAINED_GLASS_PANE
+      22:
+        name: '&cCancel'
+        material: RED_STAINED_GLASS_PANE
+  sell-multipliers:
+    buttons:
+      31:
+        name: '&cClose'
+        material: BARRIER
+  server-info:
+    buttons:
+      26:
+        name: '&aNext'
+        material: ARROW
+  settings-chat-alerts:
+    buttons:
+      53:
+        name: '&cClose'
+        material: BARRIER
+  settings-player:
+    buttons:
+      53:
+        name: '&cClose'
+        material: BARRIER
+  shards:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  shop:
+    buttons:
+      22:
+        name: '&cClose'
+        material: BARRIER
+  spawn:
+    buttons:
+      53:
+        name: '&cClose'
+        material: BARRIER
+  spawners-all-worlds:
+    buttons:
+      48:
+        name: '&fBack'
+        material: ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  spawners-panel:
+    buttons:
+      26:
+        name: '&cClose'
+        material: BARRIER
+  team:
+    buttons:
+      11:
+        name: '&aCreate Team'
+        material: LIME_DYE
+      22:
+        name: '&cClose'
+        material: BARRIER
+  team-money-leaderboard:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  team-settings:
+    buttons:
+      18:
+        name: '&cBack'
+        material: RED_STAINED_GLASS_PANE
+  team-shards-leaderboard:
+    title: '&d&lTeam Shards Leaderboard'
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  teams:
+    buttons:
+      46:
+        name: '&aBack'
+        material: SPECTRAL_ARROW
+      49:
+        name: '&cClose'
+        material: BARRIER
+  top-sellers:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  top-selling-items:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  useful-commands:
+    buttons:
+      18:
+        name: '&cBack'
+        material: ARROW
+  warps:
+    buttons:
+      49:
+        name: '&cClose'
+        material: BARRIER
+  your-keys:
+    buttons:
+      26:
+        name: '&cClose'
+        material: BARRIER
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

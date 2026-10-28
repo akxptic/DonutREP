@@ -1,0 +1,309 @@
+# Spawner config. TYPES at the bottom lists each spawner kind with its loot table and icon.
+SETTINGS:
+  ENABLED: true
+  # Choose ONE mode - set one of the next two to true and the other to false:
+  STORAGE_SPAWNERS: true      # true = no mobs; each spawner fills a storage menu with loot (filter, sell all, collect all, drop loot)
+  MOB_SPAWNERS: false         # true = spawners spawn real mobs like vanilla, with no menu or storage
+  # true = /spawner without arguments lists the spawners you placed (world, coords, type, amount); click one to open it.
+  SPAWNER_LIST_COMMAND: false
+  # If both modes are true or both false you get an error and storage mode is used.
+  ACCESS_MODE: PUBLIC
+  ALLOW_SPAWNER_STEAL: true
+  ALLOW_STEALING: true
+  GENERATION_INTERVAL_SECONDS: 5
+  PROCESS_ONLY_LOADED_CHUNKS: true
+  REQUIRE_PLAYER_NEARBY: false
+  PLAYER_NEARBY_RADIUS: 16
+  MAX_STACK_PER_BLOCK: 100000
+  STORAGE_CAP_PER_LOOT_KEY: 1000000
+  DROP_ON_BREAK_IF_INVENTORY_FULL: true
+  REQUIRE_SILK_TOUCH: true
+  CANCEL_MOB_SPAWN: true
+  SHOW_STACK_ON_LOOK: true     # shows the stack size above the hotbar while you look at a spawner (6 blocks)
+  DROP_MODE: THROW             # Drop-loot button. THROW = items fly out of you in the direction you face (land 1-2 blocks ahead). PLACE = they appear in front of the spawner (see DROP_MAX_DISTANCE)
+  DROP_THROW_SPEED: 0.35       # THROW: toss strength (0.35 normal, higher = further)
+  DROP_THROW_HEIGHT: 1.2       # THROW: height above your feet the items start at (1.2 = chest)
+  DROP_PICKUP_DELAY_TICKS: 10  # ticks before dropped loot can be picked up (20 = 1 second, 10 = vanilla)
+  DROP_MAX_DISTANCE: 2         # PLACE only: how many blocks in front of the spawner (on your side) the loot appears (0 = at your feet)
+  STORAGE_MAX_DISTANCE: 6      # distance in blocks; walk further than this and the open storage closes (0 = unlimited)
+  # Mob mode (MOB_SPAWNERS: true): stacking still works (right-click with the same spawner, sneak to add 64) and every extra spawner adds one mob per spawn.
+  MOB_STACK_MULTIPLIER: true
+  MOB_STACK_MAX_EXTRA: 15      # cap on the extra mobs one spawn can add
+  XP_ENABLED: false
+# Spawner shop (/spawners shop and the Buy button of /spawners). CURRENCY: SHARD = Donut Shards, MONEY = Vault money.
+SHOP:
+  ENABLED: true
+  CURRENCY: SHARD
+  DEFAULT_PRICE: 1500          # price for any type not listed below (0 = not sold)
+  PRICES: {}                   # per-type prices, e.g.  PIG: 1000  ZOMBIE: 2500  IRON_GOLEM: 10000
+MESSAGES:
+  LOOK-STACK: '&e{amount}x &f{type} &7Spawners'
+  LIST-DISABLED: '&cThe spawner list is switched off. Click one of your spawners to open it.'
+  MODE-CONFLICT: '&c[Spawners] STORAGE_SPAWNERS and MOB_SPAWNERS are both {state} in spawners.yml. Set one to true and the other to false. Until then storage mode is used.'
+  PLACED: '&aYou placed &f{amount}x {type}&a.'
+  STACKED: '&aThis stack now holds &f{amount}&a spawners.'
+  PICKED-UP: '&aYou took back &f{amount}x {type}&a.'
+  REMOVED: '&aRemoved &f{amount}x {type}&a.'
+  REMOVED-ADMIN: '&aThat spawner is gone.'
+  GAVE-SPAWNER: '&aGave &f{amount}x {type}&a to &f{player}&a.'
+  RECEIVED-SPAWNER: '&aYou got &f{amount}x {type}&a.'
+  COLLECTED: '&aTook &f{amount}x {item}&a out of storage.'
+  COLLECTED-ALL: '&aTook &f{amount}&a items out of this spawner.'
+  DROPPED-PAGE: '&aDropped &f{amount}&a items from this page on the ground.'
+  SOLD: '&aSold &f{amount}&a items and earned {price}&a.'
+  COLLECTED-XP: '&aYou collected &f{amount} &aXP!'
+  RELOADED: '&aSpawner config reloaded.'
+  SPLIT-SUCCESS: '&aSplit off &f{amount}x &aspawners. &7You still hold: &f{remaining}&7.'
+  FILTER-ENABLED-ALL: '&aThis spawner now stores every drop.'
+  FILTER-DISABLED-ALL: '&cThis spawner stores no drops now.'
+  FILTER-TOGGLED: '&f{item} &ais now {status}&a.'
+  FILTER-STATUS-ENABLED: '&aOn &7(stored)'
+  FILTER-STATUS-DISABLED: '&cOff &7(not stored)'
+  TELEPORTED: '&aTook you to the spawner at &f{x}, {y}, {z}&a in &f{world}&a.'
+  DISABLED: '&cSpawners are switched off right now.'
+  NOT-SPAWNER-ITEM: '&cThat item is not a spawner.'
+  INVALID-AMOUNT: '&cThis spawner item has a broken amount.'
+  MAX-STACK-EXCEEDED: '&cA block can hold at most &f{max}&c spawners.'
+  ALREADY-AT-MAX-STACK: '&cThat block already holds the maximum (&f{max}&c).'
+  ALREADY-SPAWNER: '&cThere is already a spawner on that block.'
+  NOT-OWNER: '&cThat spawner belongs to someone else.'
+  NO-ACCESS: '&cYou are not allowed to use that spawner.'
+  NO-BREAK-PERMISSION: '&cYou may not break that spawner.'
+  SILK-TOUCH-REQUIRED: '&cBreak spawners with a Silk Touch tool.'
+  TYPE-MISMATCH: '&cOnly spawners of the same type can stack on this block.'
+  HOLD-TO-STACK: '&cHold a spawner item in your hand to stack it.'
+  NOT-MANAGED-SPAWNER: '&cThat is not one of our spawners.'
+  NOT-FOUND: '&cNo such spawner.'
+  UNKNOWN-TYPE: '&cThere is no spawner type called ''&f{type}&c''.'
+  SAVE-FAILED: '&cCould not save that spawner. Try again.'
+  INVENTORY-FULL: '&cNo room in your inventory.'
+  LOOT-EMPTY: '&cThere is nothing left of that loot.'
+  NO-SPACE: '&cNo room to take the spawner loot.'
+  NO-LOOT-ON-PAGE: '&cNothing is stored on this page.'
+  NO-SELLABLE-ITEMS: '&cThis spawner holds nothing you can sell.'
+  SELL-FAILED: '&cThe payout for the sale failed.'
+  XP-DISABLED: '&cXP collecting is off on this server.'
+  NO-XP-STORED: '&cThis spawner has no XP stored.'
+  WORLD-NOT-LOADED: '&cThat spawner''s world is not loaded.'
+  TEMP-REGISTERED: '&aTemporary spawner added.'
+  TEMP-REMOVED: '&aTemporary spawner taken away.'
+  TEMP-CANNOT-STACK: '&cTemporary spawners do not stack.'
+  TEMP-NEEDS-PLAYER-BLOCK: '&cA temporary spawner needs a player and a block.'
+  NO-PANEL-PERMISSION: '&cYou may not open the spawner admin panel.'
+  NO-GIVE-PERMISSION: '&cYou may not give out spawners.'
+  NO-RELOAD-PERMISSION: '&cYou may not reload the spawners.'
+  NO-REMOVE-PERMISSION: '&cYou may not remove spawners.'
+  PLAYER-ONLY: 'Only players can do this.'
+  TARGET-NOT-ONLINE: '&cThat player has to be online.'
+  PLAYER-NOT-ONLINE: '&c''&f{player}&c'' has to be online.'
+  AMOUNT-POSITIVE: '&cThe amount must be above zero.'
+  AMOUNT-INVALID: '&cType a whole number above zero.'
+  AMOUNT-GREATER-THAN-ZERO: '&cThe amount must be above zero.'
+  CREATE-ITEM-FAILED: '&cCould not make the spawner item.'
+  GIVE-USAGE: 'Usage: /{label} give <player> <type> [amount]'
+  GIVE-USAGE-COMMAND: '&cUsage: /spawner give <player> <type> [amount]'
+  LOOK-AT-SPAWNER-INSPECT: '&cLook at one of our spawners to see its info.'
+  LOOK-AT-SPAWNER-REMOVE: '&cLook at one of our spawners to remove it.'
+  HOLD-SPAWNER-TO-SPLIT: '&cHold a spawner item to split it.'
+  CANNOT-SPLIT-ONE: '&cA single spawner cannot be split.'
+  SPLIT-USAGE: '&cUsage: /spawner split <amount>'
+  INVALID-SPLIT-AMOUNT: '&cThat is not a valid split amount.'
+  SPLIT-GREATER-THAN-ZERO: '&cSplit off at least 1.'
+  SPLIT-LESS-THAN-CURRENT: '&cSplit off fewer than you hold (&f{max}&c).'
+  SPLIT-FAILED: '&cCould not make the split spawner item.'
+  USAGE:
+  - '&8&m----------- &dSpawners &8&m-----------'
+  - '&f/{label} &7- Open your spawner menu'
+  - '&f/{label} info &7- Info on the spawner you look at'
+  - '&f/{label} panel &7- Admin panel of every spawner'
+  - '&f/{label} give <player> <type> [amount] &7- Hand out spawners'
+  - '&f/{label} reload &7- Reload this config'
+  - '&f/{label} remove &7- Delete the spawner you look at'
+  INFO-HEADER: '&8&m----------- &bSpawner &8&m-----------'
+  INFO-TYPE: '&7Kind: &f{type}'
+  INFO-REST-HIDDEN: '&7You cannot see more about spawners that are not yours.'
+  INFO-OWNER: '&7Placed by: &f{owner}'
+  INFO-STACK: '&7Stacked: &f{amount}'
+  INFO-STORED-LOOT: '&7Loot inside: &f{amount}'
+  INFO-LOCATION: '&7At: &f{world} {x}, {y}, {z}'
+TYPES:
+  PIG:
+    DISPLAY_NAME: '&dpig spawner'
+    ENTITY_TYPE: PIG
+    HEAD_TEXTURE: https://textures.minecraft.net/texture/d875eb45aca34a4d24c3dc1395fc020ccf37f825a17b054a22fd24b189c24c
+    ICON_MATERIAL: PORKCHOP
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      PORKCHOP:
+        MATERIAL: PORKCHOP
+        MIN: 1
+        MAX: 3
+        CHANCE: 1.0
+      LEATHER:
+        MATERIAL: LEATHER
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.35
+  COW:
+    DISPLAY_NAME: '&dcow spawner'
+    ENTITY_TYPE: COW
+    HEAD_TEXTURE: ''
+    ICON_MATERIAL: BEEF
+    BASE_ITEMS_PER_CYCLE: 1
+    XP_PER_CYCLE: 3.7
+    DROPS:
+      BEEF:
+        MATERIAL: BEEF
+        MIN: 1
+        MAX: 3
+        CHANCE: 1.0
+      LEATHER:
+        MATERIAL: LEATHER
+        MIN: 0
+        MAX: 2
+        CHANCE: 0.8
+  ZOMBIE:
+    DISPLAY_NAME: '&dzombie spawner'
+    ENTITY_TYPE: ZOMBIE
+    HEAD_TEXTURE: ''
+    ICON_MATERIAL: ROTTEN_FLESH
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      ROTTEN_FLESH:
+        MATERIAL: ROTTEN_FLESH
+        MIN: 1
+        MAX: 3
+        CHANCE: 1.0
+      IRON_INGOT:
+        MATERIAL: IRON_INGOT
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.05
+      CARROT:
+        MATERIAL: CARROT
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.025
+      POTATO:
+        MATERIAL: POTATO
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.025
+  SPIDER:
+    DISPLAY_NAME: '&dspider spawner'
+    ENTITY_TYPE: SPIDER
+    HEAD_TEXTURE: https://textures.minecraft.net/texture/cd541541daaff50896cd258bdbdd4cf80c3ba816735726078bfe393927e57f1
+    ICON_MATERIAL: STRING
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      STRING:
+        MATERIAL: STRING
+        MIN: 1
+        MAX: 2
+        CHANCE: 1.0
+      SPIDER_EYE:
+        MATERIAL: SPIDER_EYE
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.4
+  SKELETON:
+    DISPLAY_NAME: '&dskeleton spawner'
+    ENTITY_TYPE: SKELETON
+    HEAD_TEXTURE: ''
+    ICON_MATERIAL: BONE
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      BONE:
+        MATERIAL: BONE
+        MIN: 1
+        MAX: 3
+        CHANCE: 1.0
+      ARROW:
+        MATERIAL: ARROW
+        MIN: 1
+        MAX: 3
+        CHANCE: 1.0
+  CREEPER:
+    DISPLAY_NAME: '&dcreeper spawner'
+    ENTITY_TYPE: CREEPER
+    HEAD_TEXTURE: ''
+    ICON_MATERIAL: GUNPOWDER
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      GUNPOWDER:
+        MATERIAL: GUNPOWDER
+        MIN: 1
+        MAX: 2
+        CHANCE: 1.0
+  PIGLIN:
+    DISPLAY_NAME: '&dpiglin spawner'
+    ENTITY_TYPE: ZOMBIFIED_PIGLIN
+    HEAD_TEXTURE: ''
+    ICON_MATERIAL: GOLD_NUGGET
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      ROTTEN_FLESH:
+        MATERIAL: ROTTEN_FLESH
+        MIN: 1
+        MAX: 2
+        CHANCE: 1.0
+      GOLD_NUGGET:
+        MATERIAL: GOLD_NUGGET
+        MIN: 1
+        MAX: 4
+        CHANCE: 0.85
+      GOLD_INGOT:
+        MATERIAL: GOLD_INGOT
+        MIN: 0
+        MAX: 1
+        CHANCE: 0.06
+  BLAZE:
+    DISPLAY_NAME: '&dblaze spawner'
+    ENTITY_TYPE: BLAZE
+    HEAD_TEXTURE: https://textures.minecraft.net/texture/b78ef2e4cf2c41a2d14bfde9caff10219f5b1bf5b35a49eb51c6467882cb5f0
+    ICON_MATERIAL: BLAZE_ROD
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      BLAZE_ROD:
+        MATERIAL: BLAZE_ROD
+        MIN: 1
+        MAX: 2
+        CHANCE: 1.0
+  IRON_GOLEM:
+    DISPLAY_NAME: '&diron golem spawner'
+    ENTITY_TYPE: IRON_GOLEM
+    HEAD_TEXTURE: https://textures.minecraft.net/texture/e13f34227283796bc017244cb46557d64bd562fa9dab0e12af5d23ad699cf697
+    ICON_MATERIAL: IRON_INGOT
+    BASE_ITEMS_PER_CYCLE: 1
+    DROPS:
+      IRON_INGOT:
+        MATERIAL: IRON_INGOT
+        MIN: 3
+        MAX: 5
+        CHANCE: 1.0
+      POPPY:
+        MATERIAL: POPPY
+        MIN: 0
+        MAX: 2
+        CHANCE: 0.45
+GUI:
+  MAIN_MENU:
+    TITLE: '{stack} {mob}'
+    SIZE: 27
+  STORAGE:
+    TITLE: '&8{mob} Storage ({page}/{max_page})'
+    SIZE: 54
+    ITEMS_PER_PAGE: 45
+  PANEL:
+    TITLE: '&8Your spawners in {world}'
+    SIZE: 54
+  WORLD_LIST:
+    TITLE: '&8Spawner admin'
+    SIZE: 27
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

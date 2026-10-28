@@ -1,0 +1,70 @@
+# Combat tag settings (hitting or being hit by a player starts the timer).
+
+# Combat tag: hitting or being hit by a player starts the timer. Leaving while tagged kills the player.
+combat:
+  enabled: true
+  seconds: 20
+  kill-on-logout: true
+  leave-kills: true            # /leave, /ffa leave or /pvp leave while combat tagged kills the player
+  action-bar: '&fCombat: &b{time}s'
+  block-message: "&cYou can't use this command in your current status."
+  exclude-duels: true          # fights inside /duel never combat-tag (set false to test combat with /duel)
+  excluded-worlds: [duels]
+  block-commands:
+    - spawn
+    - afk
+    - rtp
+    - rtpq
+    - rtpqueue
+    - home
+    - homes
+    - sethome
+    - warp
+    - tpa
+    - tpahere
+    - tphere
+    - tpaccept
+    - tpauto
+    - ah
+    - auctionhouse
+    - orders
+    - shop
+    - shards
+    - sell
+    - sellmulti
+    - enderchest
+    - ec
+    - ecsee
+    - team
+    - trade
+    - kit
+    - crate
+    - crates
+    - keys
+    - billford
+    - shardshop
+    - settings
+    - pay
+
+# Fast Crystals (the /settings switch). ON = place end crystals as fast as you click, OFF = wait between placements.
+fast-crystals:
+  enabled: true
+  default-player-state: true         # what the /settings switch is before a player touches it
+  excluded-worlds: [duels]
+  place:
+    enabled-cooldown-ticks: 0
+    disabled-cooldown-ticks: 8
+    debounce-ms: 40                  # clicks closer together than this count once
+    require-valid-base: true
+    valid-bases: [OBSIDIAN, BEDROCK]
+    require-air-above: true
+    require-air-two-above: true
+  break:
+    clear-cooldown-after-hit: true   # hitting a crystal lets you place the next one at once
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

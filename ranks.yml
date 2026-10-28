@@ -1,0 +1,49 @@
+# Ranks shown next to names in chat, the tab list and the scoreboard. A player has a rank when they are in that LuckPerms group
+# (the group.<name> permission). The first group in the list that the player has wins - put the best rank first.
+# Players can hide their own tag with "Display Rank" in /settings.
+ranks:
+  enabled: true
+  # Which rank a player shows when they are in several groups: the group with the highest LuckPerms weight (/lp group <name> setweight <number>). At the same weight a group listed below wins
+  # over one that is not, and the listed ones go in the order of this file. A group that is not listed shows too (auto-groups): its name and tag come from LuckPerms.
+  auto-groups: true               # false = only the groups listed below count
+  auto-exclude: [default]         # LuckPerms groups that never show as a rank
+  auto-style: PREFIX              # how an unlisted group looks: PREFIX (its LuckPerms prefix), DISPLAY (its display name) or NAME (the group name)
+  auto-add: true                 # a LuckPerms group that is not in groups: below gets an entry written there (once; delete it and it stays gone) - checked every minute
+  staff-first: []                 # groups that always beat the others, best first, for example [owner, admin, mod, helper] - no weights needed for these
+  chat: true                       # show the tag in chat
+  tab: true                        # show the tag in the tab list
+  nametag: true                    # show the tag next to the name above the player's head (next to the money tag)
+  # tokens: {name} {prefix} {rank} {money} {message}. {prefix} is the tag with a space AFTER it (the rank in front of the name), {rank} is the tag with a space BEFORE it (the rank behind the name), or nothing.
+  chat-format: '&f{name}{rank} &8» &f{message}'
+  tab-format: '{prefix}&f{name}'
+  # shown on the scoreboard for players who are in none of the groups below
+  default:
+    name: '&7Member'
+  # the book in /ranks that tells players where to buy ranks
+  store-book:
+    enabled: true
+    slot: 22
+    name: '&6Buy Ranks'
+    lines:
+      - '&7Visit: &fstore.example.com'
+      - '&7to buy ranks.'
+  groups:
+    media:
+      name: '&dMedia'
+      tag: '&d✦'
+    donutplusplusplus:
+      name: '&fDonut&#00A3FB+++'
+      tag: '&#00A3FB+++'
+    donutplusplus:
+      name: '&fDonut&#00A3FB++'
+      tag: '&#00A3FB++'
+    donutplus:
+      name: '&fDonut&#00A3FB+'
+      tag: '&#00A3FB+'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

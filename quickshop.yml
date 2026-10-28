@@ -1,0 +1,57 @@
+# ============================================================================================================
+# /shop modes - ONE command, three shops. Exactly ONE of classic / auction / survival may be true.
+#   classic   = the normal /shop (end, nether, gear, food, shard shop, crate keys). This is how /shop always worked.
+#   auction   = QuickShop: players pick the items they want and one click buys the cheapest matching listings from /ah.
+#   survival  = every item you can get in survival, in the categories of the creative inventory (price = /sell worth x price-mult).
+# If more than one is true, every admin gets a red message in chat and /shop stays closed for everybody until it is fixed
+# (set the others to false and type /donutrep reload).
+# ============================================================================================================
+quickshop:
+  classic: true
+  auction: false
+  survival: false
+
+  # The item list of the Choose Item window (QuickShop, orders): how many columns. 3 fits most screens; use 4 on a small GUI scale (a wide window), 2 on a big one.
+  dialog-columns: 3
+  enchant-dialog: GRID   # Choose Enchantments window: GRID (default) = a button for every level; COMPACT = a name button and ONE level button per enchantment
+  enchant-name-width: 115    # widths of the window's buttons (GUI units). Smaller = it fits a bigger GUI scale. If the last levels or Continue run off your screen, make these smaller.
+  enchant-level-width: 30
+  enchant-button-width: 100   # Back / Skip / Continue / Cancel
+
+  # Favorites of the original /shop (classic: true). On = a nether star in the last slot of the first /shop menu opens Favorites, a window like QuickShop:
+  # click an empty spot to choose an item of the original shop and an amount; one click on a saved item buys it at once (no confirm window); the stick removes.
+  classic-favorites:
+    enabled: false
+    # true = choosing the item and the amount are dialog windows, and a review shows the item, the amount and what it costs (Paper 1.21.7 and newer; Spigot and CraftBukkit always use chest menus)
+    dialogs: false
+    # how many items a player can save
+    max-items: 45
+
+  # QuickShop (auction: true)
+  auction-shop:
+    # false = a click on a saved item buys at once; every player can turn it off for themselves in /settings (Player: QuickShop Auto Buy)
+    # true  = a confirm window always opens first for everybody (the /settings button is hidden)
+    confirm: false
+    # /ah sells a whole listing. A listing bigger than the amount you still need is skipped. true = it may be bought anyway when nothing smaller fits.
+    allow-bigger-listings: false
+    # true = the item picker uses Minecraft dialog windows (Paper 1.21.7 and newer); false = chest menus. Spigot and CraftBukkit always use chest menus.
+    dialogs: true
+    # how many items a player can save (the window has 45 slots)
+    max-items: 45
+
+  # Survival shop (survival: true)
+  survival-shop:
+    # price of an item = its /sell worth x the highest sell multiplier the server allows (1 + levels x step = 2.0 in plus.yml sellprogress) x this number.
+    # With 2.0 that is 4 x the worth, always above what anybody can sell it for. A player's own sell level does not change it.
+    times-max-sell: 2.0
+    max-per-purchase: 64       # the most one purchase can buy (the amount window)
+    # true = a click on something that can be enchanted (tools, armor, weapons) first opens the Choose Enchantments window (servers with dialogs only)
+    enchantments: true
+    # what an enchanted item costs: its worth + the worth of its enchantments (enchant-worth.yml) x the shop multiplier above
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

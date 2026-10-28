@@ -1,0 +1,36 @@
+# ============================================================================================================
+# Dialog windows - the settings of the features that use Minecraft dialog windows (Paper 1.21.7 and newer). Every dialog feature has its own
+# section here; new ones are added to this file. (QuickShop and orders keep their dialog settings in quickshop.yml and orders.yml.)
+# Spigot and CraftBukkit have no dialogs: they always use the chest menus.
+# ============================================================================================================
+dialog:
+  # ------------------------------------------------------------------------------------------------------------
+  # HOMES: /home and /homes as dialog windows - a button for every home you have or could have.
+  #   - a home: its icon and name; a click opens the home (Teleport, Change Icon, Rename, Delete, Back)
+  #   - New Home: a free slot you may use; a click makes a home where you stand, called Home <slot>
+  #   - Locked: a slot your rank does not give you (only shown after Show More)
+  # How many homes a player may have is the same as always: donutrep.homes.<n> (LuckPerms) and limits.defaults.homes - a higher rank unlocks more slots.
+  # ------------------------------------------------------------------------------------------------------------
+  homes:
+    # true = /home and /homes open the dialog window; false = the chest menu you know
+    enabled: false
+    # how many buttons in a row (1 - 8). 4 fits most screens; 3 for a big GUI scale, 5 or 6 for a small one
+    columns: 4
+    # how many slots Show More lists in total, locked ones included (a player with a bigger limit sees their own limit)
+    max-slots: 9
+    # true = Delete first asks "Delete <name>?"
+    confirm-delete: true
+    # true = a home has an icon you can change (Change Icon: Choose Icon window); false = no icons in the dialog. This is the dialog's own switch: features.custom-icons is only for the chest menus.
+    icons: true
+    # how many columns the Choose Icon list has (1 - 6). 3 fits most screens
+    icon-columns: 3
+    # true = the Homes window has a Team Home button in a row of its own at the end (Teleport, Set Here, Delete, Change Icon; without a team it offers Create Team). While the homes dialog is on and this is false, team homes do not work at all
+    # (/team home, /team sethome, /team delhome and the team menu buttons say so or are hidden); the saved team homes are kept.
+    team-home: false
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

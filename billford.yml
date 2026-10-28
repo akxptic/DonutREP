@@ -1,0 +1,601 @@
+# Bilford: one trade is open at a time, and the open trade changes on a timer.
+# The list of trades is at the bottom of this file. Reload with /donutrep reload.
+
+# ============================================================
+# Trade rotation
+# ============================================================
+
+# The trade that is open on a fresh install (1 = the first trade below).
+# After the first start the current trade is kept in billford-data.yml.
+CURRENT: 1
+
+# How the next trade is picked:
+# SEQUENTIAL -> 1 -> 2 -> 3 -> 4 -> 1 ...
+# RANDOM     -> any trade, but never the same one twice in a row
+ROTATION_MODE: SEQUENTIAL
+
+# When the trade changes. Days and hours are added together (2 days + 12 hours is fine).
+COUNTDOWN:
+  ENABLED: true
+  # SYSTEM = the time zone of the machine. A real zone such as "UTC" or "Europe/Berlin" works too.
+  TIME_ZONE: SYSTEM
+  START_DATE: "2026-10-01 12:00:00"
+  INTERVAL_DAYS: 3
+  INTERVAL_HOURS: 0
+
+# Tell everybody when the trade changes. {countdown} = time until the next change.
+ANNOUNCE_ON_ROTATE: true
+ANNOUNCE_MESSAGE: "&6[Bilford] &fA new deal is open. &7Next change in &b{countdown}&7."
+
+# Who may open the trade menu, and how.
+ACCESS:
+  # Empty = everybody.
+  PERMISSION: ""
+  COMMAND: "/billford"
+  NPC:
+    ENABLED: false
+    DISPLAY_NAME: "&aBilford"
+    INTERACT_COMMAND: "/billford"
+
+SETTINGS:
+  CLICK_COOLDOWN_MS: 800
+  CLOSE_MENU_ON_SUCCESS: true
+  REOPEN_ON_TRADE_CHANGE: true
+  ALLOWED_CLICK_TYPES:
+    - LEFT
+    - RIGHT
+
+# ============================================================
+# The menu
+# ============================================================
+GUI:
+  TITLE: "&8Bilford's Trades"
+  SIZE: 54
+  FILLER_MATERIAL: GRAY_STAINED_GLASS_PANE
+  REWARD_SLOT: 25
+  COUNTDOWN_SLOT: 32             # the clock (one slot to the right of before)
+  INFO_SLOT: 49
+  CONFIRM_SLOT: 23              # the confirm button (one slot to the right of before)
+  INFO_MATERIAL: BOOK
+
+  INPUT_NAME: "&f{item}"
+  INPUT_LORE:
+    - "&7You give: &f{amount}x &e{item}"
+    - ""
+    - "&8Have it in your inventory first."
+
+  REWARD_NAME: "&aYou get"
+  REWARD_LORE:
+    - "&7Item: &a{amount}x &f{item}"
+    - "{money_line}"
+    - "{shard_line}"
+    - ""
+    - "&8Handed over when the trade goes through."
+
+  COUNTDOWN_NAME: "&e{trade_name}"
+  COUNTDOWN_LORE:
+    - "&7Changes in: &b{countdown}"
+    - ""
+    - "&8Trade &f{trade_id} &8of &f{trade_count}"
+
+  INFO_NAME: "&6About this trade"
+  INFO_LIMITED_LORE:
+    - "&7Trades made: &f{used} &7/ &f{limit}"
+    - "{status_line}"
+  INFO_UNLIMITED_LORE:
+    - "&7Trades made: &f{used}"
+    - "&aNo limit on this deal."
+
+  CONFIRM_BUTTON:
+    MATERIAL: LIME_DYE
+    NAME: "&a&lMake the trade"
+    LORE:
+      - "&7Put the items in your inventory,"
+      - "&7then click to swap them."
+      - ""
+      - "&a&lClick to trade"
+
+  LIMIT_BUTTON:
+    MATERIAL: BARRIER
+    NAME: "&c&lAll used up"
+    LORE:
+      - "&cYou have made this deal as often"
+      - "&cas allowed for now."
+      - "&7Come back when the trade changes."
+
+FEEDBACK:
+  SUCCESS_PARTICLE:
+    ENABLED: true
+    TYPE: HAPPY_VILLAGER
+    COUNT: 18
+
+# ============================================================
+# Bonuses (optional)
+# Every trade can also pay shards and/or money on top of the item. They are OFF by default: the items alone make each deal fair.
+# Turn a kind on here and the SHARD_BONUS / MONEY_BONUS written in the trades below are paid and shown in the reward lore.
+# A few trades carry an example value; add or change them as you like (/donutrep reload). With a switch off, the numbers are ignored.
+# ============================================================
+BONUSES:
+  MONEY_ENABLED: false
+  SHARD_ENABLED: false
+
+# ============================================================
+# The trades (24, one after the other; each one is open for the COUNTDOWN interval above)
+# INPUTS: 1-9 items the player gives, shown as a 3x3 block: slots 10 11 12 / 19 20 21 / 28 29 30 (input 1 = 10, input 2 = 11, input 3 = 12, input 4 = 19 ...).
+#   SLOT counts from 1 and may be any slot of the menu, but keep to the 3x3 block above so the loot you need always looks the same.
+# LIMIT: how often one player can make the deal per rotation (0 = no limit).
+# REWARD: MATERIAL + QUANTITY (up to 64). Balance: what you get is worth 110-140% of what you give (a little more than you hand in) (sell prices of worth.yml) - check with /worth when you change an item.
+# ============================================================
+BILLFORD:
+  1:
+    DISPLAY_NAME: "the lapis swap"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: LAPIS_LAZULI
+        QUANTITY: 48
+      2:
+        SLOT: 11
+        MATERIAL: COPPER_INGOT
+        QUANTITY: 24
+    REWARD:
+      MATERIAL: HONEY_BLOCK
+      QUANTITY: 47
+      # example bonuses: only paid when BONUSES -> MONEY_ENABLED / SHARD_ENABLED is true
+      SHARD_BONUS: 5
+      MONEY_BONUS: 500
+
+  2:
+    DISPLAY_NAME: "the redstone pack"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: REDSTONE_BLOCK
+        QUANTITY: 8
+      2:
+        SLOT: 11
+        MATERIAL: QUARTZ
+        QUANTITY: 32
+    REWARD:
+      MATERIAL: REPEATER
+      QUANTITY: 37
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  3:
+    DISPLAY_NAME: "the brewer's deal"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: NETHER_WART
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: BLAZE_ROD
+        QUANTITY: 16
+    REWARD:
+      MATERIAL: MAGMA_CREAM
+      QUANTITY: 44
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  4:
+    DISPLAY_NAME: "the glassmaker"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: OAK_LOG
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: BIRCH_LOG
+        QUANTITY: 32
+    REWARD:
+      MATERIAL: GLASS
+      QUANTITY: 64
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  5:
+    DISPLAY_NAME: "the farmer's market"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: WHEAT
+        QUANTITY: 48
+      2:
+        SLOT: 11
+        MATERIAL: CARROT
+        QUANTITY: 24
+    REWARD:
+      MATERIAL: BAKED_POTATO
+      QUANTITY: 57
+      # example bonuses: only paid when BONUSES -> MONEY_ENABLED / SHARD_ENABLED is true
+      SHARD_BONUS: 10
+      MONEY_BONUS: 1000
+
+  6:
+    DISPLAY_NAME: "the miner's mix"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: COAL
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: IRON_INGOT
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: COPPER_BLOCK
+      QUANTITY: 38
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  7:
+    DISPLAY_NAME: "the gunpowder run"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: GUNPOWDER
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: SAND
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: TNT
+      QUANTITY: 12
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  8:
+    DISPLAY_NAME: "the mason"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: STONE
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: COBBLESTONE
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: DEEPSLATE
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: LAPIS_BLOCK
+      QUANTITY: 59
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  9:
+    DISPLAY_NAME: "the music maker"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: SUGAR_CANE
+        QUANTITY: 48
+      2:
+        SLOT: 11
+        MATERIAL: COCOA_BEANS
+        QUANTITY: 24
+    REWARD:
+      MATERIAL: NOTE_BLOCK
+      QUANTITY: 56
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  10:
+    DISPLAY_NAME: "the butcher"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: BEEF
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: BONE
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: ROTTEN_FLESH
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: HOPPER
+      QUANTITY: 16
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  11:
+    DISPLAY_NAME: "the redstone engineer"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: REDSTONE
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: GLOWSTONE_DUST
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: COMPARATOR
+      QUANTITY: 33
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  12:
+    DISPLAY_NAME: "the sea merchant"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: PRISMARINE_SHARD
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: PRISMARINE_CRYSTALS
+        QUANTITY: 32
+      3:
+        SLOT: 12
+        MATERIAL: KELP
+        QUANTITY: 16
+    REWARD:
+      MATERIAL: SLIME_BLOCK
+      QUANTITY: 16
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  13:
+    DISPLAY_NAME: "the nether trader"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: QUARTZ
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: BLACKSTONE
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: NETHER_BRICKS
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: REDSTONE_LAMP
+      QUANTITY: 45
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  14:
+    DISPLAY_NAME: "the end scavenger"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: CHORUS_FRUIT
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: END_STONE
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: PISTON
+      QUANTITY: 11
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  15:
+    DISPLAY_NAME: "the slime farm"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: SLIME_BALL
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: MAGMA_CREAM
+        QUANTITY: 16
+    REWARD:
+      MATERIAL: STICKY_PISTON
+      QUANTITY: 7
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  16:
+    DISPLAY_NAME: "the bookworm"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: BOOK
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: PAPER
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: BOOKSHELF
+      QUANTITY: 10
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  17:
+    DISPLAY_NAME: "the railway"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: EMERALD
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: GOLD_INGOT
+        QUANTITY: 32
+    REWARD:
+      MATERIAL: DETECTOR_RAIL
+      QUANTITY: 37
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  18:
+    DISPLAY_NAME: "the feather bed"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: FEATHER
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: STRING
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: PHANTOM_MEMBRANE
+        QUANTITY: 32
+    REWARD:
+      MATERIAL: POWERED_RAIL
+      QUANTITY: 44
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  19:
+    DISPLAY_NAME: "the honey collector"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: HONEY_BOTTLE
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: WHITE_WOOL
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: COMPASS
+      QUANTITY: 27
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  20:
+    DISPLAY_NAME: "the glow keeper"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: GLOWSTONE
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: GLOW_BERRIES
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: COAL
+        QUANTITY: 16
+    REWARD:
+      MATERIAL: CLOCK
+      QUANTITY: 38
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  21:
+    DISPLAY_NAME: "the archer's kit"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: FLINT
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: FEATHER
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: ARROW
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: SPYGLASS
+      QUANTITY: 19
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  22:
+    DISPLAY_NAME: "the gardener"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: PUMPKIN
+        QUANTITY: 32
+      2:
+        SLOT: 11
+        MATERIAL: MELON_SLICE
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: SEA_LANTERN
+      QUANTITY: 14
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  23:
+    DISPLAY_NAME: "the brick layer"
+    LIMIT: 3
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: BRICK
+        QUANTITY: 64
+      2:
+        SLOT: 11
+        MATERIAL: CLAY_BALL
+        QUANTITY: 64
+      3:
+        SLOT: 12
+        MATERIAL: TERRACOTTA
+        QUANTITY: 64
+    REWARD:
+      MATERIAL: DISPENSER
+      QUANTITY: 25
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+  24:
+    DISPLAY_NAME: "the blacksmith"
+    LIMIT: 2
+    INPUTS:
+      1:
+        SLOT: 10
+        MATERIAL: IRON_BLOCK
+        QUANTITY: 16
+      2:
+        SLOT: 11
+        MATERIAL: COPPER_BLOCK
+        QUANTITY: 8
+    REWARD:
+      MATERIAL: ANVIL
+      QUANTITY: 10
+      SHARD_BONUS: 0
+      MONEY_BONUS: 0
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

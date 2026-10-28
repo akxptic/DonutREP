@@ -1,0 +1,115 @@
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MARKET - the /shop catalog:
+# same categories at the same GUI slots, same items at the same slots with the same
+# display names, lore, and prices - no dynamic pricing. CRATE-KEYS items grant real
+# keys through the Crates subsystem below; SHARD-menu spawner items are a disclosed
+# placeholder until a real /spawner system is built. Selling is a separate system -
+# see /sell and the SELL section below, which uses real worth.yml prices instead.
+# ═══════════════════════════════════════════════════════════════════════════════
+market:
+  gui:
+    title: "&8shop"
+  max-quantity-per-transaction: 64
+  categories:
+    end:
+      display-name: "&#69EF8Bend"
+      material: END_STONE
+      slot: 11
+      lore: ["&fclick to view the end shop"]
+    nether:
+      display-name: "&#69EF8Bnether"
+      material: NETHERRACK
+      slot: 12
+      lore: ["&fclick to view the nether shop"]
+    gear:
+      display-name: "&#69EF8Bgear"
+      material: TOTEM_OF_UNDYING
+      slot: 13
+      lore: ["&fclick to view the gear shop"]
+    food:
+      display-name: "&#69EF8Bfood"
+      material: COOKED_BEEF
+      slot: 14
+      lore: ["&fclick to view the food shop"]
+    shard:
+      display-name: "&#69EF8Bshard shop"
+      material: AMETHYST_SHARD
+      slot: 15
+      lore: ["&fclick to view the shard shop"]
+    cratekeys:
+      display-name: "&#69EF8Bcrate keys"
+      material: TRIPWIRE_HOOK
+      slot: 4
+      lore: ["&fclick to view the crate keys shop"]
+  menus:
+    end:
+      title: "&8ѕʜᴏᴘ - ᴇɴᴅ"
+      items:
+        ender_chest: { display-name: "&fᴇɴᴅᴇʀ ᴄʜᴇѕᴛ", material: ENDER_CHEST, price: 2500.0, currency: MONEY, slot: 9, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$2,500"] }
+        ender_pearl: { display-name: "&fᴇɴᴅᴇʀ ᴘᴇᴀʀʟ", material: ENDER_PEARL, price: 75.0, currency: MONEY, slot: 10, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$75"] }
+        end_stone: { display-name: "&fᴇɴᴅ ѕᴛᴏɴᴇ", material: END_STONE, price: 8.0, currency: MONEY, slot: 11, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$8"] }
+        dragons_breath: { display-name: "&eᴅʀᴀɢᴏɴ'ѕ ʙʀᴇᴀᴛʜ", material: DRAGON_BREATH, price: 1000.0, currency: MONEY, slot: 12, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$1,000"] }
+        end_rod: { display-name: "&fᴇɴᴅ ʀᴏᴅ", material: END_ROD, price: 100.0, currency: MONEY, slot: 13, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$100"] }
+        chorus_fruit: { display-name: "&fᴄʜᴏʀᴜѕ ꜰʀᴜɪᴛ", material: CHORUS_FRUIT, price: 18.0, currency: MONEY, slot: 14, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$18"] }
+        popped_chorus_fruit: { display-name: "&fᴘᴏᴘᴘᴇᴅ ᴄʜᴏʀᴜѕ ꜰʀᴜɪᴛ", material: POPPED_CHORUS_FRUIT, price: 15.0, currency: MONEY, slot: 15, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$15"] }
+        shulker_shell: { display-name: "&fѕʜᴜʟᴋᴇʀ ѕʜᴇʟʟ", material: SHULKER_SHELL, price: 350.0, currency: MONEY, slot: 16, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$350"] }
+        shulker_box: { display-name: "&fѕʜᴜʟᴋᴇʀ ʙᴏx", material: SHULKER_BOX, price: 800.0, currency: MONEY, slot: 17, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$800"] }
+    nether:
+      title: "&8ѕʜᴏᴘ - ɴᴇᴛʜᴇʀ"
+      items:
+        blaze_rod: { display-name: "&fʙʟᴀᴢᴇ ʀᴏᴅ", material: BLAZE_ROD, price: 150.0, currency: MONEY, slot: 9, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$150"] }
+        nether_wart: { display-name: "&fɴᴇᴛʜᴇʀ ᴡᴀʀᴛ", material: NETHER_WART, price: 16.0, currency: MONEY, slot: 10, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$16"] }
+        glowstone_dust: { display-name: "&fɢʟᴏᴡѕᴛᴏɴᴇ ᴅᴜѕᴛ", material: GLOWSTONE_DUST, price: 15.0, currency: MONEY, slot: 11, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$15"] }
+        magma_cream: { display-name: "&fᴍᴀɢᴍᴀ ᴄʀᴇᴀᴍ", material: MAGMA_CREAM, price: 16.0, currency: MONEY, slot: 12, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$16"] }
+        ghast_tear: { display-name: "&fɢʜᴀѕᴛ ᴛᴇᴀʀ", material: GHAST_TEAR, price: 350.0, currency: MONEY, slot: 13, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$350"] }
+        nether_quartz: { display-name: "&fɴᴇᴛʜᴇʀ ǫᴜᴀʀᴛᴢ", material: QUARTZ, price: 15.0, currency: MONEY, slot: 14, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$15"] }
+        soul_sand: { display-name: "&fѕᴏᴜʟ ѕᴀɴᴅ", material: SOUL_SAND, price: 50.0, currency: MONEY, slot: 15, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$50"] }
+        magma_block: { display-name: "&fᴍᴀɢᴍᴀ ʙʟᴏᴄᴋ", material: MAGMA_BLOCK, price: 35.0, currency: MONEY, slot: 16, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$35"] }
+        crying_obsidian: { display-name: "&fᴄʀʏɪɴɢ ᴏʙѕɪᴅɪᴀɴ", material: CRYING_OBSIDIAN, price: 150.0, currency: MONEY, slot: 17, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$150"] }
+    gear:
+      title: "&8ɢᴇᴀʀ - ѕʜᴏᴘ"
+      items:
+        obsidian: { display-name: "&fᴏʙѕɪᴅɪᴀɴ", material: OBSIDIAN, price: 100.0, currency: MONEY, slot: 9, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$100"] }
+        end_crystal: { display-name: "&bᴇɴᴅ ᴄʀʏѕᴛᴀʟ", material: END_CRYSTAL, price: 350.0, currency: MONEY, slot: 10, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$350"] }
+        respawn_anchor: { display-name: "&fʀᴇѕᴘᴀᴡɴ ᴀɴᴄʜᴏʀ", material: RESPAWN_ANCHOR, price: 1000.0, currency: MONEY, slot: 11, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$1000"] }
+        glowstone: { display-name: "&fɢʟᴏᴡѕᴛᴏɴᴇ", material: GLOWSTONE, price: 100.0, currency: MONEY, slot: 12, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$100"] }
+        totem_of_undying: { display-name: "&eᴛᴏᴛᴇᴍ ᴏꜰ ᴜɴᴅʏɪɴɢ", material: TOTEM_OF_UNDYING, price: 1250.0, currency: MONEY, slot: 13, max-quantity: 36, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$1250"] }
+        ender_pearl: { display-name: "&fᴇɴᴅᴇʀ ᴘᴇᴀʀʟ", material: ENDER_PEARL, price: 75.0, currency: MONEY, slot: 14, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$75"] }
+        golden_apple: { display-name: "&bɢᴏʟᴅᴇɴ ᴀᴘᴘʟᴇ", material: GOLDEN_APPLE, price: 250.0, currency: MONEY, slot: 15, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$250"] }
+        bottle_o_enchanting: { display-name: "&eʙᴏᴛᴛʟᴇ ᴏ' ᴇɴᴄʜᴀɴᴛɪɴɢ", material: EXPERIENCE_BOTTLE, price: 100.0, currency: MONEY, slot: 16, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$100"] }
+        arrow: { display-name: "&earrow", material: ARROW, price: 500.0, currency: MONEY, slot: 17, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$500"] }
+    food:
+      title: "&8ꜰᴏᴏᴅ - ѕʜᴏᴘ"
+      items:
+        potato: { display-name: "&fᴘᴏᴛᴀᴛᴏ", material: POTATO, price: 75.0, currency: MONEY, slot: 9, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$75"] }
+        sweet_berries: { display-name: "&fѕᴡᴇᴇᴛ ʙᴇʀʀɪᴇѕ", material: SWEET_BERRIES, price: 50.0, currency: MONEY, slot: 10, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$50"] }
+        melon_slice: { display-name: "&fᴍᴇʟᴏɴ ѕʟɪᴄᴇ", material: MELON_SLICE, price: 10.0, currency: MONEY, slot: 11, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$10"] }
+        carrot: { display-name: "&fᴄᴀʀʀᴏᴛ", material: CARROT, price: 65.0, currency: MONEY, slot: 12, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$65"] }
+        apple: { display-name: "&fᴀᴘᴘʟᴇ", material: APPLE, price: 25.0, currency: MONEY, slot: 13, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$25"] }
+        cooked_chicken: { display-name: "&fᴀᴘᴘʟᴇ", material: COOKED_CHICKEN, price: 30.0, currency: MONEY, slot: 14, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$30"] }
+        steak: { display-name: "&fѕᴛᴇᴀᴋ", material: COOKED_BEEF, price: 35.0, currency: MONEY, slot: 15, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$35"] }
+        golden_carrot: { display-name: "&fɢᴏʟᴅᴇɴ ᴄᴀʀʀᴏᴛ", material: GOLDEN_CARROT, price: 50.0, currency: MONEY, slot: 16, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$50"] }
+        golden_apple: { display-name: "&bɢᴏʟᴅᴇɴ ᴀᴘᴘʟᴇ", material: GOLDEN_APPLE, price: 250.0, currency: MONEY, slot: 17, lore: ["&fʙᴜʏ ᴘʀɪᴄᴇ: &a$250"] }
+    shard:
+      title: "&8ѕʜᴀʀᴅ - ѕʜᴏᴘ"
+      items:
+        pig_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 9, spawner-mob: PIG, lore: ["&eᴘɪɢ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        cow_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 10, spawner-mob: COW, lore: ["&eᴄᴏᴡ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        zombie_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 11, spawner-mob: ZOMBIE, lore: ["&eᴢᴏᴍʙɪᴇ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        spider_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 12, spawner-mob: SPIDER, lore: ["&eѕᴘɪᴅᴇʀ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        skeleton_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 13, spawner-mob: SKELETON, lore: ["&eѕᴋᴇʟᴇᴛᴏɴ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        creeper_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 14, spawner-mob: CREEPER, lore: ["&eᴄʀᴇᴇᴘᴇʀ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        zombified_piglin_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 15, spawner-mob: ZOMBIFIED_PIGLIN, lore: ["&eᴢᴏᴍʙɪꜰɪᴇᴅ ᴘɪɢʟɪɴ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        blaze_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 16, spawner-mob: BLAZE, lore: ["&eʙʟᴀᴢᴇ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+        iron_golem_spawner: { display-name: "&dѕᴘᴀᴡɴᴇʀ", material: SPAWNER, price: 1500, currency: SHARD, slot: 17, spawner-mob: IRON_GOLEM, lore: ["&eɪʀᴏɴ ɢᴏʟᴇᴍ", "&fʙᴜʏ ᴘʀɪᴄᴇ: &51500x &lѕʜᴀʀᴅѕ"] }
+    cratekeys:
+      title: "&8&lᴄʀᴀᴛᴇ ᴋᴇʏѕ & sʜᴏᴘ"
+      items: {}
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

@@ -1,0 +1,45 @@
+# /spawnbedrock - plants bait bedrock where you look, to catch xray users.
+# Xray shows bedrock sitting in solid stone, so xray users dig straight to it. Breaking blocks next to a bait alerts staff
+# and flags the player in /sus. Look at a stone wall (or the end of a tunnel) and run the command: it replaces the block you
+# look at (the bottom piece) and the block on top of it. /spawnbedrock remove (or /unspawnbedrock) takes away what you just placed.
+SETTINGS:
+  ENABLED: true
+  BLOCKS: 2                       # pieces of bedrock placed each time (1-8)
+  DEFAULT_SECONDS: 60             # bait bedrock and ore veins vanish by themselves after this many seconds. 0 = stays until removed. /spawnbedrock <seconds>, /spawndiamond <seconds> (0 = forever) set it per use
+  # TTL_SECONDS: an older setting - if you still have it above 0 in your file it is used instead of DEFAULT_SECONDS
+  ALERT_RADIUS: 3.0               # bedrock baits - blocks: breaking anything this close to a bait counts
+  ALERT_COOLDOWN_SECONDS: 30
+  FLAG_IN_SUS: true               # also adds a "possible xray" flag in /sus
+  RESTORE_ON_SHUTDOWN: false      # true = baits are removed (original blocks put back) when the server stops
+# /spawndiamond (/spawndia) and /spawnancientdebris (/spawnad) hide a small random vein of ore inside the rock you look at.
+# A player who mines one of those blocks is flagged in /sus (xray users dig straight to ores they cannot see).
+# /unspawnbedrock (or /spawnbedrock remove) takes away what you placed last, whether it was bedrock or an ore vein.
+# /spawndiamond remove (/spawndia remove) and /spawnancientdebris remove (/spawnad remove) take away the last vein of that kind.
+ORE:
+  DIAMOND: { MIN: 3, MAX: 8 }               # vein size
+  ANCIENT_DEBRIS: { MIN: 1, MAX: 3 }
+  DROP_ITEMS: true                          # false = the bait ore drops nothing when mined
+  REPLACEABLE: [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, NETHERRACK, BASALT, BLACKSTONE, END_STONE]
+MESSAGES:
+  NOT-ROCK: '&cLook at stone, deepslate or another rock block first.'
+  VEIN-PLACED: '&aHid a &f{kind} &avein of &f{amount} &ablocks ({ids}) - lasts {ttl}. Remove it with /unspawnbedrock.'
+  USAGE: '&cUsage: /spawnbedrock [seconds|list|remove [id]|clear|reload]'
+  NO-PERMISSION: '&cYou do not have permission to do that.'
+  DISABLED: '&cspawnbedrock is disabled.'
+  PLAYER-ONLY: '&cOnly players can place bedrock.'
+  LOOK-AT-BLOCK: '&cLook at a block (within 8 blocks) first.'
+  NOTHING-PLACED: '&cThere was no solid block to turn into bedrock there.'
+  PLACED: '&aPlaced &f{amount} &abait bedrock ({ids}) - lasts {ttl}.'
+  REMOVED: '&aRemoved bait &f{id}&a and put the original block back.'
+  REMOVED-LAST: '&aRemoved the &f{amount} &abait bedrock you just placed.'
+  CLEARED: '&aRemoved &f{amount} &abait bedrock.'
+  NOT-FOUND: '&cNo bait with that id. Use /spawnbedrock list.'
+  NONE: '&7There is no bait bedrock.'
+  RELOADED: '&aspawnbedrock settings reloaded.'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

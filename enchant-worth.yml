@@ -1,0 +1,72 @@
+# ============================================================================================================
+# Enchantment worth - what enchantments add to the worth of an item.
+# An enchanted item has ONE worth: the worth of the item (worth.yml) + the worth of every enchantment on it, level by level.
+# It is the worth you see when you hover the item, what the /sell menu and the sell chest axe pay (times your sell multiplier) and
+# what the survival shop asks (times the shop multiplier). An enchanted book is worth its enchantments (never less than the plain book).
+# The numbers below follow how hard an enchantment is to get: common ones from the enchanting table are cheap, rare ones are dear, and
+# the ones you can only get from villager trades, chests and special vaults (treasure) are the dearest.
+# ============================================================================================================
+enchant-worth:
+  # false = enchantments add nothing: an enchanted item is worth the same as a plain one
+  enabled: true
+  # the worth of ONE LEVEL of an enchantment that is not listed under per-level (a new or modded one).
+  # 0 = the worth of an Enchanted Book in worth.yml (16 by default).
+  default-per-level: 0
+  # the worth of one level of one enchantment (the name without minecraft:). Sharpness V adds 5 x 10 = 50. Change any of them.
+  per-level:
+    # common: the enchanting table gives them most often
+    protection: 10
+    sharpness: 10
+    efficiency: 10
+    power: 10
+    piercing: 10
+    unbreaking: 10
+    smite: 10
+    bane_of_arthropods: 10
+    feather_falling: 10
+    fire_protection: 10
+    projectile_protection: 10
+    knockback: 10
+    quick_charge: 10
+    loyalty: 10
+    # uncommon: the enchanting table, but less often
+    blast_protection: 20
+    respiration: 20
+    aqua_affinity: 20
+    depth_strider: 20
+    fire_aspect: 20
+    punch: 20
+    flame: 20
+    lure: 20
+    luck_of_the_sea: 20
+    impaling: 20
+    riptide: 20
+    multishot: 20
+    density: 20
+    breach: 20
+    lunge: 20
+    # valuable: the enchanting table, very useful
+    fortune: 50
+    looting: 40
+    sweeping_edge: 30
+    thorns: 30
+    # rare: the enchanting table, one roll in a hundred
+    silk_touch: 120
+    infinity: 150
+    channeling: 100
+    # treasure: only villager trades, chests, ancient cities and special vaults
+    mending: 300
+    frost_walker: 80
+    soul_speed: 60
+    swift_sneak: 100
+    wind_burst: 120
+    # curses: a curse is a drawback, it adds nothing
+    binding_curse: 0
+    vanishing_curse: 0
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

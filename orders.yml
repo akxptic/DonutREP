@@ -1,0 +1,15 @@
+# /orders settings.
+orders:
+  max-active-default: 5          # active orders per player without a limit permission (donutrep.orders.limit.<n>)
+  max-quantity-per-order: 2304   # most items one order can ask for
+  allow-enchant-orders: true     # true = when ordering an item that can be enchanted, the buyer can choose which enchantments it must have
+  new-menus: true               # true = the Your Orders / Edit Order / Cancel Order windows and the dialog window to choose the item;  false = the original menus (everything else works the same)
+  expire-days: 7                # an order that still waits for items takes no more deliveries after this many days (it stays: its owner can collect and cancel it). 0 = never
+  delete-days: 90               # an order that is not fully claimed after this many days is deleted: the part nobody delivered is refunded, delivered items nobody collected go with it. 0 = never. Only counts once the order expired (orders from before this setting existed are counted from the day it came)
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

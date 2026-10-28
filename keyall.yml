@@ -1,0 +1,44 @@
+# Key-all: every `every-minutes` a key is given. Edit freely, then /donutrep reload.
+# Both area switches false: a server-wide timer, every `every-minutes` everybody online gets the key.
+# With afk-only or cuboid-only on, every player in the area has a timer of their own: it starts when they enter, restarts if they leave or rejoin, and at 0 they get the key
+# (with area-percent as their chance). Where they also earn shards (an afk or shard cuboid) the timer is as long as the shard timer (area-match-shards).
+#   both area switches false  = every player online
+#   afk-only: true            = only players standing in an afk cuboid (/cuboid bind <cuboid> afk true)
+#   cuboid-only: true         = only players standing in a key-all cuboid (/cuboid bind <cuboid> keyall true)
+# Only ONE of the two may be true. With both true nobody gets the key and a warning is logged.
+# Players go to the key-all area with /keyafk; admins set the teleport points with /setkey <cuboid> and /keymenu.
+keyall:
+  enabled: true
+  every-minutes: 60
+  type: RANDOM          # RANDOM rolls a tier from random-keys; ONE always gives the one-key tier/crate
+  one-key: common
+  amount: 1
+  # Who gets the key. Only ONE of the next two can be true (both false = everyone online gets it, as before). If both are true the round is skipped and a warning is logged.
+  afk-only: false       # only players standing in an afk cuboid (/cuboid bind <cuboid> afk true)
+  cuboid-only: false    # only players standing in a cuboid made for key-all (/cuboid bind <cuboid> keyall true)
+  area-percent: 100     # 0-100: with afk-only or cuboid-only on, each player in the area has this % chance to get the key when their timer ends (100 = always). Not used when both are false.
+  area-match-shards: true  # area modes: where the player also earns shards, the key timer is as long as the shard timer (zones.shard.interval-seconds) and they run together; false = always every-minutes
+  area-actionbar: true  # cuboid-only mode: "Next Key in ..." in the action bar while standing in the key-all cuboid (not where a shard countdown already uses it; the scoreboard line is always there)
+  warn-staff: true      # a key name below that is not a crate gets a warning in the console and in the chat of every online op / staff member
+  # Chance of each key tier (weights - they do not need to add up to 100). Change them here.
+  random-keys:
+    common: 80
+    rare: 15
+    epic: 5
+  # Which crate each tier gives (use your crate ids from /crate). Every name here (and one-key above) MUST be a crate that exists, or the staff are warned and that key is not given.
+  tier-crates:
+    common: common
+    rare: rare
+    epic: epic
+  message:
+    - ''
+    - '&#00A3FBKey-All reward!'
+    - '&fCongrats you just received &b{amount}x {crate}&f key.'
+    - ''
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

@@ -1,0 +1,23 @@
+# ============================================================================================================
+# Languages. Every player has their own language: they pick it with /language (or /lang) whenever they want. The text of the plugin is translated on its way to the player;
+# the language files are in the languages folder (one file per language: copy en.yml to add your own). Text with no translation stays English.
+# Needs the packetevents plugin for chat, menus and titles; the dialog windows are translated without it.
+# ============================================================================================================
+language:
+  # false = no translation at all and /language says it is turned off
+  enabled: true
+  # the language everyone starts on (a code of a file in the languages folder: en, es, pt-br, fr, de, ru, tr, pl, it, nl, zh-cn, ja, ko ...)
+  default: en
+  # true = a player who has not chosen starts on the language of their Minecraft client, when there is a file for it; otherwise on the default.
+  auto-detect: true
+  # true = everybody sees the default language and /language is turned off
+  force: false
+  # true = /language is a dialog window where the server has dialogs (Paper, Purpur, Folia 1.21.7 and newer); false = always the chest menu. Spigot and CraftBukkit always use the chest menu.
+  dialogs: true
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

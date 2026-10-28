@@ -1,0 +1,394 @@
+# Amethyst tools. {time} in lore is the remaining life; DURATION is in seconds.
+# DRILL has Fortune (applied to ores only); DRILL_SILK has Silk Touch on everything. SHOVEL_SILK is the shovel with Silk Touch; HOE (and HOE_SILK, the Silk Touch one) breaks 9 blocks of leaves, hay, moss, sculk and the like.
+AMETHYST-TOOLS:
+  COUNTDOWN-UPDATE-TICKS: 20      # the time left on a tool (the {time} line of its lore) is counted down this often while it is in an inventory (0 = off)
+  HELD-REFRESH-SECONDS: 0         # the tool you HOLD is refreshed when you switch slot / close or click in an inventory. Set N to also refresh it every N seconds (it dips and rises each time)
+  EXCLUDED-WORLDS:
+  - duels
+  PARTICLES:
+    ENABLED: true
+    TYPE: BLOCK
+    BLOCK-MATERIAL: AMETHYST_BLOCK
+    COUNT: 16
+    SPREAD: 0.4
+    DUST: true                  # purple sparkle around every block an amethyst tool breaks (the block you mined too)
+    DUST-COUNT: 14
+    DUST-RED: 160
+    DUST-GREEN: 60
+    DUST-BLUE: 230
+  SOUNDS:
+    USE: minecraft:block.amethyst_block.hit|1.0|1.2
+    EXPIRE: minecraft:entity.lightning_bolt.impact|0.5|2.0
+    BREAK: minecraft:block.amethyst_block.break|1.0|0.8
+    ACTIVATE: minecraft:block.amethyst_block.resonate|1.0|1.0
+  SECURITY:
+    REQUIRE-ITEM-ID: true
+    BIND-TO-OWNER: false
+    CLICK-COOLDOWN-MS: 250
+    BLOCK-HOPPER-PICKUP: true
+  DRILL:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_PICKAXE
+    NAME: '&#9A58B5&lamethyst drill'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7charged by amethyst energy'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - fortune:3
+    RADIUS: 1
+    DISABLED-BLOCKS: &id001
+    - DIRT
+    - GRASS_BLOCK
+    - COARSE_DIRT
+    - ROOTED_DIRT
+    - PODZOL
+    - SAND
+    - RED_SAND
+    - GRAVEL
+    - SPAWNER
+    - BEDROCK
+    - OBSIDIAN
+    - CRYING_OBSIDIAN
+    - END_PORTAL_FRAME
+    - FARMLAND
+    - SOUL_SAND
+    - SOUL_SOIL
+    DURATION: 86400
+  DRILL_SILK:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_PICKAXE
+    NAME: '&#9A58B5&lamethyst drill &7(silk touch)'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7silk touch on all blocks'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - silk_touch:1
+    RADIUS: 1
+    DISABLED-BLOCKS: *id001
+    DURATION: 86400
+  CHOPPER:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_AXE
+    NAME: '&#9A58B5&lamethyst tree chopper'
+    LORE:
+    - '&#BDC3C7fells whole trees &dat once'
+    - '&#BDC3C7breaks the whole trunk'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:10
+    - unbreaking:3
+    MAX-LOGS: 128
+    AUTO-LOG-TAG: true             # true = every log, wood, stem and hyphae of the game counts (pale oak too), on top of LOG-BLOCKS
+    LOG-BLOCKS:
+    - OAK_LOG
+    - SPRUCE_LOG
+    - BIRCH_LOG
+    - JUNGLE_LOG
+    - ACACIA_LOG
+    - DARK_OAK_LOG
+    - CHERRY_LOG
+    - MANGROVE_LOG
+    - CRIMSON_STEM
+    - WARPED_STEM
+    - STRIPPED_OAK_LOG
+    - STRIPPED_SPRUCE_LOG
+    - STRIPPED_BIRCH_LOG
+    - STRIPPED_JUNGLE_LOG
+    - STRIPPED_ACACIA_LOG
+    - STRIPPED_DARK_OAK_LOG
+    - STRIPPED_CHERRY_LOG
+    - STRIPPED_MANGROVE_LOG
+    - STRIPPED_CRIMSON_STEM
+    - STRIPPED_WARPED_STEM
+    - PALE_OAK_LOG
+    - STRIPPED_PALE_OAK_LOG
+    DURATION: 86400
+  SELL-AXE:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_AXE
+    NAME: '&#9A58B5&lamethyst sell axe'
+    LORE:
+    - '&#BDC3C7sells everything in a chest at once'
+    - '&#BDC3C7right-click a chest'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    DURATION: 86400
+  SHOVEL:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_SHOVEL
+    NAME: '&#9A58B5&lamethyst shovel'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7soft ground only'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - fortune:3
+    RADIUS: 1
+    ALLOWED-BLOCKS:
+    - DIRT
+    - GRASS_BLOCK
+    - COARSE_DIRT
+    - PODZOL
+    - ROOTED_DIRT
+    - GRAVEL
+    - SAND
+    - RED_SAND
+    - CLAY
+    - SOUL_SAND
+    - SOUL_SOIL
+    - FARMLAND
+    - DIRT_PATH
+    - SNOW
+    - SNOW_BLOCK
+    - POWDER_SNOW
+    - MUD
+    DURATION: 86400
+  SHOVEL_SILK:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_SHOVEL
+    NAME: '&#9A58B5&lamethyst shovel &7(silk touch)'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7silk touch on soft ground'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - silk_touch:1
+    RADIUS: 1
+    ALLOWED-BLOCKS:
+    - DIRT
+    - GRASS_BLOCK
+    - COARSE_DIRT
+    - PODZOL
+    - ROOTED_DIRT
+    - GRAVEL
+    - SAND
+    - RED_SAND
+    - CLAY
+    - SOUL_SAND
+    - SOUL_SOIL
+    - FARMLAND
+    - DIRT_PATH
+    - SNOW
+    - SNOW_BLOCK
+    - POWDER_SNOW
+    - MUD
+    DURATION: 86400
+  HOE:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_HOE
+    NAME: '&#9A58B5&lamethyst hoe'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7leaves, hay, moss and crops'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - fortune:3
+    RADIUS: 1
+    BREAK-CROPS: true               # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+    CROPS-ONLY-MATURE: true         # true = a crop that is still growing is left alone; only fully grown ones are harvested
+    ALLOWED-BLOCKS:
+    - OAK_LEAVES
+    - SPRUCE_LEAVES
+    - BIRCH_LEAVES
+    - JUNGLE_LEAVES
+    - ACACIA_LEAVES
+    - DARK_OAK_LEAVES
+    - MANGROVE_LEAVES
+    - CHERRY_LEAVES
+    - PALE_OAK_LEAVES
+    - AZALEA_LEAVES
+    - FLOWERING_AZALEA_LEAVES
+    - NETHER_WART_BLOCK
+    - WARPED_WART_BLOCK
+    - HAY_BLOCK
+    - DRIED_KELP_BLOCK
+    - SHROOMLIGHT
+    - MOSS_BLOCK
+    - MOSS_CARPET
+    - SCULK
+    - SCULK_VEIN
+    - SPONGE
+    - WET_SPONGE
+    - TARGET
+    DURATION: 86400
+  HOE_SILK:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_HOE
+    NAME: '&#9A58B5&lamethyst hoe &7(silk touch)'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7silk touch, harvests crops'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - silk_touch:1
+    RADIUS: 1
+    BREAK-CROPS: true               # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+    CROPS-ONLY-MATURE: true         # true = a crop that is still growing is left alone; only fully grown ones are harvested
+    ALLOWED-BLOCKS:
+    - OAK_LEAVES
+    - SPRUCE_LEAVES
+    - BIRCH_LEAVES
+    - JUNGLE_LEAVES
+    - ACACIA_LEAVES
+    - DARK_OAK_LEAVES
+    - MANGROVE_LEAVES
+    - CHERRY_LEAVES
+    - PALE_OAK_LEAVES
+    - AZALEA_LEAVES
+    - FLOWERING_AZALEA_LEAVES
+    - NETHER_WART_BLOCK
+    - WARPED_WART_BLOCK
+    - HAY_BLOCK
+    - DRIED_KELP_BLOCK
+    - SHROOMLIGHT
+    - MOSS_BLOCK
+    - MOSS_CARPET
+    - SCULK
+    - SCULK_VEIN
+    - SPONGE
+    - WET_SPONGE
+    - TARGET
+    DURATION: 86400
+  SELL-HOE:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: true     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: NETHERITE_HOE
+    NAME: '&#9A58B5&lamethyst sell hoe'
+    LORE:
+    - '&#BDC3C7breaks &d9 blocks &7per strike'
+    - '&#BDC3C7sells the crops it breaks'
+    - '&#BDC3C7like the sell axe: sell multiplier applies'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    ENCHANTMENTS:
+    - efficiency:5
+    - unbreaking:3
+    - fortune:3
+    RADIUS: 1
+    SELL-CROPS: true                # true = the crops it breaks are sold at once (sell multiplier and sell progress apply, like /sellall); everything else it breaks drops as normal. The crops are the ones in BREAK-CROPS.
+    BREAK-CROPS: true               # true = the hoe also breaks crops (wheat, carrots, potatoes, beetroots, nether wart, berries, cocoa, melons, pumpkins...)
+    CROPS-ONLY-MATURE: true         # true = a crop that is still growing is left alone; only fully grown ones are harvested
+    ALLOWED-BLOCKS:
+    - OAK_LEAVES
+    - SPRUCE_LEAVES
+    - BIRCH_LEAVES
+    - JUNGLE_LEAVES
+    - ACACIA_LEAVES
+    - DARK_OAK_LEAVES
+    - MANGROVE_LEAVES
+    - CHERRY_LEAVES
+    - PALE_OAK_LEAVES
+    - AZALEA_LEAVES
+    - FLOWERING_AZALEA_LEAVES
+    - NETHER_WART_BLOCK
+    - WARPED_WART_BLOCK
+    - HAY_BLOCK
+    - DRIED_KELP_BLOCK
+    - SHROOMLIGHT
+    - MOSS_BLOCK
+    - MOSS_CARPET
+    - SCULK
+    - SCULK_VEIN
+    - SPONGE
+    - WET_SPONGE
+    - TARGET
+    DURATION: 86400
+  BUCKET:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: false     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: BUCKET
+    NAME: '&#9A58B5&lamethyst bucket'
+    LORE:
+    - '&#BDC3C7clears &d27 water blocks &7in one go'
+    - '&#BDC3C7right-click water'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    DRAIN-RADIUS: 1
+    MAX-DRAIN: 27
+    DURATION: 86400
+  SHARD-BOOSTER:
+    ENABLED: true        # false = this tool cannot be given, bought from a crate or used (copies players already hold stop working)
+    AUCTIONABLE: false     # true = players may list it on the auction house (it still cannot be sold with /sell, in the sell menu or with the sell axe)
+    MATERIAL: POTION
+    NAME: '&#9A58B5&lshard booster'
+    LORE:
+    - '&#BDC3C7&d4x &7shard multiplier'
+    - '&#BDC3C7duration: &d12 hours'
+    - ''
+    - '&#BDC3C7drink to &dactivate'
+    - ''
+    - '&#9A58B5✦ self destruct'
+    - '&#BDC3C7{time}'
+    BOOSTER-DURATION: 43200
+    DURATION: 43200
+  CHOP: {}
+AMETHYST-MESSAGES:
+  DISABLED-TOOL: '{prefix}&#BDC3C7this tool is turned off on this server.'
+  GIVE-DISABLED: '{prefix}&#BDC3C7that tool is turned off (ENABLED: false in amethyst-tools.yml).'
+  PREFIX: '&#9A58B5[amethyst] &r'
+  EXPIRED: '{prefix}&#BDC3C7your &d{tool} &7has &cexpired &7and crumbled away!'
+  EXCLUDED-WORLD: '{prefix}&#BDC3C7amethyst tools do not work in this world.'
+  DRILL-BREAK: '{prefix}&#BDC3C7&damethyst drill &7broke &d{count} &7blocks.'
+  CHOP-BREAK: '{prefix}&#BDC3C7&damethyst tree chopper &7chopped &d{count} &7logs.'
+  SELL-HOE-SUCCESS: '{prefix}&#BDC3C7sold the crops you harvested for &a${amount}&7.'
+  SELL-SUCCESS: '{prefix}&#BDC3C7sold all chest contents for &a${amount}&7.'
+  SELL-EMPTY: '{prefix}&#BDC3C7that chest is empty or holds nothing sellable.'
+  SELL-NO-CHEST: '{prefix}&#BDC3C7right-click a chest to use this.'
+  BUCKET-DRAIN: '{prefix}&#BDC3C7drained &d{count} &7water blocks.'
+  BUCKET-NO-WATER: '{prefix}&#BDC3C7there is no water close by.'
+  BOOSTER-ACTIVATED: '{prefix}&#BDC3C7&dshard booster &7activated! &d{multiplier}x &7shards for &d{time}&7.'
+  BOOSTER-ALREADY: '{prefix}&#BDC3C7a shard booster is already running!'
+  WRONG-OWNER: '{prefix}&#BDC3C7this tool belongs to another player.'
+  GIVE-SUCCESS: '{prefix}&#BDC3C7gave &d{type} &7to &d{player}&7.'
+  GIVE-USAGE: '{prefix}&#BDC3C7usage: &d/amethysttool give <player> <type> [duration]'
+  GIVE-INVALID-TYPE: '{prefix}&#BDC3C7invalid tool type. types: drill, drill_silk, chopper, sell_axe, shovel, shovel_silk, hoe, bucket, shard_booster'
+  RELOAD-SUCCESS: '{prefix}&#BDC3C7settings reloaded.'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

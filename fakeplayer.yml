@@ -1,0 +1,19 @@
+# /fakeplayer 1 puts a crouching bot where you stand, /fakeplayer 2 a standing one. /fakeplayer clear removes them all.
+fakeplayer:
+  ttl-seconds: 120          # how long a bot stays before it disappears (0 = until /fakeplayer clear). /fakeplayer 1 <seconds> overrides it per use.
+  # --- name ---
+  name-mode: RANDOM         # RANDOM = a random entry of names, FIXED = always `name`, ONLINE = the name of a random online player
+  name: Steve
+  names: [Steve, Alex, xXMinerXx, Dream, Technoblade, Wilbur, Sapnap]
+  show-name: true           # show the name tag above the bot
+  # --- skin ---
+  skin-mode: SAME           # SAME = the skin of the name shown, FIXED = the skin of the player in `skin`, RANDOM = a random entry of `skins`, DEFAULT = the default skin
+  skin: Notch               # used when skin-mode is FIXED (any real Minecraft username)
+  skins: [Notch, jeb_, Dinnerbone]
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

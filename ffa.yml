@@ -1,0 +1,66 @@
+# FFA (/ffa) and ranked PvP (/pvp). Players join a queue; when enough are waiting a match starts in a free arena (/ffaarena), everyone fights
+# with the items they already carry (they are saved and given back afterwards, nothing drops), the arena is rolled back and the players go home.
+# Ranked PvP (/pvp) uses the same matches with a kit that an admin made with /pvp kit create <name>.
+ffa:
+  min-players: 2                 # a match starts when this many players are waiting
+  max-players: 8                 # most players in one match (the rest wait for the next one)
+  queue-countdown-seconds: 10    # how long the queue waits once there are enough players
+  countdown-seconds: 5           # frozen countdown (title) after everyone was teleported into the arena
+  return-delay-seconds: 3        # after the match was decided, the winner is taken home after this delay
+  arena-padding: 40              # blocks around the arena spawns: building is allowed (and rolled back) inside, items and arrows there are cleaned up
+  full-loot: true                # plain FFA: dying (also leaving in combat, or logging out) drops ALL you carry; whoever picks it up keeps it. false = your items are saved and given back, nothing drops
+  kill-on-quit: true             # logging out in an FFA match kills the player (a death for them, a kill for whoever hit them last); false = they are just taken out
+  join-countdown: true           # /ffa and /ffa join: true = a countdown (stand still) before you are sent in; false = sent in at once. No queue any more.
+  join-countdown-seconds: 15
+  join-countdown-message: '&7Stay still for &e{time} seconds&7 - then you are sent into the FFA arena. Moving or &f/ffa leave &7cancels it.'
+  join-countdown-subtitle: '&7Stay still'
+  join-countdown-cancel: '&cCancelled - you moved.'
+  kits-enabled: false            # ranked /pvp kits (the queue + /pvp kit ...) are off; true brings them back
+  allow-building: true           # false = nobody can place or break blocks in a match
+  rollback-interval-seconds: 300 # every arena (pos1/pos2 arena) is put back by a timer: it starts when the first block changes (0 = no timer). Everybody inside is taken to the arena's /ffaarena setreturn point, or to a random place without one; their own items come back
+  rollback-warning-seconds: 30   # the last seconds are counted down in the middle of the screen
+  rollback-countdown: '&cArena resets in &f{time}s'
+  rollback-message: '&7The arena was reset - you were taken out.'
+  # Anti-camp (all on by default): no waiting at the entrance to kill players who arrive
+  anticamp:
+    spawn-protection: true       # a few seconds without damage after entering; it ends when you attack
+    protection-seconds: 4
+    spread-spawns: true          # somebody joining a running arena is put at the spawn point farthest from everybody inside
+    no-spawnkill-credit: true    # a kill within spawnkill-seconds of the victim arriving does not count (no kill, no streak, no death)
+    spawnkill-seconds: 8
+    spawnkill-message: '&7That kill does not count: the player had just arrived.'
+    rejoin-delay: true           # a short wait before joining again after dying
+    rejoin-seconds: 5
+    rejoin-message: '&cWait &f{time}s &cbefore you join the FFA again.'
+    keep-moving: true            # staying within stay-radius blocks for stay-seconds warns and then hurts a little
+    stay-seconds: 60
+    stay-radius: 3.0
+    stay-damage: 2.0
+    stay-message: '&cKeep moving! Staying in one place hurts.'
+
+  # Walk-in FFA pods: /cuboid bind <cuboid> ffa <arena>  (one cuboid per arena - bind as many arenas as you like). Stepping into the cuboid puts you in the arena at once,
+  # you fight with your own items (saved and given back), and the text above the cuboid shows the arena and how many are inside.
+  pods:
+    max-players: 10              # most players in one pod arena; one arena can have its own: /ffaarena settings <arena> max-players 6
+    countdown-seconds: 15        # stepping into the cuboid starts this countdown; stepping out cancels it; at zero the player is teleported into the arena (0 = at once)
+    countdown-message: '&7Stay in the pod for &e{time} seconds&7 - then you are sent into the arena. Step out to cancel.'
+    countdown-subtitle: '&7Stay in the pod'
+    countdown-cancel: '&cCancelled - you left the pod.'
+    height-above: 2              # blocks above the top of the cuboid that still count as inside (a cuboid selected on the floor is one block tall)
+    allow-building: true         # true (default) = building is allowed inside the arena a pod sends you to (never in the pod cuboid itself) and rolled back when the last player leaves or the timer runs out; false = nobody can
+    ignore-creative: false       # true = players in creative mode are not caught by a pod (false = they are switched to survival like everybody)
+    hologram: true               # the text above the cuboid
+    hologram-height: 2.0         # blocks above the top of the cuboid
+    hologram-scale: 1.0
+    hologram-lines:              # {arena} {players} {max}
+      - '&c&l{arena}'
+      - '&f{players}&7/&f{max}'
+    join-message: '&aYou joined the FFA arena &f{arena}&a. &7{players}/{max} players - use your own items. &f/ffa leave &7to go.'
+    full-message: '&cArena is full, please wait your turn.'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

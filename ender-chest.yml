@@ -1,0 +1,27 @@
+# /enderchest - rows are 1-6. A player gets the highest of the default and any permission below.
+enderchest:
+  default-rows: 6
+  # More pages (default false = one chest, exactly as before). true = the chest has `pages` pages: each page is 5 rows of items with arrows in the bottom row
+  # (/enderchest 2 opens page 2). Items from the old last row move to a free slot when the player opens the chest. Switch it off again and page 1 comes back (items on
+  # the other pages stay saved).
+  extra-pages: false
+  pages: 2                         # how many pages (2-20) - with rank-pages off, everybody gets this many
+  # Pages per rank (default false = everybody gets all `pages`). true = a player gets default-pages, or the highest number N they have the permission
+  # donutrep.enderchest.pages.N for - like donutrep.homes.20 - so it works with any group name:
+  #   lp group cosmicplus permission set donutrep.enderchest.pages.2 true
+  #   lp group cosmicplusplus permission set donutrep.enderchest.pages.3 true
+  # (pages is the most any rank can get, and extra-pages must be true). Staff using /ecsee see every page. Items on pages a player can no longer reach stay saved.
+  rank-pages: false
+  default-pages: 1
+  # permission donutrep.enderchest.rows.<name> -> rows
+  rows-by-permission:
+    vip: 4
+    vip+: 5
+    vip++: 6
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

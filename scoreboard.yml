@@ -1,0 +1,37 @@
+# Sidebar scoreboard. Edit freely, then /donutrep reload.
+
+# Sidebar scoreboard. Lines may use &, &#rrggbb and these tokens: {rank} {money} {shards} {kills} {deaths} {playtime} {ping} {pingcolor} {region} {team} {x} {y} {z} {coords}
+# {region} is the text at scoreboard.region below (where your server is, e.g. NA East). {pingcolor} is &a (up to ping-good-ms), &e (up to ping-ok-ms) or &c - put it in front of {ping}.
+# ({x} {z} {coords} are shifted when the player turned on Randomized Coords in /settings)
+# PlaceholderAPI placeholders (%...%) work too when PlaceholderAPI is installed. Lines that resolve to nothing are hidden.
+scoreboard:
+  region: 'NA East'     # shown by {region} (a server cannot detect its own region - write it here)
+  ping-good-ms: 100     # {pingcolor} is green up to this ping
+  ping-ok-ms: 200       # yellow up to this ping, red above
+  show-keyall: true     # adds a key-all countdown line (or put {keyall} in your own line)
+  keyall-line: '&#00A3FB⌛ &fkeyall &#00A3FB{keyall}'
+  show-coords: false    # true adds a coordinates line (or put {coords} in your own line)
+  coords-line: '&#00A3FB⌖ &fxyz &#00A3FB{coords}'
+  player-line-switches: true   # true: each player can hide their own lines in /settings (money, shards, kills, deaths, playtime, team, key-all, rank, ping); false: everybody sees every line
+  enabled: true
+  title: '&b&lCosmic SMP'
+  update-ticks: 20
+  lines:
+    - ''
+    - '&#FED600♛ &frank {rank}'
+    - '&#00FB00&l$ &fmoney &#00FB00{money}'
+    - '&#A202F8★ &fshards &#A202F8{shards}'
+    - '&#FB0000⚔ &fkills &#FB0000{kills}'
+    - '&#F87502☠ &fdeaths &#F87502{deaths}'
+    - '&#FBE200⌚ &fplaytime &#FBE200{playtime}'
+    - '{team_line}'
+    - ''
+    - '&#FED600♛ cosmicsmp.net ♛'
+    - '&7{region} &7(&#0068D5{ping}ms&7)'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

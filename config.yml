@@ -1,0 +1,160 @@
+economy:
+  starting-balance: 1000.0
+sell:
+  multiplier: 1.0
+homes:
+  max-homes-per-player: 1000
+afk:
+  timeout-seconds: 300
+  zone:
+    enabled: false
+    world: ''
+    x: 0.0
+    y: 64.0
+    z: 0.0
+  kick:
+    enabled: false
+    after-seconds: 1800
+travel:
+  rtp:
+    min-radius: 200.0
+    max-radius: 5000.0
+    cooldown-seconds: 30
+    max-attempts: 20
+    max-concurrent-searches: 3
+    queue-interval-seconds: 5
+tpa:
+  request-timeout-seconds: 60
+duels:
+  on-death-rtp: true
+  on-leave-rtp: true
+  on-finish-rtp: false
+  kill-on-quit: true
+  allow-building: true
+  use-arenas: true
+  rollback: true
+  arena-padding: 40
+  arena-message: '&7You are in the duel arena &f{arena}&7.'
+  arena-full-message: '&cAll duel arenas are in use, please wait your turn.'
+  countdown-seconds: 5
+  block-commands:
+  - spawn
+  - home
+  - homes
+  - sethome
+  - tpa
+  - tpahere
+  - tpaccept
+  - rtp
+  - rtpq
+  - warp
+  - afk
+  - ah
+  - auctionhouse
+  - orders
+  - shop
+  - sell
+  - enderchest
+  - ec
+  - team
+  - crate
+  - crates
+  - settings
+  block-all-commands: true
+  allow-commands:
+  - leave
+  - msg
+  - reply
+  - r
+  - tell
+  - w
+  claims: false
+  claims-keep-days: 7
+  draw-popup: true
+  draw-title: '&fDraw'
+  draw-subtitle: '&7No one died'
+  after-duel:
+    loot-time-text: '&eLoot time: &f{time}s'
+    rtp-countdown-seconds: 30
+    world: ''
+  block-message: '&cYou can''t use this command during a duel.'
+  music:
+    enabled: true
+    sound: minecraft:music_disc.pigstep
+    volume: 0.6
+    length-seconds: 148
+  pods:
+    countdown-seconds: 15
+    countdown-message: '&7Stay in the pod for &e{time} seconds&7 - then you are put
+      in a duel arena. Step out to cancel.'
+    countdown-subtitle: '&7Stay in the pod'
+    waiting-bar: '&7Waiting for an opponent...'
+    found-message: '&aOpponent found: &f{opponent}&a. The duel in &f{arena}&a starts
+      in &e{time} seconds&a - stay in the pod.'
+    partner-left-message: '&7Your opponent left the pod. Waiting for another player...'
+    hologram: true
+    hologram-height: 2.0
+    hologram-scale: 1.0
+    hologram-lines:
+    - '&b&l{arena}'
+    - '&f{players}&7/&f{max}'
+    waiting-message: '&7You are waiting for an opponent in &f{arena}&7. Stay in the
+      pod - the duel starts when somebody joins.'
+    start-message: '&aDuel found in &f{arena}&a against &f{opponent}&a!'
+    left-message: '&7You left the pod - you are not waiting for a duel any more.'
+    full-message: '&cArena is full, please wait your turn.'
+discord:
+  report:
+    enabled: true
+    webhook-url: ''
+    username: Player Report Notification
+    title: Player Report Notification
+    thumbnail: true
+  teamchat:
+    enabled: true
+    webhook-url: ''
+    username: Team Chat
+    title: Team Chat
+    batch-seconds: 10
+  alt-alert:
+    enabled: true
+    webhook-url: ''
+    username: Alt Watch
+    max-accounts: 5
+    repeat-hours: 24
+    show-ip: false
+    thumbnail: true
+  newplayer:
+    enabled: true
+    webhook-url: ''
+    username: New Players
+    after-minutes: 10
+    show-alts: true
+    thumbnail: true
+  pregen:
+    enabled: true
+    webhook-url: ''
+    username: Pregenerator
+    every-percent: 10
+    on-start: true
+    on-finish: true
+  punishments:
+    enabled: true
+    webhook-url: ''
+    username: Moderation System
+    types:
+    - BAN
+    - MUTE
+    - WARN
+    - KICK
+    - BLACKLIST
+    - STATSWIPE
+    show-counts: true
+    thumbnail: true
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

@@ -1,0 +1,102 @@
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ECOWATCH - posts a Discord alert whenever any player's Money balance jumps by at
+# least balance-jump-threshold between checks, so staff can spot duped/exploited
+# money quickly.
+# ═══════════════════════════════════════════════════════════════════════════════
+ecowatch:
+  discord:
+    webhook-url: ""
+    username: "EconomyWatchdog"
+  balance-jump-threshold: 10000.0
+  check-interval-seconds: 60
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MARKETWATCH - /marketwatch reports total circulating Money via a Discord webhook
+# on request; /ahstats shows real Auction House activity (the highest-priced active
+# listings).
+# ═══════════════════════════════════════════════════════════════════════════════
+marketwatch:
+  discord:
+    webhook-url: ""
+    username: "MarketWatch"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PURCHASEALERT - polls the same store backend StoreBridge delivers from and posts
+# a Discord alert for each new purchase. backend_url and plugin_key MUST match the
+# values in StoreBridge's own config.yml exactly, or polling stays paused.
+# ═══════════════════════════════════════════════════════════════════════════════
+purchasealert:
+  backend_url: ""
+  plugin_key: ""
+  poll_interval_seconds: 15
+  order_limit: 10
+  discord:
+    webhook-url: ""
+    username: "Store Purchases"
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================
+
+
+
+# Punishments (/ban, /tempban, /mute, /tempmute, /warn, /kick, /blacklist, /punish): who got punished, the type, the reason, who did it.
+discord:
+  # Player Report Notification: every /report is posted here (who, why, where). Blank url = off.
+  report:
+    enabled: true
+    webhook-url: ''
+    username: 'Player Report Notification'
+    title: 'Player Report Notification'
+    thumbnail: true
+  # Team chat: every team message is posted here (batched every few seconds). Blank url = off.
+  teamchat:
+    enabled: true
+    webhook-url: ''
+    username: 'Team Chat'
+    title: 'Team Chat'
+    batch-seconds: 10
+  # Alt alert: a webhook message when a player has MORE accounts than max-accounts (the accounts that logged in from the same IP address as theirs, /alts shows them).
+  alt-alert:
+    enabled: true                 # nothing is sent until webhook-url is filled in
+    webhook-url: ''
+    username: 'Alt Watch'
+    max-accounts: 5               # alert when a player has more than this many accounts (this number counts the player's own account too)
+    repeat-hours: 24              # the same player is reported again after this many hours (0 = at every join)
+    show-ip: false                # true = the IP address is in the message (leave it off if the channel is not private)
+    thumbnail: true               # the player's head render on the side of the message
+  # New players: a message when somebody joins for the first time (and after they played a few minutes). Blank url = off.
+  newplayer:
+    enabled: true                 # nothing is sent until webhook-url is filled in
+    webhook-url: ''
+    username: 'New Players'
+    after-minutes: 10             # a second message when they have played this long (0 = only the first)
+    show-alts: true               # how many other accounts share their IP address (and the first names)
+    thumbnail: true               # the player's head render on the side of the message
+  # Pregenerator (/pregen): a message for every every-percent percent a world has done, when one starts, finishes or is paused. Blank url = off.
+  pregen:
+    enabled: true                 # nothing is sent until webhook-url is filled in
+    webhook-url: ''
+    username: 'Pregenerator'
+    every-percent: 10             # a message at 10%, 20% ... (0 = no progress messages)
+    on-start: true
+    on-finish: true
+  punishments:
+    enabled: true                 # nothing is sent until webhook-url is filled in
+    webhook-url: ''
+    username: 'Moderation System'
+    types: [BAN, MUTE, WARN, KICK, BLACKLIST, STATSWIPE]
+    show-counts: true             # how many warnings / bans (...) the player has had, and their total
+    thumbnail: true               # the player's head render on the side of the message
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================
+

@@ -1,0 +1,473 @@
+# Info menus (RANKS, MEDIA, SERVER-INFO/help, STATS).
+# Edit text, materials and slots freely. A button with COMMAND runs that command when clicked.
+RANKS-MENU:
+  TITLE: '&8Ranks'
+  SIZE: 27
+  BUTTONS:
+    DEFAULT:
+      MATERIAL: PLAYER_HEAD
+      SLOT: 11
+      DISPLAY-NAME: '&fDefault'
+      LORE:
+      - '&73 Homes'
+      - '&718 Auction Slots'
+      - '&718 Order Slots'
+      COMMAND: ''
+    DONUT_PLUS:
+      MATERIAL: PLAYER_HEAD
+      SLOT: 13
+      DISPLAY-NAME: '&fDonut&#00A3FB+'
+      LORE:
+      - '&79 Homes'
+      - '&745 Auction Slots'
+      - '&745 Order Slots'
+      - '&732 View Distance'
+      - '&77 Render Distance'
+      - ''
+      - '&a$4.99 &7per month'
+      COMMAND: ''
+    DONUT_PLUS_PLUS:
+      MATERIAL: PLAYER_HEAD
+      SLOT: 14
+      DISPLAY-NAME: '&fDonut&#00A3FB++'
+      LORE:
+      - '&727 Homes'
+      - '&790 Auction Slots'
+      - '&790 Order Slots'
+      - '&732 View Distance'
+      - '&77 Render Distance'
+      - ''
+      - '&a$14.99 &7per month'
+      COMMAND: ''
+    DONUT_PLUS_PLUS_PLUS:
+      MATERIAL: PLAYER_HEAD
+      SLOT: 15
+      DISPLAY-NAME: '&fDonut&#00A3FB+++'
+      LORE:
+      - '&790 Homes'
+      - '&790 Auction Slots'
+      - '&790 Order Slots'
+      - '&732 View Distance'
+      - '&77 Render Distance'
+      - '&dPriority Chunk Generation'
+      - ''
+      - '&a$29.99 &7per month'
+      COMMAND: ''
+MEDIA-MENU:
+  TITLE: '&8Media Rank'
+  SIZE: 27
+  MEDIA-BUTTON:
+    DISPLAY-NAME: '&dMedia Rank'
+    MATERIAL: PINK_DYE
+    SLOT: 13
+    LORE:
+    - '&dMeet any one of these:'
+    - '&d- &f30 average viewers on Stream'
+    - '&d- &f6k views on a YouTube Video'
+    - '&d- &f30k views on a TikTok'
+    - '&d- &f50k views on YouTube Short'
+    - ''
+    - '&dReminders:'
+    - '&8- &7Must have the IP on screen'
+    - '&8- &7Must be from the new season'
+    - '&8- &7Create ticket in discord for the rank'
+    - '&8- &7It lasts 90 days and has all top ranks perks'
+    - ''
+SERVER-INFO-MENU:
+  TITLE: '&8Server Info'
+  SIZE: 27
+  BUTTONS:
+    SERVER:
+      MATERIAL: LANTERN
+      SLOT: 10
+      NAME: '&#00A3FBCosmicSMP'
+      LORE:
+      - '&fClaim your land, win fights'
+      - '&fand get rich.'
+      - ''
+      - '&#00A3FBPVP: &cEnabled'
+      - '&#00A3FBDifficulty: &cHard'
+      - '&#00A3FBkeepInventory: &cFalse'
+    ECONOMY:
+      MATERIAL: GOLD_INGOT
+      SLOT: 11
+      NAME: '&#00A3FBEconomy'
+      LORE:
+      - '&fSell what you gather to earn money.'
+      - '&fSpend it on better armor and PvP gear.'
+      - ''
+      - '&#00A3FBTry: &f/sell and /auction'
+    RULES:
+      MATERIAL: KNOWLEDGE_BOOK
+      SLOT: 12
+      NAME: '&#00A3FBRules'
+      LORE:
+      - '&fEvery player must follow the rules,'
+      - '&fbreaking them gets you punished.'
+      - ''
+      - '&#00A3FBType: &f/rules'
+    LEADERBOARDS:
+      MATERIAL: CLOCK
+      SLOT: 13
+      NAME: '&#00A3FBLeaderboards'
+      LORE:
+      - '&fCheck the best players and'
+      - '&ffight for a spot on the board.'
+      - ''
+      - '&#00A3FBType: &f/leaderboards'
+    SHARDS:
+      MATERIAL: AMETHYST_SHARD
+      SLOT: 14
+      NAME: '&#00A3FBAFK Shards'
+      LORE:
+      - '&fStand in the AFK area to earn shards,'
+      - '&fthen buy spawners, keys and more.'
+      - ''
+      - '&#00A3FBType: &f/afk'
+    SETTINGS:
+      MATERIAL: GRAY_DYE
+      SLOT: 15
+      NAME: '&#00A3FBSettings'
+      LORE:
+      - '&fAdjust your options'
+      - '&fto how you like them.'
+      - ''
+      - '&#00A3FBType: &f/settings'
+    RTP:
+      MATERIAL: OAK_SAPLING
+      SLOT: 16
+      NAME: '&#00A3FBRandom Teleport'
+      LORE:
+      - '&fRandom teleport takes you'
+      - '&ffar away from spawn.'
+      - ''
+      - '&#00A3FBOverworld: &f175k by 175k'
+      - '&#00A3FBNether: &f7.5k by 7.5k'
+      - '&#00A3FBEnd: &f225k by 225k'
+      - ''
+      - '&#00A3FBType: &f/rtp'
+  NAVIGATION:
+    BACK-SLOT: 18
+    PAGE-INFO-SLOT: 22
+    NEXT-SLOT: 26
+    PAGE-INFO-MATERIAL: BOOK
+    PAGE-INFO-NAME: '&#00A3FBHelp Pages'
+  PAGES:
+    '1':
+      TITLE: '&8Server Info'
+      SIZE: 27
+      BUTTONS:
+        SERVER:
+          MATERIAL: LANTERN
+          SLOT: 10
+          NAME: '&#00A3FBCosmicSMP'
+          LORE:
+          - '&fClaim your land, win fights'
+          - '&fand get rich.'
+          - ''
+          - '&#00A3FBPVP: &cEnabled'
+          - '&#00A3FBDifficulty: &cHard'
+          - '&#00A3FBkeepInventory: &cFalse'
+        ECONOMY:
+          MATERIAL: GOLD_INGOT
+          SLOT: 11
+          NAME: '&#00A3FBEconomy'
+          LORE:
+          - '&fSell what you gather to earn money.'
+          - '&fSpend it on better armor and PvP gear.'
+          - ''
+          - '&#00A3FBTry: &f/sell and /auctionhouse'
+        RULES:
+          MATERIAL: KNOWLEDGE_BOOK
+          SLOT: 12
+          NAME: '&#00A3FBRules'
+          LORE:
+          - '&fEvery player must follow the rules,'
+          - '&fbreaking them gets you punished.'
+          - ''
+          - '&#00A3FBType: &f/rules'
+          COMMAND: rules
+        LEADERBOARDS:
+          MATERIAL: CLOCK
+          SLOT: 13
+          NAME: '&#00A3FBLeaderboards'
+          LORE:
+          - '&fCheck the best players and'
+          - '&ffight for a spot on the board.'
+          - ''
+          - '&#00A3FBType: &f/leaderboards'
+          COMMAND: leaderboards
+        SHARDS:
+          MATERIAL: AMETHYST_SHARD
+          SLOT: 14
+          NAME: '&#00A3FBAFK Shards'
+          LORE:
+          - '&fStand in the AFK area to earn shards,'
+          - '&fthen buy spawners, keys and more.'
+          - ''
+          - '&#00A3FBType: &f/afk'
+          COMMAND: afk
+        SETTINGS:
+          MATERIAL: GRAY_DYE
+          SLOT: 15
+          NAME: '&#00A3FBSettings'
+          LORE:
+          - '&fAdjust your options'
+          - '&fto how you like them.'
+          - ''
+          - '&#00A3FBType: &f/settings'
+          COMMAND: settings
+        RTP:
+          MATERIAL: OAK_SAPLING
+          SLOT: 16
+          NAME: '&#00A3FBRandom Teleport'
+          LORE:
+          - '&fRandom teleport takes you'
+          - '&ffar away from spawn.'
+          - ''
+          - '&#00A3FBOverworld: &f175k by 175k'
+          - '&#00A3FBNether: &f7.5k by 7.5k'
+          - '&#00A3FBEnd: &f225k by 225k'
+          - ''
+          - '&#00A3FBType: &f/rtp'
+          COMMAND: rtp
+    '2':
+      TITLE: '&8First Steps'
+      SIZE: 27
+      BUTTONS:
+        START_HERE:
+          MATERIAL: BOOK
+          SLOT: 10
+          NAME: '&#00A3FBBegin Here'
+          LORE:
+          - '&f1. Head out with &b/rtp&f.'
+          - '&f2. Gather wood, food and iron.'
+          - '&f3. Put up a safe base.'
+          - '&f4. Save it with &b/sethome&f.'
+          CLICK-MESSAGE:
+          - '&7Start with &f/rtp &7to reach open land.'
+          - '&7After building, save the spot with &f/sethome&7.'
+        MONEY:
+          MATERIAL: GOLD_INGOT
+          SLOT: 11
+          NAME: '&#00A3FBEarn Money'
+          LORE:
+          - '&fSell blocks, ores and drops using'
+          - '&b/sell &for post them on'
+          - '&b/auctionhouse&f.'
+          - ''
+          - '&#00A3FBHint: &fHold rare loot back to trade it.'
+          COMMAND: sell
+        HOMES:
+          MATERIAL: RED_BED
+          SLOT: 12
+          NAME: '&#00A3FBHomes'
+          LORE:
+          - '&fMark places you care about with'
+          - '&b/sethome <name>&f.'
+          - ''
+          - '&#00A3FBUse: &f/home'
+          COMMAND: home
+        TEAMS:
+          MATERIAL: IRON_HELMET
+          SLOT: 13
+          NAME: '&#00A3FBTeams'
+          LORE:
+          - '&fTeam up, share a base'
+          - '&fand choose what members may do.'
+          - ''
+          - '&#00A3FBUse: &f/team'
+          COMMAND: team
+        COMBAT:
+          MATERIAL: DIAMOND_SWORD
+          SLOT: 14
+          NAME: '&#00A3FBFight Smart'
+          LORE:
+          - '&fDying costs you items because'
+          - '&fkeepInventory is off.'
+          - ''
+          - '&#00A3FBHint: &fSkip risky fights'
+          - '&funtil your gear is ready.'
+          CLICK-MESSAGE:
+          - '&7You lose your items when you die, so gear up before big fights.'
+          - '&7Bring spare armor and food if you PvP often.'
+        SPAWN:
+          MATERIAL: COMPASS
+          SLOT: 15
+          NAME: '&#00A3FBSpawn'
+          LORE:
+          - '&fReturn to spawn for'
+          - '&fthe shops, safety or a restart.'
+          - ''
+          - '&#00A3FBType: &f/spawn'
+          COMMAND: spawn
+        RTP_GUIDE:
+          MATERIAL: OAK_SAPLING
+          SLOT: 16
+          NAME: '&#00A3FBRTP Guide'
+          LORE:
+          - '&fTry RTP if spawn is busy'
+          - '&for you need fresh land.'
+          - ''
+          - '&#00A3FBType: &f/rtp'
+          COMMAND: rtp
+    '3':
+      TITLE: '&8Handy Commands'
+      SIZE: 27
+      BUTTONS:
+        SHOP:
+          MATERIAL: EMERALD
+          SLOT: 10
+          NAME: '&#00A3FBShop'
+          LORE:
+          - '&fGet useful items, blocks'
+          - '&fand beginner gear.'
+          - ''
+          - '&#00A3FBType: &f/shop'
+          COMMAND: shop
+        SELL:
+          MATERIAL: CHEST
+          SLOT: 11
+          NAME: '&#00A3FBSell'
+          LORE:
+          - '&fConvert farmed or mined items'
+          - '&finto cash quickly.'
+          - ''
+          - '&#00A3FBType: &f/sell'
+          COMMAND: sell
+        TPA:
+          MATERIAL: ENDER_PEARL
+          SLOT: 12
+          NAME: '&#00A3FBTeleport Requests'
+          LORE:
+          - '&fAsk with &b/tpa <player> &for'
+          - '&b/tpahere <player>&f.'
+          - ''
+          - '&#00A3FBHint: &fOnly accept teleports from'
+          - '&fplayers you trust.'
+          CLICK-MESSAGE:
+          - '&7&f/tpa <player> &7asks to teleport to that player.'
+          - '&7&f/tpahere <player> &7asks them to come to you.'
+        LEADERBOARDS_GUIDE:
+          MATERIAL: CLOCK
+          SLOT: 13
+          NAME: '&#00A3FBLeaderboards'
+          LORE:
+          - '&fFind out who leads in'
+          - '&fmoney, kills and other stats.'
+          - ''
+          - '&#00A3FBType: &f/leaderboards'
+          COMMAND: leaderboards
+        SETTINGS_GUIDE:
+          MATERIAL: GRAY_DYE
+          SLOT: 14
+          NAME: '&#00A3FBSettings'
+          LORE:
+          - '&fSwitch personal options such as'
+          - '&falerts and menu choices.'
+          - ''
+          - '&#00A3FBType: &f/settings'
+          COMMAND: settings
+        RULES_GUIDE:
+          MATERIAL: KNOWLEDGE_BOOK
+          SLOT: 15
+          NAME: '&#00A3FBRules'
+          LORE:
+          - '&fRead the rules before you grind'
+          - '&for trade with other players.'
+          - ''
+          - '&#00A3FBType: &f/rules'
+          COMMAND: rules
+        SOCIAL_GUIDE:
+          MATERIAL: PINK_DYE
+          SLOT: 16
+          NAME: '&#00A3FBSocial & Media'
+          LORE:
+          - '&fOpen the server links and see the'
+          - '&fmedia rank requirements.'
+          - ''
+          - '&#00A3FBType: &f/media'
+          COMMAND: media
+STATS-MENU:
+  TITLE: '&8{username} Stats'
+  SIZE: 36
+  BUTTONS:
+    MONEY:
+      DISPLAY-NAME: '&#6AF08CMoney'
+      MATERIAL: EMERALD
+      SLOT: 10
+      LORE:
+      - '&7{value}'
+    SHARDS:
+      DISPLAY-NAME: '&#6AF08CShards'
+      MATERIAL: AMETHYST_SHARD
+      SLOT: 11
+      LORE:
+      - '&7{value}'
+    KILLS:
+      DISPLAY-NAME: '&#6AF08CKills'
+      MATERIAL: DIAMOND_SWORD
+      SLOT: 12
+      LORE:
+      - '&7{value}'
+    DEATHS:
+      DISPLAY-NAME: '&#6AF08CDeaths'
+      MATERIAL: SKELETON_SKULL
+      SLOT: 13
+      LORE:
+      - '&7{value}'
+    PLAYTIME:
+      DISPLAY-NAME: '&#6AF08CPlaytime'
+      MATERIAL: CLOCK
+      SLOT: 14
+      LORE:
+      - '&7{value}'
+    BLOCKS_PLACED:
+      DISPLAY-NAME: '&#6AF08CBlocks Placed'
+      MATERIAL: STONE
+      SLOT: 15
+      LORE:
+      - '&7{value}'
+    BLOCKS_BROKEN:
+      DISPLAY-NAME: '&#6AF08CBlocks Broken'
+      MATERIAL: COBBLESTONE
+      SLOT: 16
+      LORE:
+      - '&7{value}'
+    MOBS_KILLED:
+      DISPLAY-NAME: '&#6AF08CMobs Killed'
+      MATERIAL: ZOMBIE_HEAD
+      SLOT: 19
+      LORE:
+      - '&7{value}'
+    KILL_STREAK:
+      DISPLAY-NAME: '&#6AF08CKill Streak'
+      MATERIAL: DIAMOND_AXE
+      SLOT: 20
+      LORE:
+      - '&7{value}'
+    HIGHEST_KILL_STREAK:
+      DISPLAY-NAME: '&#6AF08CHighest Kill Streak'
+      MATERIAL: NETHERITE_SWORD
+      SLOT: 21
+      LORE:
+      - '&7{value}'
+    MONEY_SPENT:
+      DISPLAY-NAME: '&#6AF08CMoney Spent On Shop'
+      MATERIAL: GOLD_NUGGET
+      SLOT: 22
+      LORE:
+      - '&7{value}'
+    MONEY_MADE:
+      DISPLAY-NAME: '&#6AF08CMoney Made On /Sell'
+      MATERIAL: IRON_NUGGET
+      SLOT: 23
+      LORE:
+      - '&7{value}'
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

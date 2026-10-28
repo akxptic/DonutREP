@@ -1,0 +1,91 @@
+# Hide: a player can scramble their name or take on a disguise (name + skin).
+ENABLED: true
+COOLDOWN-SECONDS: 20             # wait this long before changing the hide state again
+MAX-NAME-LENGTH: 16
+
+# A scrambled name is a random string of these characters.
+SCRAMBLE:
+  LENGTH: 8
+  CHARACTERS: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+
+# /disguise <alias> uses the alias key. NAME is what other players see, SKIN points at an entry of SKINS below.
+ALIASES:
+  mrbeast:
+    NAME: "MrBeast"
+    SKIN: mrbeast
+  technoblade:
+    NAME: "Technoblade"
+    SKIN: technoblade
+  dream:
+    NAME: "Dream"
+    SKIN: dream
+  drdonutt:
+    NAME: "DrDonutt"
+    SKIN: drdonutt
+  wanderer:
+    NAME: "Wanderer"
+    SKIN: wanderer
+  nightfall:
+    NAME: "Nightfall"
+    SKIN: nightfall
+  pixelpal:
+    NAME: "Pixelpal"
+    SKIN: pixelpal
+  rune:
+    NAME: "Rune"
+    SKIN: rune
+
+# USERNAME is looked up through Mojang (or SkinsRestorer's cache) the first time the skin is used.
+# MHF_* are Mojang's own head accounts.
+SKINS:
+  mrbeast:
+    DISPLAY-NAME: "MrBeast"
+    USERNAME: "MrBeast"
+  technoblade:
+    DISPLAY-NAME: "Technoblade"
+    USERNAME: "Technoblade"
+  dream:
+    DISPLAY-NAME: "Dream"
+    USERNAME: "Dream"
+  drdonutt:
+    DISPLAY-NAME: "DrDonutt"
+    USERNAME: "DrDonutt"
+  wanderer:
+    DISPLAY-NAME: "Wanderer"
+    USERNAME: "MHF_Steve"
+  nightfall:
+    DISPLAY-NAME: "Nightfall"
+    USERNAME: "MHF_Alex"
+  pixelpal:
+    DISPLAY-NAME: "Pixelpal"
+    USERNAME: "MHF_Villager"
+  rune:
+    DISPLAY-NAME: "Rune"
+    USERNAME: "MHF_Enderman"
+
+MESSAGES:
+  DISABLED: "&cHide is turned off on this server."
+  IN-COMBAT: "&cYou cannot hide or unhide while in combat."
+  COOLDOWN: "&cWait &f{seconds}s &cbefore you change your hide again."
+  ALREADY-HIDDEN: "&cYou are already using that identity."
+  NOT-HIDDEN: "&cThat player is not hidden."
+  PLAYER-NOT-FOUND: "&cThat player was not found."
+  INVALID-ALIAS: "&cThat alias does not exist."
+  INVALID-SKIN: "&cThat skin name or link could not be used."
+  SKIN-SEARCHING: "&7Looking up the skin &f{skin}&7..."
+  ALIAS-IN-USE: "&cSomebody is already using that alias."
+  SCRAMBLED: "&aYour name is now scrambled: &f{alias}&a."
+  DISGUISED: "&aYou are now disguised as &f{alias}&a."
+  REMOVED: "&aYou are no longer hidden."
+  ADMIN-REMOVED: "&aHide removed from &f{player}&a."
+  REMOVED-BY-ADMIN: "&cA staff member removed your hide."
+  STATUS-NONE: "&7Hide: &cnot active"
+  STATUS-ACTIVE: "&7Hide: &a{mode} &8- &f{alias}"
+  CHECK: "&bHide check\n&7Real name: &f{real}\n&7Alias: &f{alias}\n&7Mode: &f{mode}\n&7Skin: &f{skin}"
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

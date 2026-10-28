@@ -1,0 +1,39 @@
+# Crate party (/crateparty start - an admin command). Everybody gets a few random crate keys, with a chat message, a title and a sound.
+#
+# KEYS AND CHANCES
+#   The keys are the same as key-all (common, rare, epic - see keyall.tier-crates in plus.yml), and you can add more: write any crate id that exists in /crate.
+#   The number is the chance of that key in PERCENT. It is not the same as the key-all chances (those are in plus.yml, keyall.random-keys) - change them separately.
+#   THE CHANCES MUST ADD UP TO EXACTLY 100. If they do not, or if a key does not exist, crate party does NOT run: an error is written to the console when the server
+#   starts (where the banner is) and /crateparty start refuses. Fix the file and run /crateparty reload.
+crateparty:
+  enabled: true
+  online-only: true       # true = only the players who are online get keys; false = everybody who ever joined (offline players find the keys when they log in)
+  rolls: 1                # how many times each player rolls a key (1 = every drop gives each player ONE key)
+  amount: 1               # keys per roll
+  every-minutes: 0        # 0 = only when an admin runs /crateparty start; above 0 = also gives keys by itself every this many minutes (no end)
+  # Timed party:  /crateparty start <length> <every>   e.g.  /crateparty start 1h 5m  = runs 1 hour, every online player gets a key every 5 minutes
+  first-drop-at-start: true   # true = the first keys come at once, then every interval; false = the first keys come after the first interval
+  min-interval-seconds: 10    # the shortest time between two drops an admin may use
+  show-countdown: true        # an action bar with the time to the next keys while a timed party runs
+  countdown-text: '&d&lCrate Party &7- next keys in &f{time}'
+  start-message: '&d&lCRATE PARTY &7- &fa crate party started! Everyone gets keys every &e{every}&f for &e{duration}&f.'
+  end-message: '&d&lCRATE PARTY &7- &fthe crate party is over! Thanks for playing.'
+  stop-message: '&d&lCRATE PARTY &7- &fthe crate party was ended.'
+  keys:
+    common: 50
+    rare: 30
+    epic: 20
+    # example of an extra key (a crate that exists):  mycrate: 10   (then lower the others so everything adds up to 100)
+  broadcast: '&d&lCRATE PARTY &7- &f{players} players got crate keys!'    # '' = no broadcast
+  message:                # {keys} = what the player got, {total} = how many keys
+    - ''
+    - '&d&lCrate Party!'
+    - '&fYou received {keys}&f.'
+    - ''
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

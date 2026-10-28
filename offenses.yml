@@ -1,0 +1,158 @@
+# Preset offenses for /punish <player> [offense] - each offense is a ladder: the first time a player is punished for it the first
+# duration is used, the second time the second one, and the last one repeats.
+#
+# EVERY TIME HERE IS YOURS TO CHANGE:
+#   - edit the durations of any offense below ("30m", "6h", "1d", "7d", "30d", "perm" ...), add or delete tiers
+#   - settings: duration-multiplier makes every ban / mute longer or shorter at once (2.0 = twice as long, 0.5 = half)
+#   - /punish <player> <offense> <time> uses the time you type instead of the ladder
+#
+# type: BAN | MUTE | WARN | KICK      (a duration of "0s" is a warning, "perm" is permanent)
+
+settings:
+  duration-multiplier: 1.0
+
+offenses:
+  # ---------------------------------------------------------------- chat
+  spam:
+    name: "Chat Spam"
+    type: MUTE
+    durations: ["1h", "6h", "1d", "7d"]
+  flooding:
+    name: "Chat Flooding"
+    type: MUTE
+    durations: ["1h", "6h", "1d"]
+  caps:
+    name: "Excessive Caps"
+    type: MUTE
+    durations: ["30m", "2h", "1d"]
+  advertising:
+    name: "Advertising"
+    type: MUTE
+    durations: ["1d", "7d", "30d"]
+  toxicity:
+    name: "Toxic Behaviour"
+    type: MUTE
+    durations: ["6h", "1d", "7d", "30d"]
+  harassment:
+    name: "Harassment"
+    type: MUTE
+    durations: ["1d", "7d", "30d", "perm"]
+  hate-speech:
+    name: "Hate Speech"
+    type: MUTE
+    durations: ["3d", "30d", "perm"]
+  threats:
+    name: "Threats"
+    type: MUTE
+    durations: ["7d", "30d", "perm"]
+  mute-evasion:
+    name: "Mute Evasion"
+    type: MUTE
+    durations: ["7d", "30d", "perm"]
+
+  # ---------------------------------------------------------------- cheating
+  xray:
+    name: "X-Ray"
+    type: BAN
+    durations: ["14d", "60d", "perm"]
+  fly-speed:
+    name: "Fly / Speed Hacks"
+    type: BAN
+    durations: ["7d", "30d", "perm"]
+  kill-aura:
+    name: "Kill Aura"
+    type: BAN
+    durations: ["14d", "60d", "perm"]
+  auto-clicker:
+    name: "Auto Clicker"
+    type: BAN
+    durations: ["7d", "30d", "perm"]
+  macros:
+    name: "Macros / Scripts"
+    type: BAN
+    durations: ["3d", "14d", "perm"]
+  bots:
+    name: "Bots"
+    type: BAN
+    durations: ["perm"]
+  bug-abuse:
+    name: "Bug Abuse"
+    type: BAN
+    durations: ["3d", "14d", "perm"]
+  duping:
+    name: "Item Duping"
+    type: BAN
+    durations: ["7d", "perm"]
+  client-exploits:
+    name: "Client Exploits"
+    type: BAN
+    durations: ["14d", "perm"]
+
+  # ---------------------------------------------------------------- accounts
+  alt-abuse:
+    name: "Alt Abuse"
+    type: BAN
+    durations: ["7d", "perm"]
+  ban-evasion:
+    name: "Ban Evasion"
+    type: BAN
+    durations: ["perm"]
+  compromised-account:
+    name: "Compromised Account"
+    type: BAN
+    durations: ["perm"]
+
+  # ---------------------------------------------------------------- content
+  bad-build:
+    name: "Inappropriate Build"
+    type: BAN
+    durations: ["3d", "14d", "perm"]
+  bad-skin:
+    name: "Inappropriate Skin"
+    type: BAN
+    durations: ["1d", "7d"]
+  bad-sign:
+    name: "Inappropriate Sign"
+    type: BAN
+    durations: ["3d", "14d"]
+  bad-name:
+    name: "Inappropriate Name"
+    type: KICK
+    durations: ["0s"]
+
+  # ---------------------------------------------------------------- trading
+  scam:
+    name: "Scamming"
+    type: BAN
+    durations: ["14d", "perm"]
+  cross-trading:
+    name: "Cross Trading"
+    type: BAN
+    durations: ["7d", "30d"]
+
+  # ---------------------------------------------------------------- safety
+  doxxing:
+    name: "Sharing Personal Information"
+    type: BAN
+    durations: ["perm"]
+  malware:
+    name: "Malware / Rat Links"
+    type: BAN
+    durations: ["perm"]
+  real-life-threats:
+    name: "Real Life Threats"
+    type: BAN
+    durations: ["perm"]
+
+  # ---------------------------------------------------------------- general
+  warning:
+    name: "Rule Warning"
+    type: WARN
+    durations: ["0s"]
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

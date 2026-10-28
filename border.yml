@@ -1,0 +1,69 @@
+# border.yml - the world border of the Overworld, the Nether and the End, and the pregenerator (/pregen).
+# /donutrep reload (or /border reload) reads this file again. /border set <overworld|nether|end|all> <radius> changes a radius for you.
+#
+# The border is a SQUARE around a centre. The real Minecraft border is set too (the wall and the red edge), but its own damage is turned off:
+# the damage comes from here. Crossing the border gives a warning once; after the grace time you take damage every second, and it doubles every time
+# (1 heart, 2, 4, 8 ...) until you walk back inside.
+border:
+  enabled: true                  # false = no border and no damage anywhere (the world borders already set stay as they are)
+  exclude-worlds: []             # worlds that never get this border (arena or event worlds), by name, for example [duel_world, ffa_world]
+  vanilla-border: true           # also set the real Minecraft world border (the wall)
+  vanilla-warning-distance: 10   # the red edge of the screen starts this many blocks before the border
+
+  overworld:
+    enabled: true
+    radius: 200000               # blocks from the centre to the edge (the whole side is twice this)
+    center-x: 0
+    center-z: 0
+  nether:
+    enabled: true
+    radius: 200000
+    center-x: 0
+    center-z: 0
+  end:
+    enabled: true
+    radius: 200000
+    center-x: 0
+    center-z: 0
+
+  damage:
+    enabled: true
+    start-hearts: 1              # the first hit, in hearts (1 heart = 2 health)
+    multiplier: 2                # every second outside the hit is this many times bigger: 1, 2, 4, 8 hearts ...
+    max-hearts: 0                # the biggest single hit in hearts (0 = no limit)
+    grace-seconds: 1             # seconds between crossing the border and the first hit
+    interval-seconds: 1          # how often the border checks players and hits them
+    affect-creative: false       # true = creative players are hurt too (spectators never)
+
+  warning:
+    enabled: true                # the warning you get once, the moment you cross the border
+    title: "&c&lWORLD BORDER"
+    subtitle: "&7You left the map - go back now!"
+    message: "&cYou crossed the world border! &7The damage doubles every second - walk back inside."
+    sound: "block.anvil.land"    # a sound key (empty = no sound)
+    back-message: "&aYou are back inside the border."   # empty = no message
+
+  bordertp:                      # /bordertp <overworld|nether|end> [east|west|north|south] (admins)
+    distance-inside: 3           # stand this many blocks inside the edge
+    platform: true               # where there is no ground (void, lava) make a small platform
+    platform-material: OBSIDIAN
+
+# The pregenerator (/pregen start|pause|resume|stop|status): makes the land of a world ahead of time, like the Chunky plugin.
+# It skips chunks that already exist (so it can carry on where Chunky stopped) and keeps its progress in data2/pregen-state.yml.
+# skip-check: status reads every saved chunk it walks over (hours on a huge old world, done by background threads); header only looks at the region file list (minutes).
+pregen:
+  enabled: true
+  chunks-per-tick: 16            # new chunks asked for per tick for each world (more = faster, more load)
+  max-in-flight: 64              # at most this many chunks are being made at the same time for each world
+  min-tps: 17.0                  # no new chunks are asked for while the server runs slower than this
+  skip-check: status             # status = a chunk counts as done when its saved copy is completely generated (a half finished one is made complete) | header = any chunk that is in the region file counts (much faster; the game saves half finished chunks around every chunk it makes, header counts those as done too)
+  save-seconds: 30               # how often the progress is saved
+  log-minutes: 5                 # a progress line in the console this often (0 = never)
+  auto-resume: false             # true = a pregeneration that was running when the server stopped carries on by itself at start
+
+# ============================================================================================================
+# DonutREP - Copyright (c) 2026 akxptic (Adrian Jauregui). All rights reserved. Discord: https://discord.gg/Ad8DGbF43d
+# Free to use on your own server. NOT to be copied, shared, resold or recreated (by hand or with AI tools) without the written consent of akxptic.
+# Any third party that tries - on any social media platform or anywhere else - will receive a DMCA (Digital Millennium Copyright Act) takedown.
+# Selling or distributing DonutREP to others is not planned, not even in the future. The full license is inside the DonutREP jar (LICENSE.txt).
+# ============================================================================================================

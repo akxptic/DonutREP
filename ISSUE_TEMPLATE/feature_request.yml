@@ -1,0 +1,71 @@
+name: ✨ Feature Request
+description: Propose an idea or a new feature for BetterEconomy/DonutREP.
+title: "[Feature]: "
+labels: ["type: feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Have an idea for BetterEconomy/DonutREP?
+        Suggestions are welcome! Please describe your idea below. One idea per request, please.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the plugin is it for?
+      options:
+        - Crates / keys / key-all
+        - Shop / QuickShop / orders / auction house / sell
+        - Teams / friends
+        - Homes / warps / TPA / RTP / spawn
+        - Duels / FFA / arenas
+        - Cuboids / AFK / key menus / portals
+        - Ranks / scoreboard / tab list / chat
+        - Staff tools / punishments
+        - Amethyst tools / spawners
+        - Config files / language / dialogs
+        - A new feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_summary
+    attributes:
+      label: Feature Summary
+      description: Explain the feature you would like to see added.
+      placeholder: "Describe the new feature or improvement..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: Is your request related to a problem or a limitation?
+      placeholder: "I'm always frustrated when..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like it to work? Commands, menus and config options help a lot.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any other solutions you have thought about, or another plugin that does it well.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have searched the existing issues and this has not been requested yet.
+          required: true

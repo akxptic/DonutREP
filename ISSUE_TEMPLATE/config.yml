@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Community & Support (Discord)
+    url: https://discord.gg/Ad8DGbF43d
+    about: Questions, setup help, or want to chat? Join the Discord community.
+  - name: 📖 Documentation & Guides
+    url: https://github.com/akxptic/DonutREP/blob/main/README.md
+    about: Read the documentation and setup guides before opening an issue.

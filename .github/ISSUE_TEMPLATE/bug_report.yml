@@ -1,0 +1,123 @@
+name: 🐛 Bug Report
+description: Report a bug or error in BetterEconomy/DonutREP.
+title: "[Bug]: "
+labels: ["type: bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Thank you for reporting an issue!
+        Please fill out this form with as much detail as possible so the bug can be reproduced and fixed quickly.
+        For setup questions ("how do I...") please use the Discord link on the issue page instead.
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin Version
+      description: The exact jar name or the output of /version DonutREP.
+      placeholder: "e.g., DonutREP-1.22.27"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Server Software, Minecraft & Java Version
+      description: Your server software (Paper, Purpur, Spigot, CraftBukkit, Folia), its version, and your Java version.
+      placeholder: "e.g., Paper 26.2 / Java 25"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the plugin?
+      options:
+        - Crates / keys / key-all
+        - Shop / QuickShop / orders / auction house / sell
+        - Teams / friends
+        - Homes / warps / TPA / RTP / spawn
+        - Duels / FFA / arenas / arena wand
+        - Cuboids / AFK / key menus / portals
+        - Ranks / scoreboard / tab list / chat
+        - Staff tools / punishments / play mode (/pmo)
+        - Amethyst tools / spawners
+        - Config files / language / dialogs
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: "Describe what went wrong..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior, step by step.
+      placeholder: |
+        1. Run the command '/...'
+        2. Click '...'
+        3. See the error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: "What should have happened instead..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Error Logs / Stacktrace
+      description: Paste the relevant console errors or stacktrace here, if there is any.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant Config
+      description: The part of the config file that matters (for example the lines from plus.yml, ranks.yml or keyall.yml). Remove any webhook URLs or passwords first.
+      render: yaml
+    validations:
+      required: false
+
+  - type: textarea
+    id: other_plugins
+    attributes:
+      label: Other Plugins
+      description: Plugins that could matter (LuckPerms, Vault, PlaceholderAPI, packetevents, a chat or anti-cheat plugin).
+      placeholder: "e.g., LuckPerms 5.5, Vault, Grim"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag images or videos in here, especially for menu or dialog problems (also tell us your GUI scale).
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have searched the existing issues to make sure this is not a duplicate.
+          required: true
+        - label: I am using the latest version of BetterEconomy/DonutREP.
+          required: true
